@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
     <title>immj-portfolio</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Pretendard, sans-serif; overflow: hidden; }
+        body { font-family: Pretendard, sans-serif; }
         
         .hero { position: relative; width: 100vw; height: 100vh; background: #1F1311; display: flex; justify-content: center; align-items: center; flex-direction: column; }
         .hero-message { 
@@ -30,6 +32,50 @@
         .image-box img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; z-index: 1; }
         .image-box span { position: relative; z-index: 2; text-align: center; }
 
+
+        .wrapper,
+.content {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.content {
+  overflow-x: hidden;
+}
+
+.content .section {
+  width: 100%;
+  height: 100vh;
+}
+
+.content .section.hero {
+  background-image: url(./assets/images/mountains.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.image-container {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  perspective: 500px;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+
         @media (max-width: 768px) {
             .image-container { flex-direction: row; flex-wrap: wrap; }
             .image-box { width: 45%; height: 150px; }
@@ -39,11 +85,26 @@
 <body>
 
     <div class="hero">
-        <div class="hero-message">
+        <!--<div class="hero-message">
             <p>Welcome to My Portfolio</p>
             <p>나의 디자인과 개발 작업을 만나보세요.</p>
             <p>Let's create something amazing together.</p>
+        </div>-->
+
+        <div class="wrapper">
+            <div class="content">
+              <section class="section hero"></section>
+          
+            </div>
+            <div class="image-container">
+              <img src="./assets/images/air.png" alt="image">
+            </div>
         </div>
+
+
+
+
+
         <button class="menu-button">메뉴</button>
         <button class="close-button">닫기</button>
         
@@ -123,6 +184,42 @@
             }
         });
     </script>
+
+<script>
+    console.clear();
+
+gsap.registerPlugin(ScrollTrigger);
+
+window.addEventListener("load", () => {
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".wrapper",
+        start: "top top",
+        end: "+=300%",
+        pin: true,
+        scrub: true,
+        markers: true
+      }
+    })
+    .to("img", {
+      scale: 2,
+      z: 350,
+      transformOrigin: "center center",
+      ease: "power1.inOut"
+    })
+    .to(
+      ".section.hero",
+      {
+        scale: 1.1,
+        transformOrigin: "center center",
+        ease: "power1.inOut"
+      },
+      "<"
+    );
+});
+</script>
+
 
 </body>
 </html>
