@@ -1,225 +1,174 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
-    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-    <title>immj-portfolio</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Pretendard, sans-serif; }
-        
-        .hero { position: relative; width: 100vw; height: 100vh; background: #1F1311; display: flex; justify-content: center; align-items: center; flex-direction: column; }
-        .hero-message { 
-    color: white; 
-    font-size: 64px; 
-    font-weight: bold; 
-    text-align: center; 
-    line-height: 1.3; /* 줄 간격 조정 */
-    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 1s ease-out; 
-}
-.hero-message p {
-    margin: 10px 0; /* 각 문장 간격 조정 */
-}
-        
-        .menu-button { position: absolute; top: 20px; right: 20px; padding: 10px 20px; background: #BF0A18; color: #fff; border: none; cursor: pointer; font-size: 16px; z-index: 10; }
-        .close-button { display: none; position: absolute; top: 20px; right: 20px; padding: 10px 20px; background: #333; color: #fff; border: none; cursor: pointer; font-size: 16px; z-index: 10; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <title>immj-portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .wrapper,
+    .content {
+      position: relative;
+      width: 100%;
+      z-index: 1;
+    }
+    .content {
+      overflow-x: hidden;
+    }
+    .content .section {
+      width: 100%;
+      height: 100vh;
+    }
+    .content .section.hero {
+      background-image: url(./assets/images/mountains4.jpg);
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .image-container {
+      width: 100%;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      perspective: 500px;
+      overflow: hidden;
+    }
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
 
-        .image-container { position: absolute; width: 100vw; height: 100vh; top: -100vh; left: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; overflow: hidden; gap: 20px; }
-        .image-box { position: relative; width: 300px; height: 300px; text-align: center; opacity: 0; transition: transform 1s ease-out, opacity 1s ease-out; }
-        .image-box a { display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; text-decoration: none; position: relative; color: white; font-size: 18px; font-weight: bold; }
-        .image-box img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; z-index: 1; }
-        .image-box span { position: relative; z-index: 2; text-align: center; }
+    .marquee {
+      position: absolute;
+      bottom: 2%; 
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      z-index: 3;
+    }
+    .marquee-wrapper {
+      display: inline-block;
+    }
+    .marquee-wrapper span {
+      display: inline-block;
+      font-size: 6rem; 
+      text-transform: uppercase; 
+      color: #fff;
+      margin-right: 3rem; 
+    }
+    
+    @media screen and (max-width: 767px) {
+      .section.hero {
+        background-size: cover;
+        background-position: center center;
+        background-attachment: scroll;
+        filter: brightness(1);
+      }
+      .marquee-wrapper span {
+        font-size: 4rem;
+        margin-right: 2rem;
+      }
+    }
+    
+    /* 태블릿 사이즈: 768px 이상 */
+    @media screen and (min-width: 768px) {
+      .section.hero {
+        background-size: cover;
+        background-position: center center;
+        filter: brightness(0.9);
+      }
+      .marquee-wrapper span {
+        font-size: 6rem;
+        margin-right: 4rem;
+      }
+    }
+    
+    /* 데스크탑 사이즈: 1024px 이상 */
+    @media screen and (min-width: 1024px) {
+      .section.hero {
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center center;
+      }
+      .marquee-wrapper span {
+        font-size: 8rem;
+        margin-right: 5rem;
+      }
+    }
 
-
-        .wrapper,
-.content {
-  position: relative;
-  width: 100%;
-  z-index: 1;
-}
-
-.content {
-  overflow-x: hidden;
-}
-
-.content .section {
-  width: 100%;
-  height: 100vh;
-}
-
-.content .section.hero {
-  background-image: url(./assets/images/mountains.jpg);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.image-container {
-  width: 100%;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  perspective: 500px;
-  overflow: hidden;
-}
-
-.image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-}
-
-
-        @media (max-width: 768px) {
-            .image-container { flex-direction: row; flex-wrap: wrap; }
-            .image-box { width: 45%; height: 150px; }
-        }
-    </style>
+  </style>
 </head>
 <body>
-
-    <div class="hero">
-        <!--<div class="hero-message">
-            <p>Welcome to My Portfolio</p>
-            <p>나의 디자인과 개발 작업을 만나보세요.</p>
-            <p>Let's create something amazing together.</p>
-        </div>-->
-
-        <div class="wrapper">
-            <div class="content">
-              <section class="section hero"></section>
-          
-            </div>
-            <div class="image-container">
-              <img src="./assets/images/air.png" alt="image">
-            </div>
-        </div>
-
-
-
-
-
-        <button class="menu-button">메뉴</button>
-        <button class="close-button">닫기</button>
-        
-        <div class="image-container">
-            <div class="image-box">
-                <a href="https://example.com/page1">
-                    <img src="./assets/images/circle.png" alt="Circle">
-                    <span>Circle Page</span>
-                </a>
-            </div>
-            <div class="image-box">
-                <a href="https://example.com/page2">
-                    <img src="./assets/images/clover.png" alt="Clover">
-                    <span>Clover Page</span>
-                </a>
-            </div>
-            <div class="image-box">
-                <a href="https://example.com/page3">
-                    <img src="./assets/images/heart.png" alt="Heart">
-                    <span>Heart Page</span>
-                </a>
-            </div>
-            <div class="image-box">
-                <a href="https://example.com/page4">
-                    <img src="./assets/images/square.png" alt="Square">
-                    <span>Square Page</span>
-                </a>
-            </div>
-        </div>
+  <div class="wrapper">
+    <div class="content">
+      <section class="section hero"></section>
+      <section class="section 2nd"></section>
+      <section class="section 3rd"></section>
     </div>
+    <div class="image-container">
+      <img src="./assets/images/air.png" alt="image" />
+      <div class="marquee">
+        <div class="marquee-wrapper">
+          <span>I'm ascending higher and higher.</span>
+          <span>I'm ascending higher and higher.</span>
+          <span>I'm ascending higher and higher.</span>
+          <span>I'm ascending higher and higher.</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        const menuButton = document.querySelector(".menu-button");
-        const closeButton = document.querySelector(".close-button");
-        const imageBoxes = document.querySelectorAll(".image-box");
-        const imageContainer = document.querySelector(".image-container");
-        const heroMessage = document.querySelector(".hero-message");
-
-        let isOpen = false;
-
-        menuButton.addEventListener("click", () => {
-            if (!isOpen) {
-                isOpen = true;
-                menuButton.style.display = "none";
-                closeButton.style.display = "block";
-                imageContainer.style.top = "0";
-                heroMessage.style.transform = "translateY(-100vh)";
-                heroMessage.style.opacity = "0";
-
-                imageBoxes.forEach((box, index) => {
-                    setTimeout(() => {
-                        box.style.opacity = "1";
-                        box.style.transform = "translateY(0)";
-                    }, index * 300);
-                });
-            }
-        });
-
-        closeButton.addEventListener("click", () => {
-            if (isOpen) {
-                isOpen = false;
-                closeButton.style.display = "none";
-                menuButton.style.display = "block";
-                heroMessage.style.transform = "translateY(0)";
-                heroMessage.style.opacity = "1";
-
-                imageBoxes.forEach((box, index) => {
-                    setTimeout(() => {
-                        box.style.opacity = "0";
-                        box.style.transform = "translateY(-100vh)";
-                    }, index * 300);
-                });
-
-                setTimeout(() => {
-                    imageContainer.style.top = "-100vh";
-                }, 1000);
-            }
-        });
-    </script>
-
-<script>
+  <script>
     console.clear();
 
-gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger);
 
-window.addEventListener("load", () => {
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: ".wrapper",
-        start: "top top",
-        end: "+=300%",
-        pin: true,
-        scrub: true,
-        markers: true
-      }
-    })
-    .to("img", {
-      scale: 2,
-      z: 350,
-      transformOrigin: "center center",
-      ease: "power1.inOut"
-    })
-    .to(
-      ".section.hero",
-      {
-        scale: 1.1,
-        transformOrigin: "center center",
-        ease: "power1.inOut"
-      },
-      "<"
-    );
-});
-</script>
-
-
+    window.addEventListener("load", () => {
+      gsap.timeline({
+          scrollTrigger: {
+            trigger: ".wrapper",
+            start: "top top",
+            end: "+=300%",
+            pin: true,
+            scrub: true,
+            markers: true
+          }
+        })
+        .to("img", {
+          scale: 2,
+          z: 350,
+          transformOrigin: "center center",
+          ease: "power1.inOut"
+        })
+        .to(
+          ".section.hero",
+          {
+            scale: 1.1,
+            transformOrigin: "center center",
+            ease: "power1.inOut"
+          },
+          "<"
+        );
+      
+      gsap.to(".marquee-wrapper", {
+        x: "-50%",
+        ease: "none",
+        duration: 20,
+        repeat: -1
+      });
+    });
+  </script>
 </body>
 </html>
