@@ -1,38 +1,39 @@
-@media screen and (max-width: 767px) {
-    .section.hero {
+@media screen and (max-width: 480px) {
+    .content .section.hero {
+      background-image: url(./assets/images/mountains_m.jpg);
       background-size: cover;
       background-position: center center;
       background-attachment: scroll;
       filter: brightness(1);
+      height: 70vh;
     }
     .marquee-wrapper span {
-      font-size: 4rem;
+      font-size: 2.5rem;
       margin-right: 2rem;
     }
   }
-  
-  /* 태블릿 사이즈: 768px 이상 */
-  @media screen and (min-width: 768px) {
-    .section.hero {
+
+  @media screen and (max-width: 768px) {
+    .content .section.hero {
+      background-image: url(./assets/images/mountains_m.jpg);
       background-size: cover;
       background-position: center center;
       filter: brightness(0.9);
     }
     .marquee-wrapper span {
-      font-size: 6rem;
-      margin-right: 4rem;
+      font-size: 3rem;
+      margin-right: 2rem;
     }
   }
   
-  /* 데스크탑 사이즈: 1024px 이상 */
-  @media screen and (min-width: 1024px) {
-    .section.hero {
+  @media screen and (max-width: 1024px) {
+    .content .section.hero {
       background-attachment: fixed;
       background-size: cover;
       background-position: center center;
     }
     .marquee-wrapper span {
-      font-size: 8rem;
-      margin-right: 5rem;
+      font-size: 3rem;
+      margin-right: 2rem;
     }
   }
