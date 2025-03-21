@@ -1,0 +1,38 @@
+@media screen and (max-width: 767px) {
+    .section.hero {
+      background-size: cover;
+      background-position: center center;
+      background-attachment: scroll;
+      filter: brightness(1);
+    }
+    .marquee-wrapper span {
+      font-size: 4rem;
+      margin-right: 2rem;
+    }
+  }
+  
+  /* 태블릿 사이즈: 768px 이상 */
+  @media screen and (min-width: 768px) {
+    .section.hero {
+      background-size: cover;
+      background-position: center center;
+      filter: brightness(0.9);
+    }
+    .marquee-wrapper span {
+      font-size: 6rem;
+      margin-right: 4rem;
+    }
+  }
+  
+  /* 데스크탑 사이즈: 1024px 이상 */
+  @media screen and (min-width: 1024px) {
+    .section.hero {
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center center;
+    }
+    .marquee-wrapper span {
+      font-size: 8rem;
+      margin-right: 5rem;
+    }
+  }
