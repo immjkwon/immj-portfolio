@@ -26,9 +26,8 @@
       box-sizing: border-box;
     }
     body {
-      background: #000;          /* 배경색: 검정 */
-      /* 스크롤을 막지 않도록 overflow와 height 설정 제거 */
-      min-height: 100vh;         /* 콘텐츠가 늘어날 경우 스크롤 가능 */
+      background: #000;
+      min-height: 100vh;
       position: relative;
       font-family: 'SUIT Variable', 'Roboto', sans-serif;
     }
@@ -44,7 +43,7 @@
     .content .section {
       width: 100%;
       height: 100vh;
-      margin-bottom: 25rem;
+      margin-bottom: 15rem;
     }
     .content .section.hero {
       background-image: url(./assets/images/mountains4.jpg);
@@ -181,9 +180,9 @@
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;  /* 원이 클릭 등 인터랙션에 영향 주지 않음 */
+      pointer-events: none;
       overflow: hidden;
-      z-index: 0;  /* 콘텐츠 뒤에 위치 */
+      z-index: 0;
     }
     .circle {
       position: absolute;
@@ -232,15 +231,75 @@
       animation-duration: 40s;
     }
     @keyframes move {
-      0% {
-        transform: translate(0, 0);
-      }
-      50% {
-        transform: translate(200px, 150px);
-      }
-      100% {
-        transform: translate(0, 0);
-      }
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(200px, 150px); }
+      100% { transform: translate(0, 0); }
+    }
+  </style>
+  
+  <!-- 소개(Introduction) 섹션 스타일 (여백 확대 적용) -->
+  <style>
+    .section.intro {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #none;
+      padding: 6rem 1rem;
+      min-height: 50vh;
+      color: #fff;
+    }
+    .intro-content {
+      max-width: 1440px;
+      margin: auto;
+    }
+    /* 각 문장은 크게 표현, 초기엔 숨김 처리, 간격 확대 */
+    .intro-line {
+      font-size: 3rem;
+      line-height: 1.2;
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  </style>
+  
+  <!-- 푸터(footer) 영역 스타일 -->
+  <style>
+    footer {
+      background: #111;
+      color: #fff;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    footer .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    footer .footer-logo h2 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+    footer .footer-nav {
+      margin: 1rem 0;
+    }
+    footer .footer-nav a {
+      color: #fff;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    footer .footer-social {
+      margin: 1rem 0;
+    }
+    footer .footer-social a {
+      color: #fff;
+      margin: 0 0.5rem;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    footer .footer-copy p {
+      font-size: 0.875rem;
+      margin: 0.5rem 0 0;
     }
   </style>
   
@@ -273,7 +332,18 @@
     </div>
   </div>
   
-  <!-- section hero와 section second 사이에 위치 -->
+  <!-- 소개 영역: section hero와 section second 사이 -->
+  <section class="section intro">
+    <div class="intro-content">
+      <h1 class="intro-line">안녕하세요, 저는 Mj입니다.</h1>
+      <p class="intro-line">웹 개발과 창의적 디자인을 통해 혁신적인 경험을 선사합니다.</p>
+      <p class="intro-line">다양한 프로젝트를 통해 제 역량을 증명해왔습니다.</p>
+      <p class="intro-line">여러 유관 부서와의 협업으로 탁월한 소통 능력을 발휘하며,</p>
+      <p class="intro-line">고객의 니즈에 최적화된 결과물을 창출하는 전문성을 갖추고 있습니다.</p>
+    </div>
+  </section>
+  
+  <!-- section second 영역 -->
   <section class="section second">
     <div class="head">
       <h1 class="left-text">Work</h1>
@@ -339,6 +409,29 @@
   
   <section class="section third"></section>
   
+  <!-- 푸터 영역 -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <h2>immj Portfolio</h2>
+      </div>
+      <nav class="footer-nav">
+        <a href="#">Home</a>
+        <a href="#">Work</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </nav>
+      <div class="footer-social">
+        <a href="#" target="_blank">Instagram</a>
+        <a href="#" target="_blank">LinkedIn</a>
+        <a href="#" target="_blank">GitHub</a>
+      </div>
+      <div class="footer-copy">
+        <p>© 2025 immj Portfolio. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  
   <!-- GSAP 및 ScrollTrigger 애니메이션 -->
   <script>
     console.clear();
@@ -390,7 +483,6 @@
           }
         }
       );
-      
       gsap.fromTo(".right-text", 
         { x: 600, opacity: 0 }, 
         { 
@@ -405,10 +497,30 @@
           }
         }
       );
+      
+      // 각 intro-line 요소에 대해 개별 ScrollTrigger 설정: 등장 시 크기가 커졌다가, 사라질 때 서서히 작아지는 효과 적용
+      gsap.utils.toArray(".intro-line").forEach(line => {
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: line,
+            start: "top 80%",
+            end: "bottom 20%",
+            scrub: true,
+            markers: true
+          }
+        })
+        .fromTo(line, 
+          { opacity: 0, y: 50, scale: 0.8 },
+          { opacity: 1, y: 0, scale: 1.2, ease: "power1.out" }
+        )
+        .to(line, 
+          { opacity: 0, y: -50, scale: 0.8, ease: "power1.in" }
+        );
+      });
     });
   </script>
   
-  <!-- Swiper 슬라이더 설정 -->
+  <!-- Swiper 슬라이더 설정 (autoplay 옵션 추가) -->
   <script>
     const multiplier = {
       translate: 0.1,
@@ -420,7 +532,11 @@
       spaceBetween: 90,
       centeredSlides: true,
       loop: true,
-      grabCursor: true
+      grabCursor: true,
+      autoplay: {
+        delay: 3000,              // 3초마다 자동 슬라이드
+        disableOnInteraction: false
+      }
     });
     
     function calculateWheel() {
