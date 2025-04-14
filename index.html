@@ -20,26 +20,19 @@
   
   <!-- 기존 스타일 -->
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: #000;
       min-height: 100vh;
       position: relative;
       font-family: 'SUIT Variable', 'Roboto', sans-serif;
     }
-    .wrapper,
-    .content {
+    .wrapper, .content {
       position: relative;
       width: 100%;
       z-index: 1;
     }
-    .content {
-      overflow-x: hidden;
-    }
+    .content { overflow-x: hidden; }
     .content .section {
       width: 100%;
       height: 100vh;
@@ -55,9 +48,7 @@
       width: 100%;
       height: 100vh;
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 2;
       perspective: 500px;
       overflow: hidden;
@@ -77,9 +68,7 @@
       white-space: nowrap;
       z-index: 3;
     }
-    .marquee-wrapper {
-      display: inline-block;
-    }
+    .marquee-wrapper { display: inline-block; }
     .marquee-wrapper span {
       display: inline-block;
       font-size: 5.5rem;
@@ -87,35 +76,27 @@
       color: #fff;
       margin-right: 4rem;
     }
-    .second {
-      font-family: 'Roboto', 'SUIT Variable', sans-serif;
-    }
+    .second { font-family: 'Roboto', 'SUIT Variable', sans-serif; }
     .head {
       text-align: center;
       color: #222;
       margin: 2rem 0;
     }
-    .head a {
-      color: #222;
-    }
+    .head a { color: #222; }
     .head h1 {
-      font-size: 8.75rem; 
+      font-size: 8.75rem;
       line-height: 0.8;
     }
     .head h3 {
       font-size: 14px;
       font-weight: normal;
     }
-    .carousel {
-      overflow-x: clip;
-    }
+    .carousel { overflow-x: clip; }
     .swiper {
       padding: 5rem 0;
       overflow: visible;
     }
-    .swiper .swiper-slide {
-      width: 240px;
-    }
+    .swiper .swiper-slide { width: 240px; }
     .single {
       position: relative;
       pointer-events: none;
@@ -141,10 +122,7 @@
         filter: brightness(1);
         height: 70vh;
       }
-      .marquee-wrapper span {
-        font-size: 2.5rem;
-        margin-right: 2rem;
-      }
+      .marquee-wrapper span { font-size: 2.5rem; margin-right: 2rem; }
     }
     @media screen and (max-width: 768px) {
       .content .section.hero {
@@ -153,10 +131,7 @@
         background-position: center center;
         filter: brightness(0.9);
       }
-      .marquee-wrapper span {
-        font-size: 3rem;
-        margin-right: 2rem;
-      }
+      .marquee-wrapper span { font-size: 3rem; margin-right: 2rem; }
     }
     @media screen and (max-width: 1024px) {
       .content .section.hero {
@@ -164,18 +139,14 @@
         background-size: cover;
         background-position: center center;
       }
-      .marquee-wrapper span {
-        font-size: 3rem;
-        margin-right: 2rem;
-      }
+      .marquee-wrapper span { font-size: 3rem; margin-right: 2rem; }
     }
   </style>
   
   <!-- 원 애니메이션 및 스타일 -->
   <style>
-    /* 원 애니메이션 효과를 적용할 별도의 컨테이너 */
     .circle-container {
-      position: fixed; 
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -191,42 +162,42 @@
       animation: move 30s linear infinite;
     }
     .circle:nth-child(1) {
-      width: 450px;
+      width: 650px;
       height: 650px;
-      top: 20%;
-      left: 15%;
+      top: 5%;
+      left: 5%;
       background: radial-gradient(circle, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 0, 0) 70%);
-      animation-duration: 25s;
+      animation-duration: 15s;
     }
     .circle:nth-child(2) {
-      width: 400px;
-      height: 300px;
+      width: 700px;
+      height: 700px;
       top: 40%;
-      left: 70%;
+      left: 60%;
       background: radial-gradient(circle, rgba(0, 255, 0, 0.5) 0%, rgba(0, 255, 0, 0) 70%);
-      animation-duration: 30s;
-    }
-    .circle:nth-child(3) {
-      width: 280px;
-      height: 680px;
-      top: 70%;
-      left: 30%;
-      background: radial-gradient(circle, rgba(0, 0, 255, 0.5) 0%, rgba(0, 0, 255, 0) 70%);
       animation-duration: 20s;
     }
+    .circle:nth-child(3) {
+      width: 480px;
+      height: 680px;
+      top: 60%;
+      left: 30%;
+      background: radial-gradient(circle, rgba(0, 0, 255, 0.5) 0%, rgba(0, 0, 255, 0) 70%);
+      animation-duration: 18s;
+    }
     .circle:nth-child(4) {
-      width: 320px;
+      width: 420px;
       height: 520px;
-      top: 10%;
-      left: 80%;
+      top: 3%;
+      left: 70%;
       background: radial-gradient(circle, rgba(255, 255, 0, 0.5) 0%, rgba(255, 255, 0, 0) 70%);
-      animation-duration: 35s;
+      animation-duration: 25s;
     }
     .circle:nth-child(5) {
       width: 350px;
       height: 450px;
       top: 50%;
-      left: 20%;
+      left: 3%;
       background: radial-gradient(circle, rgba(255, 0, 255, 0.5) 0%, rgba(255, 0, 255, 0) 70%);
       animation-duration: 40s;
     }
@@ -244,7 +215,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: #none;
+      background: transparent;  /* 배경 색상은 투명 또는 필요에 따라 조정 */
       padding: 6rem 1rem;
       min-height: 50vh;
       color: #fff;
@@ -253,11 +224,10 @@
       max-width: 1440px;
       margin: auto;
     }
-    /* 각 문장은 크게 표현, 초기엔 숨김 처리, 간격 확대 */
     .intro-line {
       font-size: 3rem;
       line-height: 1.2;
-      margin-bottom: 4rem;
+      margin-bottom: 3rem;
       opacity: 0;
       transform: scale(0.8);
     }
@@ -279,18 +249,14 @@
       margin-bottom: 1rem;
       font-size: 2rem;
     }
-    footer .footer-nav {
-      margin: 1rem 0;
-    }
+    footer .footer-nav { margin: 1rem 0; }
     footer .footer-nav a {
       color: #fff;
       margin: 0 1rem;
       text-decoration: none;
       font-size: 1rem;
     }
-    footer .footer-social {
-      margin: 1rem 0;
-    }
+    footer .footer-social { margin: 1rem 0; }
     footer .footer-social a {
       color: #fff;
       margin: 0 0.5rem;
@@ -339,7 +305,8 @@
       <p class="intro-line">웹 개발과 창의적 디자인을 통해 혁신적인 경험을 선사합니다.</p>
       <p class="intro-line">다양한 프로젝트를 통해 제 역량을 증명해왔습니다.</p>
       <p class="intro-line">여러 유관 부서와의 협업으로 탁월한 소통 능력을 발휘하며,</p>
-      <p class="intro-line">고객의 니즈에 최적화된 결과물을 창출하는 전문성을 갖추고 있습니다.</p>
+      <p class="intro-line">기획자의 니즈에 최적화된 결과물을 창출하는 전문성을 갖추고 있습니다.</p>
+      <p class="intro-line">더 나은 내일을 위해 안주하지 않고 끊임없이 도전합니다.</p>
     </div>
   </section>
   
@@ -468,7 +435,7 @@
         repeat: -1
       });
       
-      // .second 섹션 텍스트 애니메이션
+      // .second 섹션 텍스트 애니메이션: 이동 및 투명도 변화
       gsap.fromTo(".left-text", 
         { x: -600, opacity: 0 }, 
         { 
@@ -497,6 +464,18 @@
           }
         }
       );
+      
+      // Work experience 텍스트의 색상 애니메이션: 중심에 올 때 #222 에서 #fff 로 변환
+      gsap.to(".head h1", {
+        color: "#fff",
+        scrollTrigger: {
+          trigger: ".second",
+          start: "top center",
+          end: "bottom center",
+          scrub: true,
+          markers: true
+        }
+      });
       
       // 각 intro-line 요소에 대해 개별 ScrollTrigger 설정: 등장 시 크기가 커졌다가, 사라질 때 서서히 작아지는 효과 적용
       gsap.utils.toArray(".intro-line").forEach(line => {
@@ -534,7 +513,7 @@
       loop: true,
       grabCursor: true,
       autoplay: {
-        delay: 3000,              // 3초마다 자동 슬라이드
+        delay: 3000,
         disableOnInteraction: false
       }
     });
@@ -546,9 +525,7 @@
         const r = window.innerWidth * 0.5 - (rect.x + rect.width * 0.5);
         let ty = Math.abs(r) * multiplier.translate - rect.width * multiplier.translate;
     
-        if (ty < 0) {
-          ty = 0;
-        }
+        if (ty < 0) { ty = 0; }
         const transformOrigin = r < 0 ? 'left top' : 'right top';
         slide.style.transform = `translate(0, ${ty}px) rotate(${-r * multiplier.rotate}deg)`;
         slide.style.transformOrigin = transformOrigin;
