@@ -25,359 +25,271 @@
   
   <!-- 기본 스타일 -->
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {background: #000;min-height: 100vh;position: relative;font-family: 'SUIT Variable', 'Roboto', sans-serif;}
-    .wrapper, .content {
-      position: relative;
-      width: 100%;
-      z-index: 1;
-    }
-    .content { overflow-x: hidden; }
-    .content .section {
-      width: 100%;
-      height: 100vh;
-      margin-bottom: 15rem;
-    }
-    .content .section.hero {
-      background-image: url(./assets/images/mountains4.jpg);
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
-    .image-container {
-      width: 100%;
-      height: 100vh;
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      z-index: 2;
-      perspective: 500px;
-      overflow: hidden;
-    }
-    .image-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center center;
-    }
-    .marquee {
-      position: absolute;
-      bottom: 2%;
-      left: 0;
-      width: 100%;
-      overflow: hidden;
-      white-space: nowrap;
-      z-index: 3;
-    }
-    .marquee-wrapper { display: inline-block; }
-    .marquee-wrapper span {
-      display: inline-block;
-      font-size: 5.5rem;
-      text-transform: uppercase;
-      color: #fff;
-      margin-right: 4rem;
-    }
-    .second { font-family: 'Roboto', 'SUIT Variable', sans-serif; margin:13rem 0; }
-    .head {
-      text-align: center;
-      color: #222;
-      margin: 2rem 0;
-    }
-    .head a { color: #222; }
-    .head h1 {
-      font-size: 8.75rem;
-      line-height: 0.8;
-    }
-    .head h3 {
-      font-size: 14px;
-      font-weight: normal;
-    }
-    .carousel { overflow-x: clip; }
-    .swiper {
-      padding: 5rem 0;
-      overflow: visible;
-    }
-    .swiper .swiper-slide { width: 240px; }
-    .single {
-      position: relative;
-      pointer-events: none;
-      user-select: none;
-      box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset,
-                  rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-                  rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-    }
-    .single img {
-      width: 100%;
-      height: auto;
-      vertical-align: top;
-      border-radius: 8px;
-      pointer-events: none;
-    }
+    /* 기존 리셋 및 기본 설정 */
+    * { margin: 0; padding: 0; box-sizing: border-box; }  
+    body { background: #000; min-height: 100vh; position: relative; font-family: 'SUIT Variable', 'Roboto', sans-serif; }  
+    .wrapper, .content { position: relative; width: 100%; z-index: 1; }  
+    .content { overflow-x: hidden; }  
+    .content .section { width: 100%; height: 100vh; margin-bottom: 15rem; }  
     
-    @media screen and (max-width: 480px) {
-      .content .section.hero {
-        background-image: url(./assets/images/mountains_m.jpg);
-        background-size: cover;
-        background-position: center center;
-        background-attachment: scroll;
-        filter: brightness(1);
-        height: 70vh;
-      }
-      .marquee-wrapper span { font-size: 2.5rem; margin-right: 2rem; }
+    /* HERO 섹션 */
+    .content .section.hero { 
+      background-image: url(./assets/images/mountains4.jpg); 
+      background-position: center center; 
+      background-repeat: no-repeat; 
+      background-size: cover; 
+    }  
+    
+    /* 이미지 및 마키 애니메이션 영역 */
+    .image-container { 
+      width: 100%; height: 100vh; 
+      position: absolute; top: 0; left: 0; right: 0; 
+      z-index: 2; 
+      perspective: 500px; overflow: hidden; 
+    }  
+    .image-container img { 
+      width: 100%; height: 100%; 
+      object-fit: cover; 
+      object-position: center center; 
+    }  
+    .marquee { 
+      position: absolute; bottom: 2%; left: 0; 
+      width: 100%; overflow: hidden; 
+      white-space: nowrap; z-index: 3; 
+    }  
+    .marquee-wrapper { display: inline-block; }  
+    .marquee-wrapper span { 
+      display: inline-block; 
+      font-size: 5.5rem; 
+      text-transform: uppercase; 
+      color: #fff; 
+      margin-right: 4rem; 
+    }  
+    
+    .section.second {
+      background-color: transparent; 
+      padding-bottom: 4rem;
     }
-    @media screen and (max-width: 768px) {
-      .content .section.hero {
-        background-image: url(./assets/images/mountains_m.jpg);
-        background-size: cover;
-        background-position: center center;
-        filter: brightness(0.9);
-      }
-      .marquee-wrapper span { font-size: 3rem; margin-right: 2rem; }
+    .second { 
+      font-family: 'Roboto', 'SUIT Variable', sans-serif; 
+     
+    }  
+    .head { 
+      text-align: center; 
+      color: #222; 
+      padding: 8rem 0 0 0; 
+    }  
+    .head a { color: #222; }  
+    .head h1 { font-size: 8.75rem; line-height: 0.8; }  
+    .head h3 { font-size: 14px; font-weight: normal; }  
+    .carousel { overflow-x: clip; }  
+    .swiper { padding: 5rem 0 10rem 0; overflow: visible; }  
+    .swiper .swiper-slide { width: 240px; }  
+    .single { 
+      position: relative; user-select: none; 
+      box-shadow: rgba(255,255,255,0.1) 0px 1px 1px 0px inset, 
+                  rgba(50,50,93,0.25) 0px 50px 100px -20px, 
+                  rgba(0,0,0,0.3) 0px 30px 60px -30px; 
+      overflow: hidden; 
+    }  
+    .single img { 
+      width: 100%; height: auto; 
+      vertical-align: top; border-radius: 8px; 
+      pointer-events: none; 
+    }  
+    .slide-description { 
+      position: absolute; top: 50%; left: 50%; 
+      transform: translate(-50%, -50%); 
+      width: 100%; height:100%; padding: 20px; 
+      background: rgba(0,0,0,0.6); 
+      color: #fff; font-size: 1.2rem; 
+      text-align: center; border-radius: 8px; 
+      opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease; 
+    }  
+    .single:hover .slide-description { opacity: 1; }  
+    
+    .circle-container { 
+      position: fixed; top: 0; left: 0; 
+      width: 100%; height: 100%; 
+      pointer-events: none; overflow: hidden; 
+      z-index: 0; 
+    }  
+    :root { 
+      --color-1: #A9F1DF; 
+      --color-2: #D8B5FF; 
+      --color-3: #BFF098; 
+      --color-4: #C6E8AD; 
+      --color-5: #F1A8B9; 
+    }  
+    .circle { 
+      position: absolute; 
+      border-radius: 50%; 
+      animation: siriPulse 10s ease-in-out infinite; 
+      filter: blur(25px) drop-shadow(0 0 8px rgba(0,0,0,0.05)); 
+    }  
+    @keyframes siriPulse { 
+      0%, 100% { transform: scale(0.9); opacity: 0.5; } 
+      50% { transform: scale(1.3); opacity: 0.2; } 
+    }  
+    .circle:nth-child(1) { 
+      width: 650px; height: 650px; top: 1%; left: 6%; 
+      background: radial-gradient(circle, var(--color-1) 15%, transparent 70%); 
+      animation-duration: 4s; animation-delay: 0.1s; 
+    }  
+    .circle:nth-child(2) { 
+      width: 700px; height: 700px; top: 40%; left: 65%; 
+      background: radial-gradient(circle, var(--color-2) 15%, transparent 70%); 
+      animation-duration: 4.2s; animation-delay: 0.1s; 
+    }  
+    .circle:nth-child(3) { 
+      width: 480px; height: 680px; top: 60%; left: 30%; 
+      background: radial-gradient(circle, var(--color-3) 15%, transparent 70%); 
+      animation-duration: 4.1s; animation-delay: 0.1s; 
+    }  
+    .circle:nth-child(4) { 
+      width: 420px; height: 520px; top: 1%; left: 80%; 
+      background: radial-gradient(circle, var(--color-4) 15%, transparent 70%); 
+      animation-duration: 4s; animation-delay: 0.1s; 
+    }  
+    .circle:nth-child(5) { 
+      width: 350px; height: 450px; top: 50%; left: 3%; 
+      background: radial-gradient(circle, var(--color-5) 15%, transparent 70%); 
+      animation-duration: 4.5s; animation-delay: 0.1s; 
+    }  
+    
+    .section.intro { 
+      display: flex; align-items: center; 
+      justify-content: center; text-align: center; 
+      background: transparent; padding: 10rem 1rem; 
+      min-height: 50vh; color: #fff; 
+    }  
+    .intro-content { max-width: 1440px; margin: auto; }  
+    .intro-line { 
+      font-size: 3rem; line-height: 1.2; 
+      margin-bottom: 3.75rem; opacity: 0.1; 
+      transform: scale(0.6); transition: all 0.4s ease; 
+    }  
+    .intro-line.active { 
+      opacity: 1; transform: scale(1.1); 
+    }  
+    
+    .section.third.contact { 
+      position: relative; min-height: 100vh; 
+      background-color: #fff; 
+      overflow: hidden;
+      padding-top: 4rem; 
     }
-    @media screen and (max-width: 1024px) {
-      .content .section.hero {
-        background-attachment: fixed;
-        background-size: cover;
-        background-position: center center;
-      }
-      .marquee-wrapper span { font-size: 3rem; margin-right: 2rem; }
-    }
-  </style>
   
-  <!-- 원 애니메이션 및 스타일 -->
-  <style>
-    .circle-container {
-      position: fixed;
+    .section.third.contact::before {
+      content: "";
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
+      height: 150px;
+      background: linear-gradient(to bottom, #fff, rgba(255,255,255,0));
       z-index: 0;
+      pointer-events: none;
     }
-:root {
-  --color-1: #A9F1DF;   
-  --color-2: #D8B5FF;  
-  --color-3: #BFF098;   
-  --color-4: #C6E8AD;   
-  --color-5: #F1A8B9;  
-}
+    .contact-bg-layer { 
+      position: absolute; top: 0; left: 0; 
+      width: 100%; height: 100%; 
+      overflow: hidden; z-index: 1; 
+    }  
 
-.circle {
-  position: absolute;
-  border-radius: 50%;
-  animation: siriPulse 10s ease-in-out infinite;
-  filter: blur(25px) drop-shadow(0 0 8px rgba(0, 0, 0, 0.05));
-}
-
-@keyframes siriPulse {
-  0%, 100% {
-    transform: scale(0.9);
-    opacity: 0.5;
-  }
-  50% {
-    transform: scale(1.3);
-    opacity: 0.2;
-  }
-}
-
-.circle:nth-child(1) {
-  width: 650px;
-  height: 650px;
-  top: 1%;
-  left: 6%;
-  background: radial-gradient(circle, var(--color-1) 15%, transparent 70%);
-  animation-duration: 4s;
-  animation-delay: 0.1s;
-}
-
-.circle:nth-child(2) {
-  width: 700px;
-  height: 700px;
-  top: 40%;
-  left: 65%;
-  background: radial-gradient(circle, var(--color-2) 15%, transparent 70%);
-  animation-duration: 4.2s;
-  animation-delay: 0.1s;
-}
-
-.circle:nth-child(3) {
-  width: 480px;
-  height: 680px;
-  top: 60%;
-  left: 30%;
-  background: radial-gradient(circle, var(--color-3) 15%, transparent 70%);
-  animation-duration: 4.1s;
-  animation-delay: 0.1s;
-}
-
-.circle:nth-child(4) {
-  width: 420px;
-  height: 520px;
-  top: 1%;
-  left: 80%;
-  background: radial-gradient(circle, var(--color-4) 15%, transparent 70%);
-  animation-duration: 4s;
-  animation-delay: 0.1s;
-}
-
-.circle:nth-child(5) {
-  width: 350px;
-  height: 450px;
-  top: 50%;
-  left: 3%;
-  background: radial-gradient(circle, var(--color-5) 15%, transparent 70%);
-  animation-duration: 4.5s;
-  animation-delay: 0.1s;
-}
-  </style>
-  
-  <!-- 소개(Introduction) 섹션 스타일 및 강조 상태 적용 -->
-  <style>
-    .section.intro {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: transparent;
-      padding: 10rem 1rem;
-      min-height: 50vh;
-      color: #fff;
-    }
-    .intro-content {
-      max-width: 1440px;
-      margin: auto;
-    }
-    /* 기본 상태: 작고 연하게 */
-    .intro-line {
-      font-size: 3rem;
-      line-height: 1.2;
-      margin-bottom: 3.75rem;
-      opacity: 0.1;
-      transform: scale(0.6);
-      transition: all 0.4s ease;
-    }
-    /* active 상태: 강조되어 크게 보임 */
-    .intro-line.active {
-      opacity: 1;
-      transform: scale(1);
-    }
-  </style>
-   <style>
-.section.third.contact {
-  position: relative;
-  min-height: 100vh;
-  background-color: #fff;  /* 기본 배경은 흰색 */
-  overflow: hidden;
-}
-
-/* 배경 이미지를 담은 레이어 (자식 요소) */
-.contact-bg-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('./assets/images/contact-bg.jpg') no-repeat center center/cover;
-  /* z-index가 1로 지정되어 기본 흰색 배경 위에 나타나지만, content 뒤에 배치 */
-  z-index: 1;
-}
-
-/* 실제 Contact 콘텐츠는 배경 이미지보다 위에 표시 */
-.contact-content {
-  position: relative;
-  z-index: 2;
-  padding: 3rem;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-/* 기본 스타일 예시 */
-.contact-content h2 {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  color: #333;
-}
-
-.contact-content p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
-  color: #555;
-}
-
-/* 폼 관련 스타일 */
-.contact-form {
-  max-width: 600px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.contact-form input,
-.contact-form textarea {
-  padding: 1rem;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.contact-form button {
-  padding: 1rem;
-  border: none;
-  border-radius: 4px;
-  background-color: #2980b9;
-  color: #fff;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.contact-form button:hover {
-  background-color: #1a6d94;
-}
-
-</style>
-  <!-- 푸터(footer) 영역 스타일 -->
-  <style>
-    footer {
-      background: #111;
-      color: #fff;
-      padding: 2rem 1rem;
-      text-align: center;
-    }
-    footer .footer-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    footer .footer-logo h2 {
-      margin-bottom: 1rem;
-      font-size: 2rem;
-    }
-    footer .footer-nav { margin: 1rem 0; }
-    footer .footer-nav a {
-      color: #fff;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-size: 1rem;
-    }
-    footer .footer-social { margin: 1rem 0; }
-    footer .footer-social a {
-      color: #fff;
-      margin: 0 0.5rem;
-      text-decoration: none;
-      font-size: 1rem;
-    }
-    footer .footer-copy p {
-      font-size: 0.875rem;
-      margin: 0.5rem 0 0;
+    .contact-bg-layer video { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      transform: scaleX(0.1);
+      transform-origin: center;
+      margin: 10rem 0;
+      border-radius: 20px;
+    }  
+    .contact-content { 
+      position: relative; 
+      z-index: 2; padding: 3rem; 
+      text-align: center; 
+      opacity: 0; 
+      transform: translateY(50px); 
+      transition: opacity 0.6s ease, transform 0.6s ease; 
+    }  
+    .contact-content h2 { 
+      font-size: 4rem; margin-bottom: 1rem; 
+      color: #333; 
+    }  
+    .contact-content .contact-info { 
+      font-size: 1.4rem; margin-bottom: 1rem; 
+      color: #555; 
+    }  
+    .contact-content .email-link { 
+      font-size: 1.8rem; color: #2980b9; 
+      text-decoration: none; border-bottom: 1px solid #2980b9; 
+      padding-bottom: 0.2rem; transition: color 0.3s ease, border-bottom 0.3s ease; 
+    }  
+    .contact-content .email-link:hover { 
+      color: #1a6d94; border-bottom-color: #1a6d94; 
+    }  
+    
+    /* FOOTER 영역 */
+    footer { 
+      background: #111; color: #fff; 
+      padding: 2rem 1rem; text-align: center; 
+    }  
+    footer .footer-container { 
+      max-width: 1200px; margin: 0 auto; 
+    }  
+    footer .footer-logo h2 { 
+      margin-bottom: 1rem; font-size: 2rem; 
+    }  
+    footer .footer-nav { 
+      margin: 1rem 0; 
+    }  
+    footer .footer-nav a { 
+      color: #fff; margin: 0 1rem; 
+      text-decoration: none; font-size: 1rem; 
+    }  
+    footer .footer-copy p { 
+      font-size: 0.875rem; margin: 0.5rem 0 0; 
+    }  
+    
+    /* 반응형 미디어 쿼리 */
+    @media screen and (max-width: 480px) {  
+      .content .section.hero { 
+        background-image: url(./assets/images/mountains_m.jpg); 
+        background-size: cover; 
+        background-position: center center; 
+        background-attachment: scroll; 
+        filter: brightness(1); height: 70vh; 
+      }  
+      .marquee-wrapper span { 
+        font-size: 2.5rem; margin-right: 2rem; 
+      }  
+    }  
+    @media screen and (max-width: 768px) {  
+      .content .section.hero { 
+        background-image: url(./assets/images/mountains_m.jpg); 
+        background-size: cover; 
+        background-position: center center; 
+        filter: brightness(0.9); 
+      }  
+      .marquee-wrapper span { 
+        font-size: 3rem; margin-right: 2rem; 
+      }  
+    }  
+    @media screen and (max-width: 1024px) {  
+      .content .section.hero { 
+        background-attachment: fixed; 
+        background-size: cover; 
+        background-position: center center; 
+      }  
+      .marquee-wrapper span { 
+        font-size: 3rem; margin-right: 2rem; 
+      }  
     }
   </style>
 </head>
 <body>
-  <!-- 원 애니메이션 영역 (배경처럼 작동) -->
   <div class="circle-container">
     <div class="circle"></div>
     <div class="circle"></div>
@@ -386,7 +298,6 @@
     <div class="circle"></div>
   </div>
 
-  <!-- 콘텐츠 영역 -->
   <div class="wrapper">
     <div class="content">
       <section class="section hero"></section>
@@ -404,7 +315,6 @@
     </div>
   </div>
   
-  <!-- 소개 영역 -->
   <section class="section intro">
     <div class="intro-content">
       <h1 class="intro-line">안녕하세요, 저는 Mj입니다.</h1>
@@ -416,7 +326,6 @@
     </div>
   </section>
   
-  <!-- section second 영역 -->
   <section class="section second">
     <div class="head">
       <h1 class="left-text">Work</h1>
@@ -427,52 +336,69 @@
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <div class="single">
-              <img src="./assets/images/slide-img01.png" alt="" />
+              <a href="https://shop.illycaffe.co.kr/order/subscription_main.php" target="_blank"><img src="./assets/images/slide-img09.png" alt="" />
+              <div class="slide-description">일리 정기구독</div></a>
             </div>
           </div>
           <div class="swiper-slide">
             <div class="single">
-              <img src="https://picsum.photos/800/1200?random=2" alt="" />
+              <a href="https://www.illycaffe.co.kr/barista_interview/illy_barista.php" target="_blank"><img src="./assets/images/slide-img08.png" alt="" />
+                <div class="slide-description">일리카페 바리스타 인터뷰</div></a>
             </div>
           </div>
           <div class="swiper-slide">
             <div class="single">
-              <img src="https://picsum.photos/800/1200?random=3" alt="" />
+              <a href="https://www.illycaffe.co.kr/brand_partnership/illycaffe_golf.php" target="_blank"><img src="./assets/images/slide-img07.png" alt="" />
+                <div class="slide-description">두산 위브 골프대회</div></a>
             </div>
           </div>
           <div class="swiper-slide">
             <div class="single">
-              <img src="https://picsum.photos/800/1200?random=4" alt="" />
+              <a href="https://www.illycaffe.co.kr/company/notice/for_earth.php" target="_blank"><img src="./assets/images/slide-img06.png" alt="" />
+                <div class="slide-description">지구의 날 기념</div>
+              </a>
             </div>
           </div>
           <div class="swiper-slide">
             <div class="single">
-              <img src="https://picsum.photos/800/1200?random=5" alt="" />
+              <a href="https://www.illycaffe.co.kr/barista_interview/illy_barista.php" target="_blank"><img src="./assets/images/slide-img05.png" alt="" />
+                <div class="slide-description">일리카페 바리스타 인터뷰</div>
+              </a>
             </div>
           </div>
           <div class="swiper-slide">
             <div class="single">
-              <img src="https://picsum.photos/800/1200?random=1" alt="" />
+              <a href="https://www.illycaffe.co.kr/company/notice/illycaffe_mobility.php?category=brand" target="_blank"><img src="./assets/images/slide-img04.png" alt="" />
+                <div class="slide-description">일리카페 모빌리티</div>
+              </a>
             </div>
           </div>
           <div class="swiper-slide">
             <div class="single">
-              <img src="https://picsum.photos/800/1200?random=2" alt="" />
+              <a href="https://www.illycaffe.co.kr/brand_partnership/caffelatte_promo.php" target="_blank"><img src="./assets/images/slide-img03.png" alt="" />
+                <div class="slide-description">illy x 네스트호텔</div>
+              </a>
             </div>
           </div>
           <div class="swiper-slide">
             <div class="single">
-              <img src="https://picsum.photos/800/1200?random=3" alt="" />
+              <a href="https://www.illycaffe.co.kr/company/notice/illy-sehwamuseum.php" target="_blank"><img src="./assets/images/slide-img02.png" alt="" />
+                <div class="slide-description">illy x 세화미술관</div>
+              </a>
             </div>
           </div>
           <div class="swiper-slide">
             <div class="single">
-              <img src="https://picsum.photos/800/1200?random=4" alt="" />
+              <a href="https://www.illycaffe.co.kr/company/live-happilly/b-corp.php?category=brand" target="_blank"><img src="./assets/images/slide-img01.png" alt="" />
+                <div class="slide-description">illy 비콥(B Corp) 인증</div>
+              </a>
             </div>
           </div>
           <div class="swiper-slide">
             <div class="single">
-              <img src="https://picsum.photos/800/1200?random=5" alt="" />
+              <a href="https://www.illycaffe.co.kr/company/live-happilly/b-corp.php?category=brand" target="_blank"><img src="./assets/images/slide-img01.png" alt="" />
+                <div class="slide-description">illy 비콥(B Corp) 인증</div>
+              </a>
             </div>
           </div>
         </div>
@@ -481,21 +407,19 @@
   </section>
   
   <section class="section third contact">
-    <div class="contact-bg-layer"></div>
+    <div class="contact-bg-layer">
+      <video autoplay muted loop playsinline>
+        <source src="./assets/videos/contact-bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
     <div class="contact-content">
-      <h2>Contact Us</h2>
-      <p>궁금한 사항이나 프로젝트 문의는 아래 연락처로 문의해 주세요.</p>
-      <form class="contact-form">
-        <input type="text" placeholder="Name" required />
-        <input type="email" placeholder="Email" required />
-        <textarea placeholder="Message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
+      <h2>You must contact me.</h2>
+      <p class="contact-info">다음 프로젝트는 당신의 선택에서 시작됩니다.</p>
+      <a class="email-link" href="mailto:your-email@example.com">your-email@example.com</a>
     </div>
   </section>
-  
-  
-  <!-- 푸터 영역 -->
+
   <footer>
     <div class="footer-container">
       <div class="footer-logo">
@@ -507,22 +431,16 @@
         <a href="#">About</a>
         <a href="#">Contact</a>
       </nav>
-      <div class="footer-social">
-        <a href="#" target="_blank">Instagram</a>
-        <a href="#" target="_blank">LinkedIn</a>
-        <a href="#" target="_blank">GitHub</a>
-      </div>
       <div class="footer-copy">
         <p>© 2025 immj Portfolio. All rights reserved.</p>
       </div>
     </div>
   </footer>
   
-  <!-- GSAP 및 ScrollTrigger 애니메이션 스크립트 -->
   <script>
     console.clear();
     gsap.registerPlugin(ScrollTrigger);
-
+  
     window.addEventListener("load", () => {
       // Hero 섹션 애니메이션
       gsap.timeline({
@@ -554,39 +472,25 @@
         repeat: -1
       });
       
-      // .second 섹션 텍스트 애니메이션: 좌우 텍스트 이동 및 투명도 변화
+      // .second 섹션 텍스트 애니메이션: 좌우 이동
       gsap.fromTo(".left-text", 
-        { x: -600, opacity: 0 }, 
+        { x: -400, opacity: 0 }, 
         { 
-          x: 0, 
-          opacity: 1, 
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: ".second",
-            start: "top center",
-            end: "bottom center",
-            scrub: true
-          }
+          x: 0, opacity: 1, ease: "power1.out",
+          scrollTrigger: { trigger: ".second", start: "top center", end: "bottom center", scrub: true }
         }
       );
       gsap.fromTo(".right-text", 
-        { x: 600, opacity: 0 }, 
+        { x: 400, opacity: 0 }, 
         { 
-          x: 0, 
-          opacity: 1, 
-          ease: "power1.out",
-          scrollTrigger: {
-            trigger: ".second",
-            start: "top center",
-            end: "bottom center",
-            scrub: true
-          }
+          x: 0, opacity: 1, ease: "power1.out",
+          scrollTrigger: { trigger: ".second", start: "top center", end: "bottom center", scrub: true }
         }
       );
       
-      // Work experience 텍스트 색상 애니메이션: 중앙에 도달하면 색상 변경 (#222 -> #fff)
+      // Work experience 텍스트 색상 애니메이션
       gsap.to(".head h1", {
-        color: "#fff",
+        color: "#000",
         scrollTrigger: {
           trigger: ".second",
           start: "top center",
@@ -596,14 +500,12 @@
         }
       });
       
-      // 현재 뷰포트 중앙과 가장 가까운 .intro-line 요소를 찾아 active 클래스를 업데이트하는 함수
+      // INTRO 섹션 활성 텍스트 업데이트
       function updateActiveIntroLine() {
         const lines = gsap.utils.toArray(".intro-line");
         let closestLine = null;
         let closestDistance = Infinity;
-        // 참조점: 창 중앙 (필요하면 오프셋 조정 가능)
         const centerRef = window.innerHeight / 2;
-
         lines.forEach(line => {
           const rect = line.getBoundingClientRect();
           const lineCenter = rect.top + rect.height / 2;
@@ -613,8 +515,6 @@
             closestLine = line;
           }
         });
-
-        // 현재 활성화된 요소와의 거리를 비교하여 변경할지 결정 (30px threshold 적용)
         const currentActive = document.querySelector(".intro-line.active");
         const threshold = 30;
         if (currentActive) {
@@ -626,81 +526,84 @@
           }
         } else {
           lines.forEach(line => line.classList.remove("active"));
-          if (closestLine) {
-            closestLine.classList.add("active");
-          }
+          if (closestLine) closestLine.classList.add("active");
         }
       }
-
-      // .intro-content 영역을 기준으로 ScrollTrigger를 생성하고 updateActiveIntroLine 함수를 연결
       ScrollTrigger.create({
         trigger: ".intro-content",
         start: "top center",
         end: "bottom center",
         onUpdate: updateActiveIntroLine,
-        markers: true  // 디버깅 후 제거 가능
+        markers: true
       });
       
-      // ***** 추가된 배경색 전환 애니메이션 ***** 
-        gsap.to("body", {
+      // 배경색 및 circle-container 애니메이션
+      gsap.to("body", {
         backgroundColor: "#fff",
         ease: "none",
         scrollTrigger: {
           trigger: ".section.third",
-          start: "top bottom",   // section third의 상단이 뷰포트 하단에 도달할 때 시작
-          end: "center center",   // section third의 중앙이 뷰포트 중앙에 도달할 때까지 진행
+          start: "top bottom",
+          end: "center center",
           scrub: true,
-          markers: true // 개발 후 제거 가능
+          markers: true
         }
       });
-      
-      // 추가: "section third"에 따른 circle-container의 사라짐(불투명도 0으로 전환)
       gsap.to(".circle-container", {
         opacity: 0,
         ease: "none",
         scrollTrigger: {
           trigger: ".section.third",
-          start: "top bottom",   // section third의 상단이 뷰포트 하단에 도달할 때 시작
-          end: "center center",   // section third의 중앙이 뷰포트 중앙에 도달할 때까지 진행
+          start: "top bottom",
+          end: "center center",
           scrub: true,
-          markers: true // 개발 시 확인용, 최종 배포시 제거
+          markers: true
         }
       });
-
-        // Contact 콘텐츠 등장 애니메이션: Section third에 진입할 때 나타나도록 설정
+      
+      // Contact 콘텐츠 애니메이션
       gsap.fromTo(".contact-content", 
         { opacity: 0, y: 50 }, 
-        { 
-          opacity: 1, 
-          y: 0, 
-          duration: 1,
+        { opacity: 1, y: 0, duration: 1,
           ease: "power2.out",
           scrollTrigger: {
             trigger: ".section.third.contact",
-            start: "top center",  // 영역 상단이 뷰포트 중앙에 도달할 때
+            start: "top center",
             end: "center center",
             scrub: true,
             markers: true
           }
         }
       );
-
-      // 배경색 전환 및 circle-container 사라짐은 기존 코드와 함께 조정 (이미 적용된 코드)
-      gsap.to("body", {
-        backgroundColor: "#fff",
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".section.third.contact",
-          start: "top bottom",   // Contact 영역 상단이 뷰포트 하단에 도착할 때 시작
-          end: "center center",   // 중심이 뷰포트 중앙에 도달할 때까지 진행
-          scrub: true,
-          markers: true
+      gsap.fromTo(".contact-content h2", 
+        { opacity: 0, y: 50 }, 
+        { opacity: 1, y: 0, duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".section.third.contact",
+            start: "top center",
+            end: "center center",
+            scrub: true
+          }
         }
-      });
-
-      gsap.to(".circle-container", {
-        opacity: 0,
-        ease: "none",
+      );
+      gsap.fromTo(".contact-content p", 
+        { opacity: 0, y: 50 }, 
+        { opacity: 1, y: 0, duration: 1, delay: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".section.third.contact",
+            start: "top center",
+            end: "center center",
+            scrub: true
+          }
+        }
+      );
+      
+      // *** 영상 가로 확장 및 테두리 애니메이션 ***
+      gsap.to(".contact-bg-layer video", {
+        scaleX: 1,
+        borderRadius: "0px",
         scrollTrigger: {
           trigger: ".section.third.contact",
           start: "top bottom",
@@ -709,65 +612,49 @@
           markers: true
         }
       });
-      gsap.to(".contact-bg-layer", {
-        y: "-=200", // 원하는 이동량 (예: 200px 위로 이동)
+      
+      // *** Section second 배경 애니메이션 ***
+      // 초기 상태는 투명하다가, 스크롤에 따라 흰색으로 변화
+      gsap.to(".section.second", {
+        backgroundColor: "#fff",
         ease: "none",
         scrollTrigger: {
-          trigger: ".section.third.contact",
-          start: "top center",  // Contact 영역 상단이 뷰포트 중앙에 도달할 때 시작
-          end: "bottom top",    // Contact 영역 하단이 뷰포트 상단에 도달할 때까지 진행
+          trigger: ".section.second",
+          start: "top bottom",
+          end: "top center",
           scrub: true,
-          snap: {
-            snapTo: 0.25, // 스크롤 진행률이 0.25 단위로 스냅
-            duration: { min: 0.2, max: 0.5 },
-            delay: 0.1,
-            ease: "power1.inOut"
-          },
-          markers: true  // 개발 후 제거 가능
+          markers: true
         }
       });
-
-      // ******************************************
-    });
-
-    // Swiper 슬라이더 설정 (autoplay 옵션 포함)
-    const multiplier = {
-      translate: 0.1,
-      rotate: 0.01
-    };
-
-    new Swiper('.swiper', {
-      slidesPerView: 'auto',
-      spaceBetween: 90,
-      centeredSlides: true,
-      loop: true,
-      grabCursor: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false
+      
+      // 기존 calculateWheel 함수 및 requestAnimationFrame (필요 시 제거 또는 유지)
+      const multiplier = { translate: 0.1, rotate: 0.01 };
+      function calculateWheel() {
+        const slides = document.querySelectorAll('.single');
+        slides.forEach(slide => {
+          const rect = slide.getBoundingClientRect();
+          const r = window.innerWidth * 0.5 - (rect.x + rect.width * 0.5);
+          let ty = Math.abs(r) * multiplier.translate - rect.width * multiplier.translate;
+          if (ty < 0) ty = 0;
+          const transformOrigin = r < 0 ? 'left top' : 'right top';
+          slide.style.transform = `translate(0, ${ty}px) rotate(${-r * multiplier.rotate}deg)`;
+          slide.style.transformOrigin = transformOrigin;
+        });
       }
-    });
-
-    function calculateWheel() {
-      const slides = document.querySelectorAll('.single');
-      slides.forEach((slide) => {
-        const rect = slide.getBoundingClientRect();
-        const r = window.innerWidth * 0.5 - (rect.x + rect.width * 0.5);
-        let ty = Math.abs(r) * multiplier.translate - rect.width * multiplier.translate;
-
-        if (ty < 0) { ty = 0; }
-        const transformOrigin = r < 0 ? 'left top' : 'right top';
-        slide.style.transform = `translate(0, ${ty}px) rotate(${-r * multiplier.rotate}deg)`;
-        slide.style.transformOrigin = transformOrigin;
+      function raf() { requestAnimationFrame(raf); calculateWheel(); }
+      raf();
+      
+      // 기존 Swiper 초기화 (필요 시 커스터마이징)
+      new Swiper('.swiper', {
+        slidesPerView: 'auto',
+        spaceBetween: 90,
+        centeredSlides: true,
+        loop: true,
+        grabCursor: true,
+        autoplay: { delay: 3000, disableOnInteraction: false }
       });
-    }
-
-    function raf() {
-      requestAnimationFrame(raf);
-      calculateWheel();
-    }
-
-    raf();
+    });
   </script>
+  
 </body>
 </html>
