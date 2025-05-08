@@ -1,0 +1,27 @@
+@media screen and (max-width: 480px) {
+    .content .section.hero { background-image: url(./assets/images/mountains_m.jpg); background-size: cover; background-position: center center; background-attachment: scroll; filter: brightness(1); height: 70vh; }
+    .marquee-wrapper span { font-size: 2.5rem; margin-right: 2rem; }
+    .section.intro{padding: 3rem 1rem;}
+    .intro-line{font-size: 1rem;margin-bottom: 2rem;}
+    .head h1{font-size: 4rem;}
+    .contact-content h2{font-size: 2rem;}
+    .contact-content .contact-info{font-size: 1rem;}
+  }
+  @media screen and (max-width: 768px) {
+    .content .section.hero { background-image: url(./assets/images/mountains_m.jpg); background-size: cover; background-position: center center; filter: brightness(0.9); }
+    .marquee-wrapper span { font-size: 3rem; margin-right: 2rem; }
+    .section.intro{padding: 3rem 1rem;}
+    .intro-line{font-size: 1rem;margin-bottom: 2rem;}
+    .head h1{font-size: 4rem;}
+    .contact-content h2{font-size: 2rem;}
+    .contact-content .contact-info{font-size: 1rem;}
+  }
+  @media screen and (max-width: 1024px) {
+    .content .section.hero { background-attachment: fixed; background-size: cover; background-position: center center; }
+    .marquee-wrapper span { font-size: 3rem; margin-right: 2rem; }
+    .section.intro{padding: 3rem 1rem;}
+    .intro-line{font-size: 1rem;margin-bottom: 2rem;}
+    .head h1{font-size: 4rem;}
+    .contact-content h2{font-size: 2rem;}
+    .contact-content .contact-info{font-size: 1rem;}
+  }

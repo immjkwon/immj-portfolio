@@ -1,0 +1,93 @@
+:root {
+    --color-1: #A9F1DF;
+    --color-2: #D8B5FF;
+    --color-3: #f0ca98;
+    --color-4: #d6ffb9;
+    --color-5: #F1A8B9;
+  }
+
+  /* 1. 리셋 및 기본 설정 */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth;  overflow-x: hidden;}
+  body {min-height: 100vh; position: relative; font-family: 'SUIT Variable', 'Roboto', sans-serif; transition: background-color 1s ease;  overflow-x: hidden; letter-spacing: -0.016em;}
+  .wrapper, .content { position: relative; width: 100%; z-index: 1; }
+  .content { overflow-x: hidden; }
+  .content .section { width: 100%; height: 100vh; margin-bottom: 15rem; }
+
+  /* 2. HERO 섹션 */
+  .content .section.hero { background-image: url(./assets/images/mountains4.jpg); background-position: center center; background-repeat: no-repeat; background-size: cover; }
+
+  /* 3. 이미지 및 마키 애니메이션 영역 */
+  .image-container { width: 100%; height: 100vh; position: absolute; top: 0; left: 0; right: 0; z-index: 2; perspective: 500px; overflow: hidden; }
+  .image-container img { width: 100%; height: 100%; object-fit: cover; object-position: center center; }
+  .marquee { position: absolute; bottom: 2%; left: 0; width: 100%; overflow: hidden; white-space: nowrap; z-index: 3; }
+  .marquee-wrapper { display: inline-block; }
+  .marquee-wrapper span { display: inline-block; font-size: 5.5rem; text-transform: uppercase; color: #fff; margin-right: 4rem; }
+
+  /* 4. INTRO 섹션 */
+  .section.intro { display: flex; align-items: center; justify-content: center; text-align: center; background: transparent; padding: 10rem 1rem; min-height: 100vh; color: #fff; position: relative; z-index: 2; }
+  .intro-content { max-width: 1440px; margin: auto; }
+  .intro-line { font-size: 3rem; line-height: 1.4; margin-bottom: 6rem; opacity: 0; transform: scale(0.5); filter: blur(10px); }
+
+  /* 배경 원 효과 */
+  .circle-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 1; transition: opacity 1s ease; background-color: #000;}
+  .circle { position: absolute; border-radius: 50%; animation: siriPulse 10s ease-in-out infinite; filter: blur(25px) drop-shadow(0 0 8px rgba(0,0,0,0.05)); }
+  @keyframes siriPulse { 0%, 100% { transform: scale(0.9); opacity: 0.5; } 50% { transform: scale(1.3); opacity: 0.2; } }
+  .circle:nth-child(1) { width: 650px; height: 650px; top: 1%; left: 6%; background: radial-gradient(circle, var(--color-1) 15%, transparent 70%); animation-duration: 4s; animation-delay: 0.1s; }
+  .circle:nth-child(2) { width: 700px; height: 700px; top: 40%; left: 65%; background: radial-gradient(circle, var(--color-2) 15%, transparent 70%); animation-duration: 4.2s; animation-delay: 0.1s; }
+  .circle:nth-child(3) { width: 480px; height: 680px; top: 60%; left: 30%; background: radial-gradient(circle, var(--color-3) 15%, transparent 70%); animation-duration: 4.1s; animation-delay: 0.1s; }
+  .circle:nth-child(4) { width: 420px; height: 520px; top: 1%; left: 80%; background: radial-gradient(circle, var(--color-4) 15%, transparent 70%); animation-duration: 4s; animation-delay: 0.1s; }
+  .circle:nth-child(5) { width: 350px; height: 450px; top: 50%; left: 3%; background: radial-gradient(circle, var(--color-5) 15%, transparent 70%); animation-duration: 4.5s; animation-delay: 0.1s; }
+
+  /* 5. SECOND 섹션 */
+  .section.second { background-color: transparent; padding-bottom: 8rem; }
+  .second { font-family: 'Roboto', 'SUIT Variable', sans-serif; }
+  .head { text-align: center; color: #222; padding: 12rem 0 5rem 0; }
+  .head a { color: #222; }
+  .head h1 { font-size: 8.75rem; line-height: 0.8; }
+  .head h3 { font-size: 14px; font-weight: normal; }
+  .carousel { overflow-x: clip; }
+  .swiper { padding: 5rem 0 10rem 0; overflow: visible; }
+  .swiper .swiper-slide { width: 240px; }
+  .single { position: relative; user-select: none; border-radius: 13px; box-shadow: rgba(255,255,255,0.1) 0px 1px 1px 0px inset, rgba(50,50,93,0.25) 0px 50px 100px -20px, rgba(0,0,0,0.3) 0px 30px 60px -30px; overflow: hidden; }
+  .single img { width: 100%; height: auto; vertical-align: top; border-radius: 13px; }
+
+  .single-header {position:absolute; top:1rem; left:1rem;font-size:2rem; font-weight:700; color:#fff;z-index:2;}
+  .icon-arrow {position:absolute; top:1rem; right:1rem;width:32px; height:32px; border-radius:50%;background:rgba(0,0,0,0.8);display:flex; align-items:center; justify-content:center;z-index:2;}
+  .icon-arrow::before {content:"\2197"; font-size:1rem; color:#fff;transform:rotate(0deg);}
+  .slide-description {position:absolute; bottom:0; left:0; right:0;width: 100%;display:flex; flex-direction:column;align-items:flex-start; text-align:left;padding:0;background:rgba(0,0,0,0.8); padding: 1rem 0.875rem;}
+  .slide-description strong { font-size:1.125rem; margin-bottom:0.5rem; color:#fff; padding:0;}
+  .slide-description span  { font-size:0.875rem; color:#fff;margin-bottom:0.5rem; padding:0; font-weight:300;}
+  .single:hover .slide-description { opacity: 1; }
+
+  /* 6. CONTACT 섹션 */
+  .section.third.contact {position: relative; display: flex;align-items: center; justify-content: center; padding: 0; min-height: 100vh; background-color: #fff;}
+  .section.third.contact::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 150px;  z-index: 0; pointer-events: none; }
+  .contact-bg-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; }
+  .contact-bg-layer video { width: 100%; height: 100%; object-fit: cover; transform: scale(0.1); transform-origin: center; border-radius: 20px; }
+  .contact-content {position: relative; z-index: 2;text-align: center;opacity: 0;transform: translateY(50px); transition: opacity 0.6s ease, transform 0.6s ease;padding: 0;max-width: 90%;}
+  .contact-content h2 {font-family: 'Roboto'; font-size: 6rem; margin-bottom: 1rem; color: #333; }
+  .contact-content .contact-info { font-size: 2rem; margin-bottom: 1rem; color: #555; }
+  .contact-content .email-link { display: inline-block; margin: 20px 0; font-size: 1.8rem; font-weight: 700; text-decoration: none; background-color: #111; border-radius: 30px; padding: 12px 34px 14px 34px; transition: color 0.3s ease, border-bottom 0.3s ease; }
+  .contact-content .email-link:hover { color: #1a6d94; border-bottom-color: #1a6d94; }
+  .background-wrapper {display: inline-block; }
+  .background-wrapper {
+    background: linear-gradient(90deg, var(--color-1), var(--color-2), var(--color-3), var(--color-4), var(--color-5)); 
+    background-size: 400% 400%; 
+    color: transparent; 
+    -webkit-background-clip: text; 
+    background-clip: text;
+    animation: gradientShift 5s ease infinite;
+  }
+
+@keyframes gradientShift {
+  0%, 100%   { background-position: 0% 50%; }
+  50%        { background-position: 100% 50%; }
+}
+  /* 8. 푸터 */
+  footer { background: #111; color: #fff; padding: 2rem 1rem; text-align: center; }
+  footer .footer-container { max-width: 1200px; margin: 0 auto; }
+  footer .footer-logo h2 { margin-bottom: 1rem; font-size: 2rem; }
+  footer .footer-nav { margin: 1rem 0; }
+  footer .footer-nav a { color: #fff; margin: 0 1rem; text-decoration: none; font-size: 1rem; }
+  footer .footer-copy p { font-size: 0.875rem; margin: 0.5rem 0 0; }
