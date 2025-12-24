@@ -207,7 +207,7 @@ window.addEventListener("load", () => {
     centeredSlides: true,
     slidesPerView: "auto",
     loop: true,
-    spaceBetween: 20,
+    spaceBetween: 70,
     coverflowEffect: {
       rotate: 0,
       stretch: 0,
