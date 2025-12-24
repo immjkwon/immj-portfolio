@@ -1,31 +1,43 @@
+// ===============================
+// GSAP + ScrollTrigger + Swiper (정리본)
+// - Swiper loop(duplicate) 포함하여 wheel(곡선) 계산
+// - Swiper 초기화 이후에 wheel 계산 시작(초기 튐 방지)
+// - wheel 계산은 Swiper 이벤트 + resize + raf(선택)로 안정화
+// ===============================
+
 console.clear();
 gsap.registerPlugin(ScrollTrigger);
 
 window.addEventListener("load", () => {
-  // 1. Hero 섹션 이미지 확대 및 고정 애니메이션
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: ".wrapper",
-      start: "top top",
-      end: "+=300%",
-      pin: true,
-      scrub: true,
-      markers: false
-    }
-  })
-  .to(".image-container > img", {
-    scale: 2,
-    z: 350,
-    transformOrigin: "center center",
-    ease: "power1.inOut"
-  })
-  .to(".section.hero", {
-    scale: 1.1,
-    transformOrigin: "center center",
-    ease: "power1.inOut"
-  }, "<");
+  // 1) HERO 섹션 이미지 확대 및 고정(핀) 애니메이션
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: ".wrapper",
+        start: "top top",
+        end: "+=300%",
+        pin: true,
+        scrub: true,
+        markers: false
+      }
+    })
+    .to(".image-container > img", {
+      scale: 2,
+      z: 350,
+      transformOrigin: "center center",
+      ease: "power1.inOut"
+    })
+    .to(
+      ".section.hero",
+      {
+        scale: 1.1,
+        transformOrigin: "center center",
+        ease: "power1.inOut"
+      },
+      "<"
+    );
 
-  // 2. Hero 마키 애니메이션
+  // 2) HERO 마키 애니메이션
   gsap.to(".marquee-wrapper", {
     x: "-50%",
     ease: "none",
@@ -33,10 +45,11 @@ window.addEventListener("load", () => {
     repeat: -1
   });
 
-  // 3. Intro 텍스트 애니메이션 (블러에서 선명하게)
+  // 3) INTRO 텍스트 애니메이션 (블러 -> 선명)
   const introLines = gsap.utils.toArray(".intro-line");
   introLines.forEach((line) => {
-    gsap.fromTo(line,
+    gsap.fromTo(
+      line,
       { opacity: 0, y: 60, filter: "blur(6px)", scale: 0.5 },
       {
         opacity: 1,
@@ -56,57 +69,35 @@ window.addEventListener("load", () => {
     );
   });
 
-  // 4. Swiper 슬라이드 휠 회전 효과
-  const multiplier = { translate: 0.2, rotate: 0.02 };
-  function calculateWheel() {
-  const wrapper = document.querySelector('.swiper');
-  const { left: wrapLeft, width: wrapWidth } = wrapper.getBoundingClientRect();
-  const centerX = wrapLeft + wrapWidth / 2;    // 실제 컨테이너 중앙 기준
-
-  document.querySelectorAll('.single').forEach(slide => {
-    const parentSlide = slide.closest('.swiper-slide');
-   
-
-    const rect = slide.getBoundingClientRect();
-    const slideCenterX = rect.left + rect.width / 2;
-    const r = centerX - slideCenterX;
-    let ty = Math.abs(r) * multiplier.translate - rect.width * multiplier.translate;
-    if (ty < 0) ty = 0;
-
-    // 회전축도 양쪽 맞게 설정
-    const origin = r < 0 ? 'left top' : 'right top';
-    slide.style.transformOrigin = origin;
-    slide.style.transform = `translate(0, ${ty}px) rotate(${-r * multiplier.rotate}deg)`;
-  });
-}
-  function raf() { requestAnimationFrame(raf); calculateWheel(); }
-  raf();
-
-  // 5. Second 섹션 텍스트 좌우 이동 및 색상 변경 (적절한 시점 고정)
-// Work 텍스트
-gsap.fromTo(".left-text", 
-  { x: -600, opacity: 0 }, 
-  { 
-    x: 0, opacity: 1, ease: "power2.out",
-    scrollTrigger: { 
-      trigger: ".second", 
-      start: "top center+=1100", 
-      end: "bottom center-=0", // 천천히 멈추도록 범위 확보
-      scrub: true 
-    }
-  }
-);
-
-  // experience 텍스트
-  gsap.fromTo(".right-text", 
-    { x: 600, opacity: 0 }, 
-    { 
-      x: 0, opacity: 1, ease: "power2.out",
-      scrollTrigger: { 
-        trigger: ".second", 
-        start: "top center+=1100", 
+  // 4) SECOND 섹션 텍스트 좌우 이동
+  gsap.fromTo(
+    ".left-text",
+    { x: -600, opacity: 0 },
+    {
+      x: 0,
+      opacity: 1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".second",
+        start: "top center+=1100",
         end: "bottom center-=0",
-        scrub: true 
+        scrub: true
+      }
+    }
+  );
+
+  gsap.fromTo(
+    ".right-text",
+    { x: 600, opacity: 0 },
+    {
+      x: 0,
+      opacity: 1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".second",
+        start: "top center+=1100",
+        end: "bottom center-=0",
+        scrub: true
       }
     }
   );
@@ -122,7 +113,7 @@ gsap.fromTo(".left-text",
     }
   });
 
-  // 6. Second 섹션 배경색 전환
+  // 5) SECOND 섹션 배경색 전환
   gsap.to(".section.second", {
     backgroundColor: "#fff",
     ease: "none",
@@ -135,10 +126,14 @@ gsap.fromTo(".left-text",
     }
   });
 
-  // 7. Contact 콘텐츠 등장 애니메이션
-  gsap.fromTo(".contact-content", 
-    { opacity: 0, y: 50 }, 
-    { opacity: 1, y: 0, duration: 1,
+  // 6) CONTACT 콘텐츠 등장 애니메이션 (한 덩어리)
+  gsap.fromTo(
+    ".contact-content",
+    { opacity: 0, y: 50 },
+    {
+      opacity: 1,
+      y: 0,
+      duration: 1,
       ease: "power2.out",
       scrollTrigger: {
         trigger: ".section.third.contact",
@@ -149,32 +144,22 @@ gsap.fromTo(".left-text",
       }
     }
   );
-  gsap.fromTo(".contact-content h2", 
-    { opacity: 0, y: 50 }, 
-    { opacity: 1, y: 0, duration: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".section.third.contact",
-        start: "top center",
-        end: "center center",
-        scrub: true
-      }
-    }
-  );
-  gsap.fromTo(".contact-content p", 
-    { opacity: 0, y: 50 }, 
-    { opacity: 1, y: 0, duration: 1, delay: 0.2,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".section.third.contact",
-        start: "top center",
-        end: "center center",
-        scrub: true
-      }
-    }
-  );
 
-  // 8. Third 섹션 배경색 및 원 fade out
+  // 6-1) CONTACT 내부 요소 stagger (once)
+  gsap.from(".contact-content > *", {
+    y: 50,
+    opacity: 0,
+    duration: 0.8,
+    ease: "power2.out",
+    stagger: 0.2,
+    scrollTrigger: {
+      trigger: ".section.third.contact",
+      start: "top 80%",
+      once: true
+    }
+  });
+
+  // 7) THIRD 섹션 진입 시 body 배경 전환
   gsap.to("body", {
     backgroundColor: "#fff",
     ease: "none",
@@ -186,6 +171,8 @@ gsap.fromTo(".left-text",
       markers: false
     }
   });
+
+  // 8) INTRO 지나며 원형 배경 fade out
   gsap.to(".circle-container", {
     opacity: 0,
     ease: "none",
@@ -198,7 +185,7 @@ gsap.fromTo(".left-text",
     }
   });
 
-  // 9. 영상 가로 확장 애니메이션
+  // 9) CONTACT 배경 비디오 확장
   gsap.to(".contact-bg-layer video", {
     scale: 1,
     borderRadius: "0px",
@@ -211,33 +198,76 @@ gsap.fromTo(".left-text",
     }
   });
 
-  // 10. Swiper 초기화
-  new Swiper('.swiper', {
-    effect: 'coverflow',
+  // ===============================
+  // 10) Swiper 초기화 (먼저)
+  // ===============================
+  const swiper = new Swiper(".swiper", {
+    effect: "coverflow",
     grabCursor: true,
     centeredSlides: true,
-    slidesPerView: 'auto',
+    slidesPerView: "auto",
     loop: true,
     spaceBetween: 120,
     coverflowEffect: {
-      rotate: 0,     
-      stretch: 0,    
-      depth: 0,      
-      modifier: 5,    
+      rotate: 0,
+      stretch: 0,
+      depth: 0,
+      modifier: 5,
       slideShadows: false
     },
     autoplay: { delay: 3000, disableOnInteraction: false }
   });
-});
-gsap.from(".contact-content > *", {
-y: 50,
-opacity: 0,
-duration: 0.8,
-ease: "power2.out",
-stagger: 0.2,
-scrollTrigger: {
-trigger: ".section.third.contact",
-start: "top 80%",
-once: true        // 한 번만 실행
-}
+
+  // ===============================
+  // 11) Swiper Wheel(곡선) 계산 (duplicate 포함)
+  // ===============================
+  const multiplier = { translate: 0.28, rotate: 0.02 };
+
+  function calculateWheel() {
+    const wrapper = document.querySelector(".swiper");
+    if (!wrapper) return;
+
+    const { left, width } = wrapper.getBoundingClientRect();
+    const centerX = left + width / 2;
+
+    document.querySelectorAll(".single").forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      const cardCenterX = rect.left + rect.width / 2;
+      const r = centerX - cardCenterX;
+
+      let ty = Math.abs(r) * multiplier.translate - rect.width * multiplier.translate;
+      if (ty < 0) ty = 0;
+
+      const origin = r < 0 ? "left top" : "right top";
+      card.style.transformOrigin = origin;
+
+      // translate3d로 렌더링 안정화
+      card.style.transform = `translate3d(0, ${ty}px, 0) rotate(${-r * multiplier.rotate}deg)`;
+    });
+  }
+
+  // Swiper가 위치를 바꿀 때마다 보정(초기/이동/루프 교체 타이밍 대응)
+  swiper.on("init", calculateWheel);
+  swiper.on("setTranslate", calculateWheel);
+  swiper.on("slideChange", calculateWheel);
+  swiper.on("resize", calculateWheel);
+
+  // 최초 1회 즉시 계산
+  calculateWheel();
+
+  // ===============================
+  // 12) raf 계속 돌릴지 선택 (성능 vs 안정성)
+  // - 필요 없으면 아래 raf 블록을 통째로 주석 처리해도 됨
+  // ===============================
+  let rafId = null;
+  const rafLoop = () => {
+    rafId = requestAnimationFrame(rafLoop);
+    calculateWheel();
+  };
+  rafLoop();
+
+  // 페이지 이탈 시 raf 정리(안전)
+  window.addEventListener("beforeunload", () => {
+    if (rafId) cancelAnimationFrame(rafId);
+  });
 });
