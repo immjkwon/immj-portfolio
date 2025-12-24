@@ -225,8 +225,6 @@ window.addEventListener("load", () => {
 
   function calculateWheel() {
     const wrapper = document.querySelector(".swiper");
-    if (!wrapper) return;
-
     const { left, width } = wrapper.getBoundingClientRect();
     const centerX = left + width / 2;
 
@@ -238,13 +236,14 @@ window.addEventListener("load", () => {
       let ty = Math.abs(r) * multiplier.translate - rect.width * multiplier.translate;
       if (ty < 0) ty = 0;
 
-      const origin = r < 0 ? "left top" : "right top";
+      // ✅ top -> bottom 으로 변경
+      const origin = r < 0 ? "left bottom" : "right bottom";
       card.style.transformOrigin = origin;
 
-      // translate3d로 렌더링 안정화
       card.style.transform = `translate3d(0, ${ty}px, 0) rotate(${-r * multiplier.rotate}deg)`;
     });
   }
+
 
   // Swiper가 위치를 바꿀 때마다 보정(초기/이동/루프 교체 타이밍 대응)
   swiper.on("init", calculateWheel);
