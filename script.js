@@ -65,7 +65,7 @@ window.addEventListener("load", () => {
 
   document.querySelectorAll('.single').forEach(slide => {
     const parentSlide = slide.closest('.swiper-slide');
-    if (parentSlide.classList.contains('swiper-slide-duplicate')) return; // 복제본 스킵
+   
 
     const rect = slide.getBoundingClientRect();
     const slideCenterX = rect.left + rect.width / 2;
