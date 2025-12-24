@@ -229,6 +229,7 @@ window.addEventListener("load", () => {
     const centerX = left + width / 2;
 
     document.querySelectorAll(".single").forEach((card) => {
+      const inner = card.querySelector(".single-inner");
       const rect = card.getBoundingClientRect();
       const cardCenterX = rect.left + rect.width / 2;
       const r = centerX - cardCenterX;
@@ -236,11 +237,11 @@ window.addEventListener("load", () => {
       let ty = Math.abs(r) * multiplier.translate - rect.width * multiplier.translate;
       if (ty < 0) ty = 0;
 
-      // ✅ top -> bottom 으로 변경
-      const origin = r < 0 ? "left bottom" : "right bottom";
-      card.style.transformOrigin = origin;
+      card.style.transform = `translate3d(0, ${ty}px, 0)`;
 
-      card.style.transform = `translate3d(0, ${ty}px, 0) rotate(${-r * multiplier.rotate}deg)`;
+      const origin = r < 0 ? "left bottom" : "right bottom";
+      inner.style.transformOrigin = origin;
+      inner.style.transform = `rotate(${-r * multiplier.rotate}deg)`;
     });
   }
 
