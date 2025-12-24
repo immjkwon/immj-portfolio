@@ -221,7 +221,7 @@ window.addEventListener("load", () => {
   // ===============================
   // 11) Swiper Wheel(곡선) 계산 (duplicate 포함)
   // ===============================
-  const multiplier = { translate: 0.28, rotate: 0.02 };
+  const multiplier = { translate: 0.30, rotate: 0.02 };
 
   function calculateWheel() {
     const wrapper = document.querySelector(".swiper");
