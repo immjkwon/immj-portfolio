@@ -51,6 +51,7 @@
   .swiper .swiper-slide { width: 240px; }
   .single { position: relative; user-select: none; border-radius: 13px; box-shadow: rgba(255,255,255,0.1) 0px 1px 1px 0px inset, rgba(50,50,93,0.25) 0px 50px 100px -20px, rgba(0,0,0,0.3) 0px 30px 60px -30px; overflow: hidden; }
   .single img { width: 100%; height: auto; vertical-align: top; border-radius: 13px; }
+  
 
   .single-header {position:absolute; top:1rem; left:1rem;font-size:2rem; font-weight:700; color:#fff;z-index:2;}
   .icon-arrow {position:absolute; top:1rem; right:1rem;width:32px; height:32px; border-radius:50%;background:rgba(0,0,0,0.8);display:flex; align-items:center; justify-content:center;z-index:2;}
