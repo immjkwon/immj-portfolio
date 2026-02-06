@@ -143,7 +143,229 @@
       </div>
     </section>
 
-    <section id="achievements" class="section">IMPACT</section>
+    <section id="achievements" class="impact-section">
+      <div class="impact-inner">
+        <p class="impact-kicker">기여도 50% 이상</p>
+        <h2 class="impact-title">핵심성과 TOP 3 이거에요.</h2>
+
+        <div class="impact-tabs" role="tablist" aria-label="핵심성과 탭">
+          <button
+            type="button"
+            class="impact-tab is-active"
+            role="tab"
+            id="impact-tab-illy"
+            aria-controls="impact-panel-illy"
+            aria-selected="true"
+            data-key="illy"
+          >
+            일리카페
+          </button>
+          <button
+            type="button"
+            class="impact-tab"
+            role="tab"
+            id="impact-tab-hana"
+            aria-controls="impact-panel-hana"
+            aria-selected="false"
+            data-key="hana"
+            tabindex="-1"
+          >
+            하나은행
+          </button>
+          <button
+            type="button"
+            class="impact-tab"
+            role="tab"
+            id="impact-tab-bigk"
+            aria-controls="impact-panel-bigk"
+            aria-selected="false"
+            data-key="bigk"
+            tabindex="-1"
+          >
+            BIGK 플랫폼
+          </button>
+        </div>
+
+        <div class="impact-layout">
+          <div class="impact-stage">
+            <!-- PANEL 1 -->
+            <article
+              class="impact-panel is-active"
+              id="impact-panel-illy"
+              role="tabpanel"
+              aria-labelledby="impact-tab-illy"
+              data-key="illy"
+            >
+              <div class="impact-panel-head">
+                <img class="impact-brand-logo" src="./assets/images/logo-illy.png" alt="일리카페 로고" />
+                <h3 class="impact-panel-title">일리카페 정기구독 서비스 개발(2023.07 ~ 2023.09)</h3>
+              </div>
+
+              <p class="impact-panel-desc">
+                이탈리아 커피 브랜드 일리카페(ILLYCAFFÈ)의 기존 원두/캡슐 중심 구독 구조에
+                ‘머신+커피’ 결합형 상품을 추가해 신규 고객 유입을 확대하고, 분산된 구독 경험을
+                하나의 기준으로 정리하는 것을 목표로 프로젝트를 진행했어요.
+              </p>
+
+              <div class="impact-panel-grid">
+                <section class="impact-col">
+                  <h4 class="impact-col-heading">역할</h4>
+                  <ul>
+                    <li><strong>구독 전용 UI/UX 설계 및 구현</strong></li>
+                    <li>구독 상품 상세, 옵션 선택, 주기 설정, 결제 유도 영역 전체 구독 흐름 UI 구현</li>
+                    <li>원두 1종 이상 선택 구조 고려해 사용자 기능 최적화</li>
+                    <li>(옵션 변경 반복 시 드롭다운 초기화 UX 제거, 마지막 선택값 유지 로직 적용 등)</li>
+                    <li><strong>CTA 활성화 조건 로직 설계 및 UX 오류 예방</strong></li>
+                    <li>옵션/수량 필수 선택 전 CTA 비활성 구조 개선</li>
+                    <li>오클릭·0 이하 수량 입력 UX 리스크 사전 식별</li>
+                  </ul>
+                </section>
+
+                <section class="impact-col">
+                  <h4 class="impact-col-heading">성과</h4>
+                  <ul>
+                    <li>커피 정기구독 신청 건수 <strong>36% 증가</strong></li>
+                    <li>런칭 일정 지연 <strong>0일</strong></li>
+                    <li>‘머신+커피’ 결합형 신규 구독 상품군 안정적 론칭</li>
+                    <li>구독 UX 표준화 달성</li>
+                  </ul>
+                </section>
+              </div>
+
+              <div class="impact-visuals" aria-hidden="true">
+                <img class="impact-shot s1" src="./assets/images/illy-shot-1.png" alt="" />
+                <img class="impact-shot s2" src="./assets/images/illy-shot-2.png" alt="" />
+                <img class="impact-shot s3" src="./assets/images/illy-shot-3.png" alt="" />
+              </div>
+            </article>
+
+            <!-- PANEL 2 -->
+            <article
+              class="impact-panel"
+              id="impact-panel-hana"
+              role="tabpanel"
+              aria-labelledby="impact-tab-hana"
+              data-key="hana"
+              hidden
+            >
+              <div class="impact-panel-head">
+                <img class="impact-brand-logo" src="./assets/images/logo-hana.png" alt="하나은행 로고" />
+                <h3 class="impact-panel-title">하나은행 TRADE WATCH SYSTEM 업그레이드 개발(2022.10 ~ 2022.11)</h3>
+              </div>
+
+              <p class="impact-panel-desc">
+                무역 모니터링 시스템의 레거시 UI를 운영 기준에 맞게 재정비하고,
+                업무 화면의 가독성·탐색성·상태 인지성을 높이는 방향으로 구조를 개선했어요.
+              </p>
+
+              <div class="impact-panel-grid">
+                <section class="impact-col">
+                  <h4 class="impact-col-heading">역할</h4>
+                  <ul>
+                    <li>핵심 화면 마크업 구조 정리 및 스타일 시스템 정돈</li>
+                    <li>컴포넌트 단위 UI 리팩터링 및 반응형 대응</li>
+                    <li>운영 이슈 대응/QA, 브라우저별 렌더링 차이 보정</li>
+                  </ul>
+                </section>
+
+                <section class="impact-col">
+                  <h4 class="impact-col-heading">성과</h4>
+                  <ul>
+                    <li>반복 수정 구간 축소 및 유지보수 속도 개선</li>
+                    <li>업무 흐름 기준 UI 일관성 강화</li>
+                    <li>운영 배포 안정성 확보</li>
+                  </ul>
+                </section>
+              </div>
+
+              <div class="impact-visuals" aria-hidden="true">
+                <img class="impact-shot s1" src="./assets/images/hana-shot-1.png" alt="" />
+                <img class="impact-shot s2" src="./assets/images/hana-shot-2.png" alt="" />
+                <img class="impact-shot s3" src="./assets/images/hana-shot-3.png" alt="" />
+              </div>
+            </article>
+
+            <!-- PANEL 3 -->
+            <article
+              class="impact-panel"
+              id="impact-panel-bigk"
+              role="tabpanel"
+              aria-labelledby="impact-tab-bigk"
+              data-key="bigk"
+              hidden
+            >
+              <div class="impact-panel-head">
+                <img class="impact-brand-logo" src="./assets/images/logo-bigk.png" alt="BIGK 로고" />
+                <h3 class="impact-panel-title">BIGK 플랫폼 웹사이트 구축(2021.11)</h3>
+              </div>
+
+              <p class="impact-panel-desc">
+                초기 런칭 단계에서 정보 구조와 화면 체계를 빠르게 정리하고,
+                브랜드 톤앤매너를 반영한 퍼블리싱으로 서비스 오픈 일정을 맞췄어요.
+              </p>
+
+              <div class="impact-panel-grid">
+                <section class="impact-col">
+                  <h4 class="impact-col-heading">역할</h4>
+                  <ul>
+                    <li>메인/서브 페이지 마크업 및 스타일 구현</li>
+                    <li>공통 컴포넌트 템플릿화로 반복 생산성 개선</li>
+                    <li>초기 운영 이슈 대응 및 화면 보정</li>
+                  </ul>
+                </section>
+
+                <section class="impact-col">
+                  <h4 class="impact-col-heading">성과</h4>
+                  <ul>
+                    <li>런칭 일정 내 배포 완료</li>
+                    <li>운영 초기 이슈 최소화</li>
+                    <li>후속 기능 확장 가능한 구조 확보</li>
+                  </ul>
+                </section>
+              </div>
+
+              <div class="impact-visuals" aria-hidden="true">
+                <img class="impact-shot s1" src="./assets/images/bigk-shot-1.png" alt="" />
+                <img class="impact-shot s2" src="./assets/images/bigk-shot-2.png" alt="" />
+                <img class="impact-shot s3" src="./assets/images/bigk-shot-3.png" alt="" />
+              </div>
+            </article>
+          </div>
+
+          <!-- 접힘 카드 (active 제외 2개만 노출됨) -->
+          <div class="impact-folds" aria-label="다른 핵심성과">
+            <button type="button" class="impact-fold is-hidden" data-key="illy" aria-hidden="true">
+              <span class="impact-fold-copy">
+                <span class="impact-fold-date">2023.07 ~ 2023.09</span>
+                <span class="impact-fold-title">일리카페 정기구독 서비스 개발</span>
+              </span>
+              <img class="impact-fold-logo" src="./assets/images/logo-illy.png" alt="일리카페 로고" />
+            </button>
+
+            <button type="button" class="impact-fold" data-key="hana" aria-hidden="false">
+              <span class="impact-fold-copy">
+                <span class="impact-fold-date">2022.10 ~ 2022.11</span>
+                <span class="impact-fold-title">하나은행 TRADE WATCH SYSTEM 업그레이드 개발</span>
+              </span>
+              <img class="impact-fold-logo" src="./assets/images/logo-hana.png" alt="하나은행 로고" />
+            </button>
+
+            <button type="button" class="impact-fold" data-key="bigk" aria-hidden="false">
+              <span class="impact-fold-copy">
+                <span class="impact-fold-date">2021.11 ~ 2021.11</span>
+                <span class="impact-fold-title">BIGK 플랫폼 웹사이트 구축</span>
+              </span>
+              <img class="impact-fold-logo" src="./assets/images/logo-bigk.png" alt="BIGK 로고" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
     <section id="stack" class="section">SKILLS</section>
     <section id="projects" class="section">PROJECTS</section>
   </main>
