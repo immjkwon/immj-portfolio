@@ -1,271 +1,237 @@
-// ===============================
-// GSAP + ScrollTrigger + Swiper (정리본)
-// - Swiper loop(duplicate) 포함하여 wheel(곡선) 계산
-// - Swiper 초기화 이후에 wheel 계산 시작(초기 튐 방지)
-// - wheel 계산은 Swiper 이벤트 + resize + raf(선택)로 안정화
-// ===============================
+(() => {
+  document.addEventListener("DOMContentLoaded", async () => {
+    // JS 활성 클래스 (CSS에서 html.js .about-headline 초기상태 제어용)
+    document.documentElement.classList.add("js");
 
-console.clear();
-gsap.registerPlugin(ScrollTrigger);
+    // 1) Lenis 먼저 초기화
+    const lenis = initLenis();
 
-window.addEventListener("load", () => {
-  // 1) HERO 섹션 이미지 확대 및 고정(핀) 애니메이션
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: ".wrapper",
-        start: "top top",
-        end: "+=300%",
-        pin: true,
-        scrub: true,
-        markers: false
+    // 2) 네비/scroll-down 앵커를 Lenis scrollTo로 연결
+    setupSmoothNav(lenis);
+
+    // 폰트 로드 후 측정(텍스트 폭 오차 방지)
+    try {
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
       }
-    })
-    .to(".image-container > img", {
-      scale: 2,
-      z: 350,
-      transformOrigin: "center center",
-      ease: "power1.inOut"
-    })
-    .to(
-      ".section.hero",
-      {
-        scale: 1.1,
-        transformOrigin: "center center",
-        ease: "power1.inOut"
-      },
-      "<"
-    );
+    } catch (_) {}
 
-  // 2) HERO 마키 애니메이션
-  gsap.to(".marquee-wrapper", {
-    x: "-50%",
-    ease: "none",
-    duration: 20,
-    repeat: -1
+    // 기존 hero 모션
+    initHeroLines();
+
+    // 배경 블렌드
+    initBgBlend(lenis);
+
+    // about-headline: 오른쪽 -> 제자리 1회 등장
+    initAboutHeadlineReveal();
   });
 
-  // 3) INTRO 텍스트 애니메이션 (블러 -> 선명)
-  const introLines = gsap.utils.toArray(".intro-line");
-  introLines.forEach((line) => {
-    gsap.fromTo(
-      line,
-      { opacity: 0, y: 60, filter: "blur(6px)", scale: 0.5 },
-      {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        scale: 1.1,
-        duration: 30,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: line,
-          start: "top center",
-          end: "bottom center",
-          scrub: true,
-          markers: false
+  function initLenis() {
+    if (!window.Lenis) return null;
+
+    const lenis = new Lenis({
+      lerp: 0.08,          // 낮을수록 더 묵직/부드러움
+      wheelMultiplier: 1,
+      smoothWheel: true,
+      autoRaf: true
+    });
+
+    if (window.ScrollTrigger) {
+      lenis.on("scroll", ScrollTrigger.update);
+    }
+
+    return lenis;
+  }
+
+  function getHeaderOffset() {
+    const h = parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue("--header-h")
+    );
+    return Number.isFinite(h) ? h : 72;
+  }
+
+  function setupSmoothNav(lenis) {
+    const links = document.querySelectorAll('.gnb a[href^="#"], .scroll-down[href^="#"]');
+
+    links.forEach((a) => {
+      a.addEventListener("click", (e) => {
+        const id = a.getAttribute("href");
+        const target = document.querySelector(id);
+        if (!target) return;
+
+        e.preventDefault();
+
+        if (lenis) {
+          lenis.scrollTo(target, {
+            offset: -getHeaderOffset(),
+            duration: 1.1
+          });
+        } else {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-      }
-    );
-  });
-
-  // 4) SECOND 섹션 텍스트 좌우 이동
-  gsap.fromTo(
-    ".left-text",
-    { x: -600, opacity: 0 },
-    {
-      x: 0,
-      opacity: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".second",
-        start: "top center+=1100",
-        end: "bottom center-=0",
-        scrub: true
-      }
-    }
-  );
-
-  gsap.fromTo(
-    ".right-text",
-    { x: 600, opacity: 0 },
-    {
-      x: 0,
-      opacity: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".second",
-        start: "top center+=1100",
-        end: "bottom center-=0",
-        scrub: true
-      }
-    }
-  );
-
-  gsap.to(".head h1", {
-    color: "#191919",
-    scrollTrigger: {
-      trigger: ".second",
-      start: "top center",
-      end: "bottom center",
-      scrub: true,
-      markers: false
-    }
-  });
-
-  // 5) SECOND 섹션 배경색 전환
-  gsap.to(".section.second", {
-    backgroundColor: "#fff",
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".section.second",
-      start: "top bottom",
-      end: "top center",
-      scrub: true,
-      markers: false
-    }
-  });
-
-  // 6) CONTACT 콘텐츠 등장 애니메이션 (한 덩어리)
-  gsap.fromTo(
-    ".contact-content",
-    { opacity: 0, y: 50 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ".section.third.contact",
-        start: "top center",
-        end: "center center",
-        scrub: true,
-        markers: false
-      }
-    }
-  );
-
-  // 6-1) CONTACT 내부 요소 stagger (once)
-  gsap.from(".contact-content > *", {
-    y: 50,
-    opacity: 0,
-    duration: 0.8,
-    ease: "power2.out",
-    stagger: 0.2,
-    scrollTrigger: {
-      trigger: ".section.third.contact",
-      start: "top 80%",
-      once: true
-    }
-  });
-
-  // 7) THIRD 섹션 진입 시 body 배경 전환
-  gsap.to("body", {
-    backgroundColor: "#fff",
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".section.third",
-      start: "top bottom",
-      end: "center center",
-      scrub: true,
-      markers: false
-    }
-  });
-
-  // 8) INTRO 지나며 원형 배경 fade out
-  gsap.to(".circle-container", {
-    opacity: 0,
-    ease: "none",
-    scrollTrigger: {
-      trigger: ".section.intro",
-      start: "bottom bottom",
-      end: "bottom top",
-      scrub: true,
-      markers: false
-    }
-  });
-
-  // 9) CONTACT 배경 비디오 확장
-  gsap.to(".contact-bg-layer video", {
-    scale: 1,
-    borderRadius: "0px",
-    scrollTrigger: {
-      trigger: ".section.third.contact",
-      start: "top 80%",
-      end: "center center",
-      scrub: true,
-      markers: false
-    }
-  });
-
-  // ===============================
-  // 10) Swiper 초기화 (먼저)
-  // ===============================
-  const swiper = new Swiper(".swiper", {
-    effect: "coverflow",
-    grabCursor: true,
-    centeredSlides: true,
-    slidesPerView: "auto",
-    loop: true,
-    spaceBetween: 70,
-    coverflowEffect: {
-      rotate: 0,
-      stretch: 0,
-      depth: 0,
-      modifier: 5,
-      slideShadows: false
-    },
-    autoplay: { delay: 3000, disableOnInteraction: false }
-  });
-
-  // ===============================
-  // 11) Swiper Wheel(곡선) 계산 (duplicate 포함)
-  // ===============================
-  const multiplier = { translate: 0.30, rotate: 0.02 };
-
-  function calculateWheel() {
-    const wrapper = document.querySelector(".swiper");
-    const { left, width } = wrapper.getBoundingClientRect();
-    const centerX = left + width / 2;
-
-    document.querySelectorAll(".single").forEach((card) => {
-      const rect = card.getBoundingClientRect();
-      const cardCenterX = rect.left + rect.width / 2;
-      const r = centerX - cardCenterX;
-
-      let ty = Math.abs(r) * multiplier.translate - rect.width * multiplier.translate;
-      if (ty < 0) ty = 0;
-
-      // ✅ top -> bottom 으로 변경
-      const origin = r < 0 ? "left bottom" : "right bottom";
-      card.style.transformOrigin = origin;
-
-      card.style.transform = `translate3d(0, ${ty}px, 0) rotate(${-r * multiplier.rotate}deg)`;
+      });
     });
   }
 
-  // Swiper가 위치를 바꿀 때마다 보정(초기/이동/루프 교체 타이밍 대응)
-  swiper.on("init", calculateWheel);
-  swiper.on("setTranslate", calculateWheel);
-  swiper.on("slideChange", calculateWheel);
-  swiper.on("resize", calculateWheel);
+  function initHeroLines() {
+    const wrap = document.querySelector(".intro-wrap");
+    const lines = Array.from(document.querySelectorAll(".intro-line"));
+    const traits = document.getElementById("traits");
+    if (!wrap || !lines.length) return;
 
-  // 최초 1회 즉시 계산
-  calculateWheel();
+    // 1,3번째: 오른쪽으로 흘러오며 정지 / 2번째: 왼쪽으로 흘러오며 정지
+    const dirs = [1, -1, 1];
 
-  // ===============================
-  // 12) raf 계속 돌릴지 선택 (성능 vs 안정성)
-  // - 필요 없으면 아래 raf 블록을 통째로 주석 처리해도 됨
-  // ===============================
-  let rafId = null;
-  const rafLoop = () => {
-    rafId = requestAnimationFrame(rafLoop);
-    calculateWheel();
-  };
-  rafLoop();
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // 페이지 이탈 시 raf 정리(안전)
-  window.addEventListener("beforeunload", () => {
-    if (rafId) cancelAnimationFrame(rafId);
-  });
-});
+    let played = false;
+    let resizeTimer = null;
+    let traitsTimer = null;
+
+    function placeLines(withAnimation) {
+      lines.forEach((line) => {
+        line.classList.remove("is-animated");
+        line.style.animationDelay = "0s";
+        line.style.opacity = "1";
+        line.style.filter = "none";
+        line.style.transform = "translate3d(0,0,0)";
+      });
+
+      const wrapW = wrap.clientWidth;
+      const vw = window.innerWidth;
+      const moveDist = Math.max(140, Math.min(280, vw * 0.12));
+
+      lines.forEach((line, i) => {
+        const fill = line.querySelector(".fill");
+        if (!fill) return;
+
+        const lineRect = line.getBoundingClientRect();
+        const fillRect = fill.getBoundingClientRect();
+
+        const desktopTarget = parseFloat(line.dataset.target || "0.58");
+        const targetRatio = window.innerWidth <= 780 ? 0.53 : desktopTarget;
+
+        const targetX = wrapW * targetRatio;
+        const fillCenterInLine =
+          (fillRect.left - lineRect.left) + (fillRect.width / 2);
+
+        let toX = targetX - fillCenterInLine;
+
+        const pad = window.innerWidth <= 780 ? 12 : 20;
+        const maxX = pad;
+        const minX = wrapW - line.scrollWidth - pad;
+        toX = Math.max(minX, Math.min(maxX, toX));
+
+        const dir = dirs[i] ?? 1;
+        const fromX = toX - dir * moveDist;
+
+        line.style.setProperty("--to-x", `${toX}px`);
+        line.style.setProperty("--from-x", `${fromX}px`);
+
+        if (withAnimation && !reduceMotion) {
+          line.style.animationDelay = `${0.06 + i * 0.24}s`;
+          line.classList.add("is-animated");
+        } else {
+          line.style.transform = `translate3d(${toX}px,0,0)`;
+        }
+      });
+
+      if (traits) {
+        clearTimeout(traitsTimer);
+
+        if (withAnimation && !reduceMotion) {
+          traits.classList.remove("is-reveal");
+          traitsTimer = setTimeout(() => {
+            traits.classList.add("is-reveal");
+          }, 1800);
+        } else {
+          if (played || reduceMotion) {
+            traits.classList.add("is-reveal");
+          }
+        }
+      }
+    }
+
+    placeLines(false);
+
+    requestAnimationFrame(() => {
+      if (!played) {
+        placeLines(true);
+        played = true;
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => placeLines(false), 140);
+    });
+
+    window.addEventListener("pageshow", (e) => {
+      if (e.persisted) placeLines(false);
+    });
+  }
+
+  // ✅ 추가: about-headline 오른쪽 등장
+  function initAboutHeadlineReveal() {
+    const headline = document.querySelector(".about-headline");
+    if (!headline) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      headline.classList.add("is-reveal");
+      return;
+    }
+
+    const io = new IntersectionObserver((entries, observer) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        headline.classList.add("is-reveal");
+        observer.unobserve(headline); // 1회만
+        break;
+      }
+    }, {
+      threshold: 0.35,
+      rootMargin: "0px 0px -8% 0px"
+    });
+
+    io.observe(headline);
+  }
+
+  function initBgBlend(lenis) {
+    const about = document.querySelector("#about");
+    if (!about) return;
+
+    const dark = [44, 44, 44];      // #2c2c2c
+    const light = [237, 237, 237];  // #ededed
+
+    const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+    const lerp = (a, b, t) => Math.round(a + (b - a) * t);
+
+    const apply = () => {
+      const vh = window.innerHeight;
+      const top = about.getBoundingClientRect().top;
+
+      // about 상단이 화면 하단 근처(85%)에서 시작 -> 상단 근처(15%)에서 라이트 완료
+      const start = vh * 0.85;
+      const end = vh * 0.15;
+
+      const t = clamp((start - top) / (start - end), 0, 1);
+
+      const r = lerp(dark[0], light[0], t);
+      const g = lerp(dark[1], light[1], t);
+      const b = lerp(dark[2], light[2], t);
+
+      document.documentElement.style.setProperty("--bg-current", `${r} ${g} ${b}`);
+    };
+
+    if (lenis && typeof lenis.on === "function") {
+      lenis.on("scroll", apply);
+    } else {
+      window.addEventListener("scroll", apply, { passive: true });
+    }
+
+    window.addEventListener("resize", apply);
+    window.addEventListener("pageshow", apply);
+    apply();
+  }
+})();

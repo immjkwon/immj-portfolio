@@ -4,264 +4,151 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
-  <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
- 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="apple-touch-icon" sizes="57x57" href="./assets/images/apple-icon-57x57.png" />
   <link rel="apple-touch-icon" sizes="60x60" href="./assets/images/apple-icon-60x60.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="./assets/images/android-icon-192x192.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png" />
-  <link rel="stylesheet" type="text/css" href="global.css" />
-  <link rel="stylesheet" type="text/css" href="mq.css" />
-  
-  <title>immj-portfolio</title>
+  <link rel="stylesheet" href="./global.css" />
+
+  <title>KWONMINJI</title>
 </head>
 <body>
-  <div class="circle-container">
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-  </div>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#" class="brand">KWONMINJI</a>
 
-  <div class="wrapper">
-    <div class="content">
-      <section class="section hero"></section>
-    </div>
-    <div class="image-container">
-      <img src="./assets/images/air.png" alt="image" />
-      <div class="marquee">
-        <div class="marquee-wrapper">
-          <span>Nice to meet you. Welcome</span>
-          <span>Nice to meet you. Welcome</span>
-          <span>Nice to meet you. Welcome</span>
-          <span>Nice to meet you. Welcome</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <section id="intro" class="section intro">
-    <div class="intro-content">
-      <h1 class="intro-line">안녕하세요, 저는 Mj입니다.</h1>
-      <p class="intro-line">헤매는 만큼 내 땅이 된다는 말, 들어보셨나요?</p>
-      <p class="intro-line">div의 d자도 모르던 제가,</p>
-      <p class="intro-line">높이 오를수록 해를 더 오래 볼 수 있다는 걸 알게 되었습니다.</p>      
-      <p class="intro-line">더 나은 내일을 위해 안주하지 않고 끊임없이 공부합니다.</p>
-      <p class="intro-line">여러 유관 부서와의 협업으로 탁월한 소통 능력을 발휘하며,</p>
-      <p class="intro-line">기획자의 니즈에 최적화된 대응력을 갖추고 있습니다.</p>
-      <p class="intro-line">연락 한 통이면 됩니다. 손가락은 가볍게, 결과는 묵직하게!</p>            
-    </div>
-  </section>
-  
-  <section class="section second">
-    <div class="head">
-      <h1 id="second" class="left-text">Work</h1>
-      <h1 class="right-text">experience</h1>
-    </div>
-    <div class="carousel">
-      <div class="swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="single">
-              <a href="https://shop.illycaffe.co.kr/order/subscription_main.php" target="_blank"><img src="./assets/images/slide-img09.png" alt="정기구독 서비스 썸네일 이미지" />
-                <div class="single-header">Work - Publishing</div>
-                <div class="icon-arrow"></div>
-                <div class="slide-description">
-                  <strong>정기구독 서비스</strong>
-                  <span>정기구독 서비스 사용자 경험 개선 적응형</span>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="single">
-              <a href="https://www.illycaffe.co.kr/barista_interview/illy_barista.php" target="_blank"><img src="./assets/images/slide-img08.png" alt="일리카페 바리스타 인터뷰 썸네일 이미지" />
-                <div class="single-header">Work - Publishing</div>
-                <div class="icon-arrow"></div>
-                <div class="slide-description">
-                  <strong>일리카페 바리스타 인터뷰</strong>
-                  <span>브랜드 아이덴티티를 살린 인터뷰 콘텐츠 반응형</span>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="single">
-              <a href="https://www.illycaffe.co.kr/brand_partnership/illycaffe_golf.php" target="_blank"><img src="./assets/images/slide-img07.png" alt="두산 위브 골프대회 썸네일 이미지" />
-                <div class="single-header">Work - Publishing</div>
-                <div class="icon-arrow"></div>
-                <div class="slide-description">
-                  <strong>두산 위브 골프대회</strong>
-                  <span>이벤트 페이지 퍼블리싱 및 반응형 레이아웃 구현</span>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="single">
-              <a href="https://www.illycaffe.co.kr/company/notice/for_earth.php" target="_blank"><img src="./assets/images/slide-img06.png" alt="지구의 날 기념 썸네일 이미지" />
-                <div class="single-header">Work - Publishing</div>
-                <div class="icon-arrow"></div>
-                <div class="slide-description">
-                  <strong>지구의 날 기념</strong>
-                  <span>지속가능성 메시지를 전하는 테마 랜딩 페이지</span>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="single">
-              <a href="https://www.illycaffe.co.kr/barista_interview/illy_barista.php" target="_blank"><img src="./assets/images/slide-img05.png" alt="일리카페 바리스타 인터뷰 썸네일 이미지" />
-                <div class="single-header">Work - Publishing</div>
-                <div class="icon-arrow"></div>
-                <div class="slide-description">
-                  <strong>일리카페 바리스타 인터뷰</strong>
-                  <span>지속가능성 메시지를 전하는 테마 랜딩 페이지</span>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="single">
-              <a href="https://www.illycaffe.co.kr/brand_partnership/kakao_collab.php" target="_blank"><img src="./assets/images/slide-img10.png" alt="일리 X 카카오프렌즈 콜라보 프로모션 썸네일 이미지" />
-                <div class="single-header">Work - Publishing</div>
-                <div class="icon-arrow"></div>
-                <div class="slide-description">
-                  <strong>일리 X 카카오프렌즈 콜라보 프로모션</strong>
-                  <span>일리와 카카오프렌즈 캐릭터 머신 상품 테마 랜딩 페이지</span>
-                </div>
-              </a>
-            </div>
-          </div>          
-          <div class="swiper-slide">
-            <div class="single">
-              <a href="https://www.illycaffe.co.kr/company/notice/illycaffe_mobility.php?category=brand" target="_blank"><img src="./assets/images/slide-img04.png" alt="일리카페 모빌리티 썸네일 이미지" />
-                <div class="single-header">Work - Publishing</div>
-                <div class="icon-arrow"></div>
-                <div class="slide-description">
-                  <strong>일리카페 모빌리티</strong>
-                  <span>지속가능성 메시지를 전하는 테마 랜딩 페이지</span>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="single">
-              <a href="https://www.illycaffe.co.kr/brand_partnership/caffelatte_promo.php" target="_blank"><img src="./assets/images/slide-img03.png" alt="illy x 네스트호텔 썸네일 이미지" />
-                <div class="single-header">Work - Publishing</div>
-                <div class="icon-arrow"></div>
-                <div class="slide-description">
-                  <strong>illy x 네스트호텔</strong>
-                  <span>지속가능성 메시지를 전하는 테마 랜딩 페이지</span>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="single">
-              <a href="https://www.illycaffe.co.kr/company/notice/illy-sehwamuseum.php" target="_blank"><img src="./assets/images/slide-img02.png" alt="illy x 세화미술관 섬네일 썸네일 이미지" />
-                <div class="single-header">Work - Publishing</div>
-                <div class="icon-arrow"></div>
-                <div class="slide-description">
-                  <strong>illy x 세화미술관</strong>
-                  <span>지속가능성 메시지를 전하는 테마 랜딩 페이지</span>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="single">
-              <a href="https://www.illycaffe.co.kr/company/live-happilly/b-corp.php?category=brand" target="_blank"><img src="./assets/images/slide-img01.png" alt="illy 비콥(B Corp) 인증 썸네일 이미지" />
-                <div class="single-header">Work - Publishing</div>
-                <div class="icon-arrow"></div>
-                <div class="slide-description">
-                  <strong>illy 비콥(B Corp) 인증</strong>
-                  <span>지속가능성 메시지를 전하는 테마 랜딩 페이지</span>
-                </div>
-              </a>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="single">
-              <a href="" target="_blank"><img src="./assets/images/slide-img12.png" alt="일리 X 두산위브 프로모션 썸네일 이미지" />
-                <div class="single-header">Work - Publishing</div>
-                <div class="icon-arrow"></div>
-                <div class="slide-description">
-                  <strong>일리 X 두산위브 프로모션</strong>
-                  <span>두산위브 입주인을 위한 프로모션 메인 페이지</span>
-                </div>
-              </a>
-            </div>
-          </div>        
-          <div class="swiper-slide">
-            <div class="single">
-              <a href="https://bigk.io/company/" target="_blank"><img src="./assets/images/slide-img13.png" alt="bigK 플래폼 웹사이트 구축 썸네일 이미지" />
-                <div class="single-header">Work - wordpress</div>
-                <div class="icon-arrow"></div>
-                <div class="slide-description">
-                  <strong>bigK 플래폼 웹사이트 구축</strong>
-                  <span>블록체인 관련 월렛시스템 서비스 플랫폼</span>
-                </div>
-              </a>
-            </div>
-          </div>               
-          <div class="swiper-slide">
-            <div class="single">
-              <a href="https://ruvino.gabia.io/index.php" target="_blank"><img src="./assets/images/slide-img11.png" alt=" 썸네일 이미지" />
-                <div class="single-header">Work - Publishing</div>
-                <div class="icon-arrow"></div>
-                <div class="slide-description">
-                  <strong>RUVINO</strong>
-                  <span>일리 계열사 와인 브랜드 랜딩 페이지</span>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <section id="third-contact" class="section third contact">
-    <div class="contact-bg-layer">
-      <video autoplay muted loop playsinline>
-        <source src="./assets/videos/contact-bg.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
-    <div class="contact-content">
-      <h2>You must contact me.</h2>
-      <p class="contact-info">다음 프로젝트는 당신의 선택에서 시작됩니다.</p>
-      <a class="email-link" href="mailto:ahreum0zu@naver.com" target="_blank" rel="noopener">
-        <div class="background-wrapper">ahreum0zu@naver.com</div>
-      </a>
-    </div>
-  </section>
-
-  <footer>
-    <div class="footer-container">
-      <div class="footer-logo">
-        <h2>immj Portfolio</h2>
-      </div>
-      <nav class="footer-nav">
-        <a href="#">Home</a>
-        <a href="#second">Work</a>
-        <a href="#intro">About</a>
-        <a href="mailto:ahreum0zu@naver.com" target="_blank" rel="noopener">Contact</a>
+      <nav class="gnb" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#achievements">Impact</a>
+        <a href="#stack">Skills</a>
+        <a href="#projects">Projects</a>
       </nav>
-      <div class="footer-copy">
-        <p>© 2025 immj Portfolio. All rights reserved.</p>
-      </div>
     </div>
-  </footer>
- 
-  <script src="script.js" defer></script>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div class="hero-inner" id="heroRoot">
+        <div class="intro-wrap" aria-label="Hero multilingual greeting">
+          <p class="intro-line line-1" data-target="0.59">
+            <span class="outline">HELLO.</span>
+            <span class="outline">こんにちは.</span>
+            <span class="outline">Hola.</span>
+            <span class="fill">안녕하세요.</span>
+            <span class="outline">Bonjour.</span>
+            <span class="outline">Salve.</span>
+          </p>
+
+          <p class="intro-line line-2" data-target="0.58">
+            <span class="outline">Nice to meet you.</span>
+            <span class="fill">반갑습니다.</span>
+            <span class="outline">はじめまして.</span>
+            <span class="outline">Piacere di conoscerla.</span>
+            <span class="outline">Ravi de vous rencontrer.</span>
+          </p>
+
+          <p class="intro-line line-3" data-target="0.58">
+            <span class="outline">I'm Kwon Minji.</span>
+            <span class="outline">Mi chiamo Kwon Min-ji.</span>
+            <span class="fill">권민지입니다.</span>
+            <span class="outline">Je suis Min Ji Kwon.</span>
+          </p>
+        </div>
+
+        <div class="traits" id="traits">
+          <p class="trait">섬세하고 디테일을 중요시 하지만, <strong>손이 빠르답니다.</strong></p>
+          <p class="trait">유연함을 좋아하지만, <strong>기본에 충실해요.</strong></p>
+        </div>
+
+        <a href="#about" class="scroll-down" aria-label="Scroll to About">
+          <span>Scroll down</span>
+          <svg class="scroll-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+            <path d="M6 9l6 6 6-6"
+              stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+
+    <section id="about" class="about-section">
+      <div class="about-inner">
+        <p class="about-kicker">INTRODUCE</p>
+
+      <h2 class="about-headline" id="aboutHeadline">
+        <span class="headline-row">
+          <span class="headline-line">디테일은 끝까지, 속도는 가볍게.</span>
+        </span>
+        <span class="headline-row">
+          <span class="headline-line">
+            시맨틱 마크업을 기본으로, <span class="keep">기획의도를 알잘딱! 해서</span>
+          </span>
+        </span>
+        <span class="headline-row">
+          <span class="headline-line">디자인부터 퍼블리싱까지 유연하게 완성해요.</span>
+        </span>
+      </h2>
+
+    <div class="about-divider about-divider--top" aria-hidden="true"></div>
+
+        <div class="about-grid">
+          <p class="about-side">
+            저는 최근에<br />
+            이런 업무를 했어요.
+          </p>
+
+          <div class="about-list">
+            <article class="about-item">
+              <h3 class="about-item-title">퍼블리싱 및 유지보수</h3>
+              <dl class="about-meta">
+                <div><dt>개요</dt><dd>공식몰, 브랜드사이트 프로모션 및 페이지 퍼블리싱, 유지보수</dd></div>
+                <div><dt>역할</dt><dd>마크업, CSS/스크립트 적용, 반응형 구현, 크로스브라우저 인터랙션 처리</dd></div>
+                <div><dt>성과</dt><dd>일정 100% 준수, 오노출 및 누락 방지</dd></div>
+              </dl>
+            </article>
+
+            <article class="about-item">
+              <h3 class="about-item-title">공식몰 UI 개선</h3>
+              <dl class="about-meta">
+                <div><dt>개요</dt><dd>로그인 및 모바일 주요 화면 UI 개선</dd></div>
+                <div><dt>역할</dt><dd>단독 설계 및 피드백 반영, 전반 리드</dd></div>
+                <div><dt>성과</dt><dd>사용성, 심미성 개선 기여</dd></div>
+              </dl>
+            </article>
+
+            <article class="about-item">
+              <h3 class="about-item-title">상시 유지보수 및 구조 커스터마이징</h3>
+              <dl class="about-meta">
+                <div><dt>개요</dt><dd>고도몰 구조 기반 기능 확장 및 랜딩 페이지 커스터마이징</dd></div>
+                <div><dt>역할</dt><dd>커스터마이징 가능 영역 분석 및 레이아웃 수정</dd></div>
+                <div><dt>성과</dt><dd>UX 개선으로 정품등록 접근성 향상 및 CS 감소</dd></div>
+              </dl>
+            </article>
+
+            <article class="about-item">
+              <h3 class="about-item-title">공식몰 앱 런칭 F/U</h3>
+              <dl class="about-meta">
+                <div><dt>개요</dt><dd>공식몰 앱 런칭을 위한 필수 리소스 적용</dd></div>
+                <div><dt>역할</dt><dd>앱 서비스 가이드 고려 이미지 제작 및 검수</dd></div>
+                <div><dt>성과</dt><dd>준비 기간 50% 단축</dd></div>
+              </dl>
+            </article>
+          </div>
+        </div>
+
+        <div class="about-divider about-divider--bottom" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section id="achievements" class="section">IMPACT</section>
+    <section id="stack" class="section">SKILLS</section>
+    <section id="projects" class="section">PROJECTS</section>
+  </main>
+
+  <script src="https://unpkg.com/lenis@1.3.17/dist/lenis.min.js"></script>
+  <script src="./script.js" defer></script>
 </body>
 </html>
