@@ -45,7 +45,15 @@
     // 7) Impact 탭/패널/접힘 카드 동작
     // ------------------------------------------------------------
     initImpactTabs();
+    // 8) Skills 리본 + 카드 리빌/부유
+    initSkillsSection();
+    initProjectsSection(lenis);
+    initAppealMotion();
+    initTopButton(lenis);
   });
+
+
+
 
   // ============================================================
   // Lenis
@@ -401,7 +409,7 @@ function initImpactTabs() {
     };
 
     panelsWrap.addEventListener("transitionend", onEnd);
-    cleanupTimer = setTimeout(finish, 560);
+    cleanupTimer = setTimeout(finish, 700);
 
     if (focusTab) {
       const activeTab = tabs.find((t) => t.dataset.key === key);
@@ -444,6 +452,452 @@ function initImpactTabs() {
   if (initialKey) showPanelInstant(initialKey);
 }
 
+
+function initSkillsSection() {
+  const stage = document.querySelector("#skillsStage, .skills-stage");
+  if (!stage) return;
+
+  const cards = Array.from(stage.querySelectorAll(".skill-card"));
+  if (!cards.length) return;
+
+  const path = stage.querySelector("#skillsRibbonPath, .skills-ribbon-path");
+  const tracks = Array.from(stage.querySelectorAll("[data-ribbon-track]"));
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const mqMobile = window.matchMedia("(max-width: 780px)");
+
+  let cardIO = null;
+  let playIO = null;
+  let rafId = null;
+  let resizeTimer = null;
+
+  const timers = new Set();
+
+  // ribbon state
+  let phase = 0;
+  let run = 0;
+  const speed = 0.75;
+  const gap = 56;
+
+  function clearTimers() {
+    timers.forEach((id) => clearTimeout(id));
+    timers.clear();
+  }
+
+  function clearAll() {
+    if (cardIO) { cardIO.disconnect(); cardIO = null; }
+    if (playIO) { playIO.disconnect(); playIO = null; }
+    if (rafId != null) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    clearTimers();
+  }
+
+  function resetCards() {
+    cards.forEach((card) => {
+      card.classList.remove("is-inview", "is-float");
+      card.dataset.revealed = "0";
+    });
+  }
+
+  function getTextLen(tp) {
+    const textEl = tp.closest("text");
+    if (!textEl || typeof textEl.getComputedTextLength !== "function") return 0;
+    return textEl.getComputedTextLength();
+  }
+
+  function measureRibbon() {
+    if (!path || !tracks.length || typeof path.getTotalLength !== "function") return;
+    const pathLen = path.getTotalLength();
+    const maxTextLen = Math.max(...tracks.map(getTextLen), 0);
+    run = Math.max(maxTextLen + gap, pathLen * 0.55);
+    if (run <= 0) run = 500;
+    if (phase <= -run) phase = phase % run;
+  }
+
+  function applyRibbon() {
+    if (!tracks.length) return;
+    tracks[0].setAttribute("startOffset", `${phase}`);
+    if (tracks[1]) tracks[1].setAttribute("startOffset", `${phase + run}`);
+  }
+
+  function tickRibbon() {
+    phase -= speed;
+    if (phase <= -run) phase += run;
+    applyRibbon();
+    rafId = requestAnimationFrame(tickRibbon);
+  }
+
+  function setupRibbonDesktopOnly() {
+    // 모바일 또는 reduce-motion에서는 리본 비활성
+    if (reduceMotion || mqMobile.matches || !path || tracks.length === 0) return;
+
+    measureRibbon();
+    applyRibbon();
+
+    playIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (rafId == null) rafId = requestAnimationFrame(tickRibbon);
+        } else if (rafId != null) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      });
+    }, { threshold: 0 });
+
+    playIO.observe(stage);
+  }
+
+  function setupCardReveal() {
+    resetCards();
+
+    if (reduceMotion) {
+      cards.forEach((card) => card.classList.add("is-inview"));
+      return;
+    }
+
+    cardIO = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const card = entry.target;
+        if (card.dataset.revealed === "1") {
+          observer.unobserve(card);
+          return;
+        }
+        card.dataset.revealed = "1";
+
+        const inDelayRaw = getComputedStyle(card).getPropertyValue("--in-delay").trim();
+        const inDelay = Number.isFinite(parseFloat(inDelayRaw)) ? parseFloat(inDelayRaw) : 0;
+        const delayMs = Math.max(0, inDelay * 1000);
+
+        const t = setTimeout(() => {
+          timers.delete(t);
+          card.classList.add("is-inview");
+
+          // PC에서만 float: 등장 애니메이션 끝난 뒤 시작
+          if (!mqMobile.matches) {
+            const onEnd = (e) => {
+              if (e.animationName !== "skillCardIn") return;
+              card.classList.add("is-float");
+              card.removeEventListener("animationend", onEnd);
+            };
+            card.addEventListener("animationend", onEnd);
+          }
+        }, delayMs);
+        timers.add(t);
+
+        observer.unobserve(card);
+      });
+    }, {
+      // 너무 일찍 시작되는 문제 방지 (화면에 들어온 뒤 시작)
+      threshold: 0.2,
+      rootMargin: "0px 0px -18% 0px"
+    });
+
+    cards.forEach((card) => cardIO.observe(card));
+  }
+
+  function applyMode() {
+    clearAll();
+    setupCardReveal();
+    setupRibbonDesktopOnly();
+  }
+
+  applyMode();
+
+  const onModeChange = () => applyMode();
+  if (typeof mqMobile.addEventListener === "function") {
+    mqMobile.addEventListener("change", onModeChange);
+  } else {
+    mqMobile.addListener(onModeChange); // Safari fallback
+  }
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (!mqMobile.matches) {
+        measureRibbon();
+        applyRibbon();
+      }
+    }, 120);
+  }, { passive: true });
+
+  window.addEventListener("pagehide", () => {
+    if (rafId != null) cancelAnimationFrame(rafId);
+    rafId = null;
+    clearTimers();
+  }, { once: true });
+}
+
+
+
+function initProjectsSection() {
+  const section = document.querySelector("#projects.projects-section");
+  if (!section) return;
+
+  const wrap = section.querySelector("#projectsGridWrap");
+  const grid = section.querySelector("#projectsGrid");
+  const curve = section.querySelector("#projectsCurve");
+  const moreBtn = section.querySelector("#projectsMoreBtn");
+
+  if (!wrap || !grid || !curve || !moreBtn) return;
+
+  const mqMobile = window.matchMedia("(max-width: 780px)");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // 요구사항:
+  // PC: 2~3줄 사이에 curve
+  // MO: 3~4줄 사이에 curve
+  const config = {
+    pc: { curveAfterRows: 2, visibleRows: 2.9 },
+    mo: { curveAfterRows: 3, visibleRows: 3.9 }
+  };
+
+  let expanded = false;
+  let resizeTimer = null;
+
+  function getCardHeight() {
+    const card = grid.querySelector(".project-card");
+    if (!card) return 0;
+
+    let h = card.getBoundingClientRect().height;
+    if (!h || h < 8) h = card.offsetHeight;
+    if (!h || h < 8) h = card.offsetWidth; // aspect-ratio 보정
+    return h || 0;
+  }
+
+function measure() {
+  const cardH = getCardHeight();
+  if (!cardH) return;
+
+  const styles = getComputedStyle(grid);
+  const rowGap = parseFloat(styles.rowGap) || parseFloat(styles.gap) || 0;
+
+  const wrapStyles = getComputedStyle(wrap);
+  const padL = parseFloat(wrapStyles.paddingLeft) || 0;
+  const padR = parseFloat(wrapStyles.paddingRight) || 0;
+  wrap.style.setProperty("--wrap-pad-l", `${padL}px`);
+  wrap.style.setProperty("--wrap-pad-r", `${padR}px`);
+
+  const mode = mqMobile.matches ? config.mo : config.pc;
+
+  const curveTop =
+    cardH * mode.curveAfterRows + rowGap * (mode.curveAfterRows - 1);
+
+  const collapsedH =
+    cardH * mode.visibleRows + rowGap * (Math.ceil(mode.visibleRows) - 1);
+
+  wrap.style.setProperty("--curve-top", `${Math.round(curveTop)}px`);
+  wrap.style.setProperty("--projects-collapsed-h", `${Math.round(collapsedH)}px`);
+
+  const fillH = mqMobile.matches ? Math.round(cardH * 0.78) : 0;
+  wrap.style.setProperty("--curve-fill-h", `${fillH}px`);
+
+  if (!expanded) {
+    wrap.style.maxHeight = `${Math.round(collapsedH)}px`;
+  } else if (wrap.style.maxHeight !== "none") {
+    wrap.style.maxHeight = `${Math.round(grid.scrollHeight)}px`;
+  }
+}
+
+  function expandProjects() {
+    if (expanded) return;
+    expanded = true;
+
+    moreBtn.setAttribute("aria-expanded", "true");
+    moreBtn.disabled = true;
+
+    const from = wrap.getBoundingClientRect().height;
+    const to = Math.max(grid.scrollHeight, from + 1);
+
+    wrap.style.overflow = "hidden";
+    wrap.style.maxHeight = `${Math.round(from)}px`;
+
+    requestAnimationFrame(() => {
+      wrap.style.maxHeight = `${Math.round(to)}px`;
+    });
+
+    curve.classList.add("is-fadeout");
+
+    const finish = () => {
+      wrap.classList.add("is-expanded");
+      wrap.style.maxHeight = "none";
+      wrap.style.overflow = "visible";
+      curve.hidden = true; // curve 완전 제거
+    };
+
+    if (reduceMotion) {
+      finish();
+      return;
+    }
+
+    let done = false;
+    const onceFinish = () => {
+      if (done) return;
+      done = true;
+      finish();
+    };
+
+    // max-height 전환 끝 or curve opacity 전환 끝 중 먼저 끝나는 시점에 마무리
+    wrap.addEventListener(
+      "transitionend",
+      (e) => {
+        if (e.propertyName === "max-height") onceFinish();
+      },
+      { once: true }
+    );
+
+    curve.addEventListener(
+      "transitionend",
+      (e) => {
+        if (e.propertyName === "opacity") onceFinish();
+      },
+      { once: true }
+    );
+
+    // 안전 타임아웃
+    setTimeout(onceFinish, 800);
+  }
+
+  moreBtn.addEventListener("click", expandProjects);
+
+  // 이미지 로드 후 실측
+  const imgs = Array.from(grid.querySelectorAll("img"));
+  imgs.forEach((img) => {
+    if (img.complete) return;
+    img.addEventListener("load", measure, { once: true });
+    img.addEventListener("error", measure, { once: true });
+  });
+
+  window.addEventListener("load", measure, { once: true });
+  window.addEventListener(
+    "resize",
+    () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(measure, 120);
+    },
+    { passive: true }
+  );
+
+  if (typeof mqMobile.addEventListener === "function") {
+    mqMobile.addEventListener("change", measure);
+  } else {
+    mqMobile.addListener(measure); // Safari fallback
+  }
+
+  measure();
+}
+
+
+
+
+
+function initAppealMotion() {
+  const section = document.getElementById("appeal");
+  const copy = document.getElementById("appealCopy");
+  const thanks = document.getElementById("appealThanks");
+  if (!section || !copy) return;
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduceMotion) {
+    copy.classList.add("is-reveal");
+    thanks?.classList.add("is-reveal");
+    return;
+  }
+
+  const io = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      copy.classList.add("is-reveal");
+      thanks?.classList.add("is-reveal");
+      observer.unobserve(section); // 1회 재생
+    });
+  }, {
+    threshold: 0.34,
+    rootMargin: "0px 0px -8% 0px"
+  });
+
+  io.observe(section);
+}
+
+function initTopButton(lenis) {
+  const btn = document.getElementById("toTopBtn");
+  if (!btn) return;
+
+  const SHOW_Y = 520;
+
+  const setVisible = (y) => {
+    btn.classList.toggle("is-visible", y > SHOW_Y);
+  };
+
+  const getWindowY = () =>
+    window.scrollY || document.documentElement.scrollTop || 0;
+
+  if (lenis && typeof lenis.on === "function") {
+    lenis.on("scroll", (evt) => {
+      const y = (typeof evt === "number")
+        ? evt
+        : (evt && typeof evt.scroll === "number")
+          ? evt.scroll
+          : getWindowY();
+      setVisible(y);
+    });
+  } else {
+    window.addEventListener("scroll", () => setVisible(getWindowY()), { passive: true });
+  }
+
+  setVisible(getWindowY());
+
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (lenis && typeof lenis.scrollTo === "function") {
+      lenis.scrollTo(0, { duration: 1.0 });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+}
+
+
+
+/* ===== to-top: PC에서 footer 위까지만 ===== */
+(function () {
+  const toTop = document.querySelector('.to-top');
+  const footer = document.querySelector('.site-footer');
+  if (!toTop || !footer) return;
+
+  const desktopMQ = window.matchMedia('(min-width: 781px)');
+  const FOOTER_GAP = 12; // footer와 버튼 사이 간격
+
+  function updateToTopDock() {
+    if (!desktopMQ.matches) {
+      toTop.style.setProperty('--footer-lift', '0px');
+      return;
+    }
+
+    const footerTop = footer.getBoundingClientRect().top;
+    const bottom = parseFloat(getComputedStyle(toTop).bottom) || 24;
+
+    // 버튼 하단이 footer 상단과 겹치기 시작하면 위로 lift
+    const lift = Math.max(
+      0,
+      window.innerHeight - bottom - footerTop + FOOTER_GAP
+    );
+
+    toTop.style.setProperty('--footer-lift', `${Math.round(lift)}px`);
+  }
+
+  window.addEventListener('scroll', updateToTopDock, { passive: true });
+  window.addEventListener('resize', updateToTopDock);
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', updateToTopDock);
+  }
+
+  updateToTopDock();
+})();
 
 
 })();
