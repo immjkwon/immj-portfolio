@@ -627,7 +627,7 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   .project-overlay{padding:12px 10px 10px; background:rgba(48,48,48,.72); opacity:1; transform:none;}
   .project-card:focus-visible .project-overlay{background:rgba(38,38,38,.82);}
   .project-overlay-kicker{font-size:11px;}
-  .project-overlay-title{margin-top:8px;font-size:15px;line-height:1.32;}
+  .project-overlay-title{margin-top:22px;font-size:15px;line-height:1.32;}
   .project-overlay-desc{margin-top:8px;font-size:12px;line-height:1.4;}
   .project-overlay-type{font-size:11px;}
   .projects-grid-wrap{--edge-fix:8px;position:relative;}
