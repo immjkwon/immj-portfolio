@@ -321,7 +321,7 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
 }
 
 .about-divider{border-top:1px solid #c7c7c7;}
-.about-divider--top{margin-top:128px;}
+.about-divider--top{margin-top:clamp(70px, 7vw, 95px);}
 .about-divider--bottom{margin-top:0;}
 
 .about-grid{
@@ -405,7 +405,7 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   color:#111;
 }
 .impact-tabs{
-  margin-top:56px;
+  margin-top:clamp(70px, 7vw, 95px);
   display:flex;
   align-items:center;
   gap:clamp(18px, 2vw, 34px);
@@ -763,7 +763,7 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   --wrap-pad-r:0px;
   --edge-fix:8px;
   position:relative;
-  margin-top:clamp(40px, 4vw, 54px);
+  margin-top:clamp(70px, 7vw, 95px);
   max-height:var(--projects-collapsed-h);
   overflow:hidden;
   isolation:isolate;
