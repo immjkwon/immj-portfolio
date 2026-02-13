@@ -427,7 +427,10 @@
 
 
 /* ============================================================
-   Impact PANEL 1 숫자 카운트 모션
+   Impact PANEL 1 숫자 카운트 모션 (모바일 안정화)
+   - 일리 탭 복귀 시마다 재생
+   - 모바일/PC threshold 분기
+   - IO 이벤트 미스 방지
 ============================================================ */
 function initImpactCounters() {
   const section = document.getElementById("achievements");
@@ -437,7 +440,7 @@ function initImpactCounters() {
   const counters = Array.from(panelIlly.querySelectorAll("[data-counter]"));
   if (!counters.length) return;
 
-  const triggerEl = counters[0]; // 첫 카운터를 트리거 기준으로 사용
+  const triggerEl = counters[0];
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const mqMobile = window.matchMedia("(max-width: 780px)");
   const DURATION = 1600;
@@ -477,21 +480,20 @@ function initImpactCounters() {
   }
 
   function getRule() {
-    // 모바일/PC 각각 threshold 및 가시 조건 분기
     if (mqMobile.matches) {
       return {
-        threshold: 0.32,
-        rootMargin: "0px 0px -4% 0px",
-        topIn: 0.94,
-        bottomIn: 0.02,
-        tabDelay: 220
+        threshold: 0.12,                 // 모바일은 낮춤
+        rootMargin: "0px 0px -2% 0px",
+        topIn: 0.97,
+        bottomIn: 0.00,
+        tabDelay: 240
       };
     }
     return {
-      threshold: 0.55,
-      rootMargin: "0px 0px -10% 0px",
-      topIn: 0.88,
-      bottomIn: 0.15,
+      threshold: 0.45,
+      rootMargin: "0px 0px -8% 0px",
+      topIn: 0.90,
+      bottomIn: 0.12,
       tabDelay: 280
     };
   }
@@ -501,14 +503,14 @@ function initImpactCounters() {
     const rect = triggerEl.getBoundingClientRect();
     const vh = window.innerHeight || document.documentElement.clientHeight;
     const rule = getRule();
-
     return rect.top <= vh * rule.topIn && rect.bottom >= vh * rule.bottomIn;
   }
 
-  function run() {
+  // force=true면 IO가 "보인다"고 판단한 순간에는 가시성 추가검사 생략
+  function run({ force = false } = {}) {
     if (isAnimating) return;
     if (!isPanelActive()) return;
-    if (!isCounterVisible()) return;
+    if (!force && !isCounterVisible()) return;
 
     hasPlayedForCurrentShow = true;
 
@@ -523,7 +525,6 @@ function initImpactCounters() {
     const tick = (now) => {
       const raw = Math.min(1, (now - startAt) / DURATION);
       render(easeOutCubic(raw));
-
       if (raw < 1) {
         rafId = requestAnimationFrame(tick);
       } else {
@@ -542,14 +543,15 @@ function initImpactCounters() {
     if (startTimer != null) clearTimeout(startTimer);
     startTimer = setTimeout(() => {
       startTimer = null;
-      run();
+      // 탭 전환 직후 레이아웃 안정화 1프레임 더 대기
+      requestAnimationFrame(() => run({ force: false }));
     }, delay);
   }
 
   function resetForReplay() {
     cancelRun();
     hasPlayedForCurrentShow = false;
-    render(0); // 다음 진입 때 0/10부터 다시 시작
+    render(0);
   }
 
   function buildObserver() {
@@ -558,11 +560,16 @@ function initImpactCounters() {
     const rule = getRule();
     io = new IntersectionObserver(
       (entries) => {
-        if (!entries.some((e) => e.isIntersecting)) return;
-        if (!hasPlayedForCurrentShow) run();
+        const entry = entries.find((e) => e.isIntersecting);
+        if (!entry) return;
+        if (!hasPlayedForCurrentShow) {
+          // IO가 보인다고 판단하면 강제 실행
+          run({ force: true });
+        }
       },
       {
-        threshold: rule.threshold,
+        // 단일 threshold보다 배열이 모바일에서 콜백 누락이 덜함
+        threshold: [0, rule.threshold, 0.5],
         rootMargin: rule.rootMargin
       }
     );
@@ -570,16 +577,11 @@ function initImpactCounters() {
     io.observe(triggerEl);
   }
 
-  // 초기값 고정 (0%, 10일)
   render(0);
-
-  // Observer 세팅 (모바일/PC 분기 적용)
   buildObserver();
 
-  // 브레이크포인트 변경 시 Observer 재생성
   const onMqChange = () => {
     buildObserver();
-    // 현재 일리 패널이 열려 있고 아직 재생 안됐으면 즉시 시도
     if (isPanelActive() && !hasPlayedForCurrentShow) {
       scheduleRun(0);
     }
@@ -590,34 +592,41 @@ function initImpactCounters() {
     mqMobile.addListener(onMqChange);
   }
 
-  // 탭/폴드 클릭으로 일리 복귀 시마다 재생
+  // 클릭으로 일리 탭/폴드 복귀 시마다 재생
   section.addEventListener("click", (e) => {
     const trigger = e.target.closest(
       '.impact-tab[data-key="illy"], .impact-fold[data-key="illy"]'
     );
     if (!trigger) return;
-
     resetForReplay();
-    scheduleRun(getRule().tabDelay); // 패널 전환 애니메이션 뒤 실행
+
+    // 패널 전환 + 레이아웃 안정화 후 실행
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scheduleRun(getRule().tabDelay);
+      });
+    });
   });
 
-  // hidden 토글(키보드 전환 포함) 감지
+  // hidden 토글(키보드 전환 포함)
   const mo = new MutationObserver(() => {
     if (panelIlly.hidden) {
-      // 일리에서 벗어나면 다음 복귀를 위해 리셋
       resetForReplay();
       return;
     }
-    // 일리로 다시 열리면 재생 준비
     resetForReplay();
-    scheduleRun(getRule().tabDelay);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scheduleRun(getRule().tabDelay);
+      });
+    });
   });
   mo.observe(panelIlly, { attributes: true, attributeFilter: ["hidden"] });
 
-  // 초기 진입/뒤로가기 캐시 복원 대응
   window.addEventListener("load", () => {
     if (isPanelActive()) scheduleRun(0);
   });
+
   window.addEventListener("pageshow", () => {
     if (isPanelActive()) {
       resetForReplay();
@@ -625,7 +634,6 @@ function initImpactCounters() {
     }
   });
 
-  // 정리
   window.addEventListener(
     "pagehide",
     () => {
