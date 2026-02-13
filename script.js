@@ -437,13 +437,16 @@ function initImpactCounters() {
   const counters = Array.from(panelIlly.querySelectorAll("[data-counter]"));
   if (!counters.length) return;
 
-  const triggerEl = counters[0]; // 실제 숫자 노출 위치 기준
+  const triggerEl = counters[0]; // 첫 카운터를 트리거 기준으로 사용
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const mqMobile = window.matchMedia("(max-width: 780px)");
   const DURATION = 1600;
 
   let rafId = null;
   let startTimer = null;
-  let pendingReplay = false; // "재생 대기" 상태
+  let isAnimating = false;
+  let hasPlayedForCurrentShow = false;
+  let io = null;
 
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
@@ -457,105 +460,181 @@ function initImpactCounters() {
     });
   }
 
-  function stopAnim() {
+  function cancelRun() {
     if (rafId != null) {
       cancelAnimationFrame(rafId);
       rafId = null;
     }
+    if (startTimer != null) {
+      clearTimeout(startTimer);
+      startTimer = null;
+    }
+    isAnimating = false;
+  }
+
+  function isPanelActive() {
+    return !panelIlly.hidden;
+  }
+
+  function getRule() {
+    // 모바일/PC 각각 threshold 및 가시 조건 분기
+    if (mqMobile.matches) {
+      return {
+        threshold: 0.32,
+        rootMargin: "0px 0px -4% 0px",
+        topIn: 0.94,
+        bottomIn: 0.02,
+        tabDelay: 220
+      };
+    }
+    return {
+      threshold: 0.55,
+      rootMargin: "0px 0px -10% 0px",
+      topIn: 0.88,
+      bottomIn: 0.15,
+      tabDelay: 280
+    };
   }
 
   function isCounterVisible() {
-    if (panelIlly.hidden) return false;
-
+    if (!isPanelActive()) return false;
     const rect = triggerEl.getBoundingClientRect();
     const vh = window.innerHeight || document.documentElement.clientHeight;
+    const rule = getRule();
 
-    // 숫자 영역이 충분히 보이는 구간에서만 시작
-    return rect.top <= vh * 0.88 && rect.bottom >= vh * 0.15;
+    return rect.top <= vh * rule.topIn && rect.bottom >= vh * rule.bottomIn;
   }
 
-  function playFromStart() {
-    stopAnim();
-    render(0);
+  function run() {
+    if (isAnimating) return;
+    if (!isPanelActive()) return;
+    if (!isCounterVisible()) return;
+
+    hasPlayedForCurrentShow = true;
 
     if (reduceMotion) {
       render(1);
       return;
     }
 
-    const startTime = performance.now();
+    isAnimating = true;
+    const startAt = performance.now();
 
-    function tick(now) {
-      const raw = Math.min(1, (now - startTime) / DURATION);
+    const tick = (now) => {
+      const raw = Math.min(1, (now - startAt) / DURATION);
       render(easeOutCubic(raw));
 
       if (raw < 1) {
         rafId = requestAnimationFrame(tick);
       } else {
         rafId = null;
+        isAnimating = false;
       }
-    }
+    };
 
     rafId = requestAnimationFrame(tick);
   }
 
-  function tryStart() {
-    if (!pendingReplay) return;
-    if (!isCounterVisible()) return;
+  function scheduleRun(delay) {
+    if (!isPanelActive()) return;
+    if (hasPlayedForCurrentShow || isAnimating) return;
 
-    pendingReplay = false;
-    playFromStart();
+    if (startTimer != null) clearTimeout(startTimer);
+    startTimer = setTimeout(() => {
+      startTimer = null;
+      run();
+    }, delay);
   }
 
-  // "일리로 전환됨" 시 호출
-  function requestReplay(delay = 260) {
-    pendingReplay = true;
-    stopAnim();
-    render(0); // 다시 들어왔을 때 항상 0부터 보이게
-
-    clearTimeout(startTimer);
-    startTimer = setTimeout(tryStart, delay); // 패널 전환 모션 끝난 뒤 시작 시도
+  function resetForReplay() {
+    cancelRun();
+    hasPlayedForCurrentShow = false;
+    render(0); // 다음 진입 때 0/10부터 다시 시작
   }
 
-  // 초기값 보장
+  function buildObserver() {
+    if (io) io.disconnect();
+
+    const rule = getRule();
+    io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        if (!hasPlayedForCurrentShow) run();
+      },
+      {
+        threshold: rule.threshold,
+        rootMargin: rule.rootMargin
+      }
+    );
+
+    io.observe(triggerEl);
+  }
+
+  // 초기값 고정 (0%, 10일)
   render(0);
 
-  // 숫자 영역이 화면에 들어오면 시작 시도
-  const io = new IntersectionObserver((entries) => {
-    if (entries.some((e) => e.isIntersecting)) {
-      tryStart();
+  // Observer 세팅 (모바일/PC 분기 적용)
+  buildObserver();
+
+  // 브레이크포인트 변경 시 Observer 재생성
+  const onMqChange = () => {
+    buildObserver();
+    // 현재 일리 패널이 열려 있고 아직 재생 안됐으면 즉시 시도
+    if (isPanelActive() && !hasPlayedForCurrentShow) {
+      scheduleRun(0);
     }
-  }, {
-    threshold: 0.55,
-    rootMargin: "0px 0px -10% 0px"
-  });
+  };
+  if (typeof mqMobile.addEventListener === "function") {
+    mqMobile.addEventListener("change", onMqChange);
+  } else {
+    mqMobile.addListener(onMqChange);
+  }
 
-  io.observe(triggerEl);
-
-  // 패널 hidden -> visible 전환 감지 (키보드 탭 전환 포함)
-  const mo = new MutationObserver(() => {
-    if (!panelIlly.hidden) {
-      requestReplay(260); // ✅ 돌아올 때마다 재생
-    }
-  });
-
-  mo.observe(panelIlly, { attributes: true, attributeFilter: ["hidden"] });
-
-  // 클릭 기반 전환도 안전하게 보강
+  // 탭/폴드 클릭으로 일리 복귀 시마다 재생
   section.addEventListener("click", (e) => {
     const trigger = e.target.closest(
       '.impact-tab[data-key="illy"], .impact-fold[data-key="illy"]'
     );
-    if (trigger) requestReplay(260);
+    if (!trigger) return;
+
+    resetForReplay();
+    scheduleRun(getRule().tabDelay); // 패널 전환 애니메이션 뒤 실행
   });
 
-  // 페이지 최초 진입 시(기본 탭이 일리면) 1회 실행
-  requestReplay(0);
+  // hidden 토글(키보드 전환 포함) 감지
+  const mo = new MutationObserver(() => {
+    if (panelIlly.hidden) {
+      // 일리에서 벗어나면 다음 복귀를 위해 리셋
+      resetForReplay();
+      return;
+    }
+    // 일리로 다시 열리면 재생 준비
+    resetForReplay();
+    scheduleRun(getRule().tabDelay);
+  });
+  mo.observe(panelIlly, { attributes: true, attributeFilter: ["hidden"] });
 
-  // bfcache 복귀 시 보강
+  // 초기 진입/뒤로가기 캐시 복원 대응
+  window.addEventListener("load", () => {
+    if (isPanelActive()) scheduleRun(0);
+  });
   window.addEventListener("pageshow", () => {
-    if (!panelIlly.hidden) requestReplay(0);
+    if (isPanelActive()) {
+      resetForReplay();
+      scheduleRun(0);
+    }
   });
+
+  // 정리
+  window.addEventListener(
+    "pagehide",
+    () => {
+      cancelRun();
+      if (io) io.disconnect();
+      mo.disconnect();
+    },
+    { once: true }
+  );
 }
 
 
