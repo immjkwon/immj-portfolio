@@ -506,6 +506,7 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
 .title-reveal.is-reveal .headline-row:nth-child(1) .headline-line{animation:headlineLineIn .9s cubic-bezier(.22,.61,.36,1) forwards;animation-delay:0s;}
 .title-reveal.is-reveal .headline-row:nth-child(2) .headline-line{animation:headlineLineIn .9s cubic-bezier(.22,.61,.36,1) forwards;animation-delay:.14s;}
 .title-reveal.is-reveal .headline-row:nth-child(3) .headline-line{animation:headlineLineIn .9s cubic-bezier(.22,.61,.36,1) forwards;animation-delay:.28s;}
+.impact-counter{font-variant-numeric: tabular-nums;}
 
 @keyframes headlineLineIn{
   from{

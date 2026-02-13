@@ -22,6 +22,7 @@
     initBgBlend(lenis);
     initTitleReveal();
     initImpactTabs();
+    initImpactCounters();
     initSkillsSection();
     initProjectsSection();
     initAppealMotion();
@@ -422,6 +423,108 @@
 
     if (initialKey) showPanelInstant(initialKey);
   }
+
+
+
+/* ============================================================
+   Impact PANEL 1 숫자 카운트 모션
+============================================================ */
+function initImpactCounters() {
+  const panelIlly = document.getElementById("impact-panel-illy");
+  if (!panelIlly) return;
+
+  const counters = Array.from(panelIlly.querySelectorAll("[data-counter]"));
+  if (!counters.length) return;
+
+  const triggerEl = counters[0]; // 숫자가 실제 보이는 위치 기준
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const DURATION = 1600;
+  let played = false;
+
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+  function render(progress) {
+    counters.forEach((el) => {
+      const from = Number(el.dataset.from ?? 0);
+      const to = Number(el.dataset.to ?? 0);
+      const suffix = el.dataset.suffix ?? "";
+      const value = Math.round(from + (to - from) * progress);
+      el.textContent = `${value}${suffix}`;
+    });
+  }
+
+  function isCounterVisible() {
+    if (panelIlly.hidden) return false;
+    const rect = triggerEl.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+
+    // 화면 하단 12% 위로 올라왔고, 완전히 지나가진 않았는지
+    return rect.top <= vh * 0.88 && rect.bottom >= vh * 0.15;
+  }
+
+  function start() {
+    if (played) return;
+    if (!isCounterVisible()) return;
+
+    played = true;
+
+    if (reduceMotion) {
+      render(1);
+      return;
+    }
+
+    const startTime = performance.now();
+    function tick(now) {
+      const raw = Math.min(1, (now - startTime) / DURATION);
+      render(easeOutCubic(raw));
+      if (raw < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // 초기값 고정
+  render(0);
+
+  // 숫자 자체가 보일 때 시작
+  const io = new IntersectionObserver((entries, observer) => {
+    if (entries.some((e) => e.isIntersecting)) {
+      start();
+      if (played) observer.disconnect();
+    }
+  }, {
+    threshold: 0.55,
+    rootMargin: "0px 0px -10% 0px"
+  });
+
+  io.observe(triggerEl);
+
+  // illy 탭/폴드 전환 후(패널 애니메이션 끝난 뒤) 시작 시도
+  function startAfterPanelMotion() {
+    setTimeout(start, 260); // 220~300ms 권장
+  }
+
+  const section = document.getElementById("achievements");
+  section?.addEventListener("click", (e) => {
+    const trigger = e.target.closest(
+      '.impact-tab[data-key="illy"], .impact-fold[data-key="illy"]'
+    );
+    if (!trigger) return;
+    startAfterPanelMotion();
+  });
+
+  // hidden 속성 토글 감지
+  const mo = new MutationObserver(() => {
+    if (!panelIlly.hidden) startAfterPanelMotion();
+  });
+  mo.observe(panelIlly, { attributes: true, attributeFilter: ["hidden"] });
+
+  // 초기 진입 보강
+  window.addEventListener("load", start);
+  window.addEventListener("pageshow", start);
+}
+
+
+
 
   /* ============================================================
      Skills ribbon + cards
