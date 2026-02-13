@@ -20,7 +20,7 @@
 
     initHeroLines();
     initBgBlend(lenis);
-    initAboutHeadlineReveal();
+    initTitleReveal();
     initImpactTabs();
     initSkillsSection();
     initProjectsSection();
@@ -115,7 +115,12 @@
 
       const wrapW = wrap.clientWidth;
       const vw = window.innerWidth;
-      const moveDist = Math.max(140, Math.min(280, vw * 0.12));
+      const isMobile = vw <= 780;
+
+      // 이동 거리 확대 (기존: 140~280 / vw*0.12)
+      const moveDist = isMobile
+        ? Math.max(190, Math.min(340, vw * 0.22))
+        : Math.max(240, Math.min(440, vw * 0.18));
 
       lines.forEach((line, i) => {
         const fill = line.querySelector(".fill");
@@ -192,32 +197,32 @@
   }
 
   /* ============================================================
-     About 헤드라인 1회 등장
+    공통 타이틀 1회 등장 (about / impact / skills / projects)
   ============================================================ */
-  function initAboutHeadlineReveal() {
-    const headline = document.querySelector(".about-headline");
-    if (!headline) return;
+  function initTitleReveal() {
+    const targets = Array.from(document.querySelectorAll(".title-reveal"));
+    if (!targets.length) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) {
-      headline.classList.add("is-reveal");
+      targets.forEach((el) => el.classList.add("is-reveal"));
       return;
     }
 
     const io = new IntersectionObserver((entries, observer) => {
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
-        headline.classList.add("is-reveal");
-        observer.unobserve(headline);
-        break;
+        entry.target.classList.add("is-reveal");
+        observer.unobserve(entry.target); // 1회만 실행
       }
     }, {
       threshold: 0.35,
       rootMargin: "0px 0px -8% 0px"
     });
 
-    io.observe(headline);
+    targets.forEach((el) => io.observe(el));
   }
+
 
   /* ============================================================
      배경 블렌드 (#about / #achievements)
