@@ -430,16 +430,20 @@
    Impact PANEL 1 숫자 카운트 모션
 ============================================================ */
 function initImpactCounters() {
+  const section = document.getElementById("achievements");
   const panelIlly = document.getElementById("impact-panel-illy");
-  if (!panelIlly) return;
+  if (!section || !panelIlly) return;
 
   const counters = Array.from(panelIlly.querySelectorAll("[data-counter]"));
   if (!counters.length) return;
 
-  const triggerEl = counters[0]; // 숫자가 실제 보이는 위치 기준
+  const triggerEl = counters[0]; // 실제 숫자 노출 위치 기준
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const DURATION = 1600;
-  let played = false;
+
+  let rafId = null;
+  let startTimer = null;
+  let pendingReplay = false; // "재생 대기" 상태
 
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
@@ -453,20 +457,26 @@ function initImpactCounters() {
     });
   }
 
+  function stopAnim() {
+    if (rafId != null) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
   function isCounterVisible() {
     if (panelIlly.hidden) return false;
+
     const rect = triggerEl.getBoundingClientRect();
     const vh = window.innerHeight || document.documentElement.clientHeight;
 
-    // 화면 하단 12% 위로 올라왔고, 완전히 지나가진 않았는지
+    // 숫자 영역이 충분히 보이는 구간에서만 시작
     return rect.top <= vh * 0.88 && rect.bottom >= vh * 0.15;
   }
 
-  function start() {
-    if (played) return;
-    if (!isCounterVisible()) return;
-
-    played = true;
+  function playFromStart() {
+    stopAnim();
+    render(0);
 
     if (reduceMotion) {
       render(1);
@@ -474,22 +484,46 @@ function initImpactCounters() {
     }
 
     const startTime = performance.now();
+
     function tick(now) {
       const raw = Math.min(1, (now - startTime) / DURATION);
       render(easeOutCubic(raw));
-      if (raw < 1) requestAnimationFrame(tick);
+
+      if (raw < 1) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        rafId = null;
+      }
     }
-    requestAnimationFrame(tick);
+
+    rafId = requestAnimationFrame(tick);
   }
 
-  // 초기값 고정
+  function tryStart() {
+    if (!pendingReplay) return;
+    if (!isCounterVisible()) return;
+
+    pendingReplay = false;
+    playFromStart();
+  }
+
+  // "일리로 전환됨" 시 호출
+  function requestReplay(delay = 260) {
+    pendingReplay = true;
+    stopAnim();
+    render(0); // 다시 들어왔을 때 항상 0부터 보이게
+
+    clearTimeout(startTimer);
+    startTimer = setTimeout(tryStart, delay); // 패널 전환 모션 끝난 뒤 시작 시도
+  }
+
+  // 초기값 보장
   render(0);
 
-  // 숫자 자체가 보일 때 시작
-  const io = new IntersectionObserver((entries, observer) => {
+  // 숫자 영역이 화면에 들어오면 시작 시도
+  const io = new IntersectionObserver((entries) => {
     if (entries.some((e) => e.isIntersecting)) {
-      start();
-      if (played) observer.disconnect();
+      tryStart();
     }
   }, {
     threshold: 0.55,
@@ -498,30 +532,32 @@ function initImpactCounters() {
 
   io.observe(triggerEl);
 
-  // illy 탭/폴드 전환 후(패널 애니메이션 끝난 뒤) 시작 시도
-  function startAfterPanelMotion() {
-    setTimeout(start, 260); // 220~300ms 권장
-  }
+  // 패널 hidden -> visible 전환 감지 (키보드 탭 전환 포함)
+  const mo = new MutationObserver(() => {
+    if (!panelIlly.hidden) {
+      requestReplay(260); // ✅ 돌아올 때마다 재생
+    }
+  });
 
-  const section = document.getElementById("achievements");
-  section?.addEventListener("click", (e) => {
+  mo.observe(panelIlly, { attributes: true, attributeFilter: ["hidden"] });
+
+  // 클릭 기반 전환도 안전하게 보강
+  section.addEventListener("click", (e) => {
     const trigger = e.target.closest(
       '.impact-tab[data-key="illy"], .impact-fold[data-key="illy"]'
     );
-    if (!trigger) return;
-    startAfterPanelMotion();
+    if (trigger) requestReplay(260);
   });
 
-  // hidden 속성 토글 감지
-  const mo = new MutationObserver(() => {
-    if (!panelIlly.hidden) startAfterPanelMotion();
-  });
-  mo.observe(panelIlly, { attributes: true, attributeFilter: ["hidden"] });
+  // 페이지 최초 진입 시(기본 탭이 일리면) 1회 실행
+  requestReplay(0);
 
-  // 초기 진입 보강
-  window.addEventListener("load", start);
-  window.addEventListener("pageshow", start);
+  // bfcache 복귀 시 보강
+  window.addEventListener("pageshow", () => {
+    if (!panelIlly.hidden) requestReplay(0);
+  });
 }
+
 
 
 
