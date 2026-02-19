@@ -672,26 +672,29 @@
 
     <section id="appeal" class="appeal-section">
       <div class="appeal-inner">
-        <h2 class="appeal-copy" id="appealCopy" aria-label="마지막 어필 문구">
-          <span class="appeal-row appeal-row--en">
-            <span class="appeal-row-text">IF YOU CHOOSE ME, I'LL DO WELL</span>
-          </span>
-          <span class="appeal-row appeal-row--ko">
-            <span class="appeal-row-text">협업의 경계는 넓히고, 실무의 밀도는 깊게.</span>
-          </span>
-          <span class="appeal-row appeal-row--ko">
-            <span class="appeal-row-text">팀의 오늘을 빠르게,</span>
-          </span>
-          <span class="appeal-row appeal-row--ko">
-            <span class="appeal-row-text">회사의 내일을 단단하게 만드는 퍼블리셔가 되겠습니다.</span>
-          </span>
-        </h2>
+        <div class="imessage" id="imessage" aria-label="메시지 전송 UI">
+          <!-- 내가 보낸 메시지(오른쪽) -->
+          <div class="im-group im-sent" id="imSent" aria-label="내가 보낸 메시지">
+            <p class="im-bubble im-bubble--sent">IF YOU CHOOSE ME, I'LL DO WELL</p>
+            <p class="im-bubble im-bubble--sent">협업의 경계는 넓히고, 실무의 밀도는 깊게.</p>
+            <p class="im-bubble im-bubble--sent">팀의 오늘을 빠르게,</p>
+            <p class="im-bubble im-bubble--sent">회사의 내일을 단단하게 만드는 퍼블리셔가 되겠습니다.</p>
+            <p class="im-bubble im-bubble--sent">감사합니다!</p>
+          </div>
 
-        <p class="appeal-thanks" id="appealThanks">
-          <span>감사합니다!</span>
-        </p>
+          <!-- 타이핑(상대방) -->
+          <div class="im-typing" id="imTyping" aria-hidden="true">
+            <span class="im-dot"></span><span class="im-dot"></span><span class="im-dot"></span>
+          </div>
+
+          <!-- 상대방 답장(왼쪽) -->
+          <div class="im-group im-received" id="imReply" aria-label="상대방 답장" hidden>
+            <p class="im-bubble im-bubble--recv">축하합니다! 합격하셨습니다.</p>
+          </div>
+        </div>
       </div>
     </section>
+
 
     <footer class="site-footer" id="contact">
       <div class="footer-inner">

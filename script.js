@@ -975,32 +975,91 @@ function initImpactCounters() {
     measure();
   }
 
-  /* ============================================================
-     Appeal reveal
-  ============================================================ */
+/* ============================================================
+   Appeal (iMessage UI) reveal
+============================================================ */
   function initAppealMotion() {
     const section = document.getElementById("appeal");
-    const copy = document.getElementById("appealCopy");
-    const thanks = document.getElementById("appealThanks");
-    if (!section || !copy) return;
+    const wrap = document.getElementById("imessage");
+    const sent = document.getElementById("imSent");
+    const typing = document.getElementById("imTyping");
+    const reply = document.getElementById("imReply");
+    if (!section || !wrap || !sent) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) {
-      copy.classList.add("is-reveal");
-      thanks?.classList.add("is-reveal");
-      return;
-    }
+
+    const sentBubbles = Array.from(sent.querySelectorAll(".im-bubble"));
+    const replyBubbles = reply ? Array.from(reply.querySelectorAll(".im-bubble")) : [];
+
+    // 초기화
+    section.classList.remove("is-reveal");           // ✅ 섹션 진입 전 상태
+    wrap.classList.remove("is-reveal", "is-typing");
+    sentBubbles.forEach((b) => b.classList.remove("is-show"));
+    replyBubbles.forEach((b) => b.classList.remove("is-show"));
+    if (reply) reply.hidden = true;
+    if (typing) typing.setAttribute("aria-hidden", "true");
+
+    const showSequence = () => {
+      wrap.classList.add("is-reveal");
+
+      if (reduceMotion) {
+        sentBubbles.forEach((b) => b.classList.add("is-show"));
+        if (reply) {
+          reply.hidden = false;
+          replyBubbles.forEach((b) => b.classList.add("is-show"));
+        }
+        return;
+      }
+
+      const STEP = 180;
+      const AFTER_SENT = 420;
+      const TYPING_MS = 720;
+
+      // 1) 내가 보낸 메시지 순차 등장
+      sentBubbles.forEach((b, i) => {
+        setTimeout(() => b.classList.add("is-show"), i * STEP);
+      });
+
+      const sentDoneAt = sentBubbles.length * STEP + AFTER_SENT;
+
+      // 2) 타이핑 표시
+      setTimeout(() => {
+        wrap.classList.add("is-typing");
+        if (typing) typing.setAttribute("aria-hidden", "false");
+      }, sentDoneAt);
+
+      // 3) 답장 도착
+      setTimeout(() => {
+        wrap.classList.remove("is-typing");
+        if (typing) typing.setAttribute("aria-hidden", "true");
+
+        if (reply) {
+          reply.hidden = false;
+          replyBubbles.forEach((b, i) => {
+            setTimeout(() => b.classList.add("is-show"), i * 120);
+          });
+        }
+      }, sentDoneAt + TYPING_MS);
+    };
 
     const io = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        copy.classList.add("is-reveal");
-        thanks?.classList.add("is-reveal");
-        observer.unobserve(section);
-      });
+      const entry = entries.find((e) => e.isIntersecting);
+      if (!entry) return;
+
+      // 1) 섹션(카드) 먼저 등장
+      section.classList.add("is-reveal");
+
+      // 2) 카드 등장 후 말풍선 시퀀스 시작
+      if (reduceMotion) {
+        showSequence();
+      } else {
+        setTimeout(showSequence, 260);
+      }
+
+      observer.unobserve(section);
     }, {
-      threshold: 0.34,
-      rootMargin: "0px 0px -8% 0px"
+      threshold: 0.32,
+      rootMargin: "0px 0px -10% 0px"
     });
 
     io.observe(section);
