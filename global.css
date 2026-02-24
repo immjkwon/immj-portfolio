@@ -107,6 +107,7 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   }
 }
 
+
 /* traits */
 .hero .traits p{margin:0;}
 .traits{margin:clamp(44px, 5.2vw, 78px) auto 0;display:flex;flex-direction:column;gap:clamp(12px, 1.3vw, 20px);}
@@ -429,7 +430,36 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
 .projects-grid-wrap.is-expanded .projects-more-btn{display:none;}
 
 /* ===== Appeal ===== */
-.appeal-section{background:#fff;border-top:1px solid #fff;padding:clamp(92px, 9vw, 138px) 0 clamp(96px, 10vw, 150px);}
+.appeal-section{
+  position:relative;
+  padding:clamp(110px, 11vw, 170px) 0 clamp(120px, 12vw, 180px);
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #fbfbfb 45%,
+      #f6f6f6 100%
+    );
+
+  border-top:1px solid rgba(0,0,0,.05);
+  overflow:hidden;
+}
+.appeal-section::before{
+  content:"";
+  position:absolute;
+  top:-120px;
+  left:50%;
+  transform:translateX(-50%);
+  width:1100px;
+  height:400px;
+  background:radial-gradient(
+    ellipse at center,
+    rgba(255,122,26,.08) 0%,
+    rgba(255,122,26,.04) 35%,
+    transparent 70%
+  );
+  pointer-events:none;
+}
 .appeal-inner{width:var(--container);margin:0 auto;}
 .appeal-copy{margin:0;color:#101114;letter-spacing:-0.02em;}
 .appeal-row{display:block;overflow:hidden;}
@@ -468,9 +498,12 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
     filter .6s ease .52s;
 }
 .appeal-thanks.is-reveal span{transform:translate3d(0,0,0);opacity:1;filter:blur(0);}
+.appeal-lead .headline-row{display:block;overflow:hidden;}
+.appeal-lead .headline-line{display:inline-block;transform:translate3d(-64px, 0, 0);opacity:0;filter:blur(2px);will-change:transform, opacity, filter;}
+.title-reveal.is-reveal .headline-line{animation:headlineLineIn .9s cubic-bezier(.22,.61,.36,1) forwards;}
+.appeal-kicker{margin:0;font-size:var(--fz-skills-kicker);font-weight:500;color:#8f8f8f;line-height:1.2;}
+.appeal-lead{margin:20px 0 clamp(70px, 7vw, 95px);font-size:var(--fz-about-headline);font-weight:600;line-height:1.24;letter-spacing:-0.02em;color:#101010;}
 
-
-/* ===== Appeal (iMessage UI) ===== */
 #appeal .imessage{
   opacity:0;
   transform:translate3d(0, 22px, 0);
@@ -482,21 +515,9 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   will-change:opacity, transform, filter;
 }
 
-/* 진입 후 */
-#appeal.is-reveal .imessage{
-  opacity:1;
-  transform:translate3d(0, 0, 0);
-  filter:blur(0);
-}
-.appeal-section{
-  background:#fff;
-  border-top:1px solid #fff;
-  padding:clamp(92px, 9vw, 138px) 0 clamp(96px, 10vw, 150px);
-}
-.appeal-inner{
-  width:var(--container);
-  margin:0 auto;
-}
+#appeal.is-reveal .imessage{ opacity:1; transform:translate3d(0, 0, 0); filter:blur(0);}
+.appeal-section{background:#fff;border-top:1px solid #fff;padding:clamp(92px, 9vw, 138px) 0 clamp(96px, 10vw, 150px);}
+.appeal-inner{ width:var(--container); margin:0 auto;}
 
 .imessage{
   width:min(var(--container), 100%);
@@ -506,13 +527,12 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   border-radius:26px;
   position:relative;
   overflow:hidden;
-
   background:
     linear-gradient(180deg, rgba(255,255,255,.92) 0%, rgba(245,245,245,.90) 100%);
   border:1px solid rgba(0,0,0,.08);
   box-shadow:
-    0 26px 70px rgba(0,0,0,.10),
-    inset 0 1px 0 rgba(255,255,255,.75);
+    0 32px 80px rgba(0,0,0,.12),
+    inset 0 1px 0 rgba(255,255,255,.8);
 }
 
 .imessage::before{
@@ -523,12 +543,10 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   display:flex;
   align-items:center;
   justify-content:center;
-
   font-weight:700;
   letter-spacing:-0.02em;
   color:#1f1f1f;
   font-size:16px;
-
   background:linear-gradient(180deg, rgba(255,255,255,.96), rgba(248,248,248,.88));
   border-bottom:1px solid rgba(0,0,0,.06);
   backdrop-filter:blur(8px);
@@ -545,18 +563,8 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   z-index:2;
 }
 
-.imessage > *{
-  position:relative;
-  z-index:3;
-}
-
-
-.im-group{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  padding-top:64px; 
-}
+.imessage > *{position:relative;z-index:3;}
+.im-group{display:flex;flex-direction:column; gap:12px;padding-top:64px; }
 .im-sent{align-items:flex-end;}
 .im-received{align-items:flex-start;margin-top:22px;}
 .im-bubble{
@@ -631,24 +639,12 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   border-radius:20px;
   background:#fff;
   border:1px solid rgba(0,0,0,.08);
-
   opacity:0;
   transform:translate3d(0, 10px, 0);
   pointer-events:none;
 }
-.imessage.is-typing .im-typing{
-  opacity:1;
-  transform:translate3d(0,0,0);
-  transition:opacity .25s ease, transform .25s ease;
-}
-
-.im-dot{
-  width:7px;height:7px;
-  border-radius:50%;
-  background:#9a9a9a;
-  display:inline-block;
-  animation:imDot 1.05s ease-in-out infinite;
-}
+.imessage.is-typing .im-typing{opacity:1;transform:translate3d(0,0,0);transition:opacity .25s ease, transform .25s ease;}
+.im-dot{width:7px;height:7px;border-radius:50%;background:#9a9a9a; display:inline-block;animation:imDot 1.05s ease-in-out infinite;}
 .im-dot:nth-child(2){animation-delay:.14s;}
 .im-dot:nth-child(3){animation-delay:.28s;}
 
@@ -656,7 +652,6 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   0%,100%{transform:translateY(0);opacity:.55;}
   50%{transform:translateY(-3px);opacity:1;}
 }
-
 
 
 /* ===== Footer ===== */
@@ -927,6 +922,11 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   .im-bubble--recv::after{
     width:10px;height:10px;
     bottom:9px;
+  }
+    .appeal-lead{
+    margin-bottom:14px;
+    font-size:clamp(16px, 5.2vw, 20px);
+    line-height:1.3;
   }
 }
 
