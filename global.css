@@ -433,34 +433,75 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
 .appeal-section{
   position:relative;
   padding:clamp(110px, 11vw, 170px) 0 clamp(120px, 12vw, 180px);
+  overflow:hidden;
   background:
     linear-gradient(
       180deg,
       #ffffff 0%,
-      #fbfbfb 45%,
+      #ffffff 18%,
+      #fbfbfb 52%,
       #f6f6f6 100%
     );
-
-  border-top:1px solid rgba(0,0,0,.05);
-  overflow:hidden;
 }
 .appeal-section::before{
   content:"";
   position:absolute;
-  top:-120px;
-  left:50%;
-  transform:translateX(-50%);
-  width:1100px;
-  height:400px;
-  background:radial-gradient(
-    ellipse at center,
-    rgba(255,122,26,.08) 0%,
-    rgba(255,122,26,.04) 35%,
-    transparent 70%
-  );
+  inset:-220px -18% -200px;
   pointer-events:none;
+  z-index:0;
+  background:
+    radial-gradient(860px 520px at 50% 46%,
+      rgba(255,122,26,.26) 0%,
+      rgba(255,122,26,.14) 30%,
+      rgba(255,122,26,.07) 52%,
+      transparent 74%),
+
+    radial-gradient(720px 520px at 22% 52%,
+      rgba(255,122,26,.18) 0%,
+      rgba(255,122,26,.09) 38%,
+      transparent 72%),
+
+    radial-gradient(760px 520px at 78% 54%,
+      rgba(255,122,26,.18) 0%,
+      rgba(255,122,26,.08) 40%,
+      transparent 74%),
+
+    radial-gradient(980px 620px at 50% 92%,
+      rgba(255,122,26,.12) 0%,
+      rgba(255,122,26,.06) 40%,
+      transparent 78%);
+
+  opacity:.95;
+  transform:translate3d(0,0,0);
 }
-.appeal-inner{width:var(--container);margin:0 auto;}
+
+.appeal-section::after{
+  content:"";
+  position:absolute;
+  inset:-260px -18% -220px;
+  pointer-events:none;
+  z-index:0;
+
+  background:
+    radial-gradient(1400px 820px at 50% 56%,
+      rgba(255,122,26,.07) 0%,
+      rgba(255,122,26,.035) 38%,
+      transparent 72%),
+    radial-gradient(1200px 820px at 50% 58%,
+      rgba(0,0,0,.08) 0%,
+      rgba(0,0,0,0) 54%);
+
+  mix-blend-mode:multiply;
+  opacity:.75;
+}
+
+.appeal-inner{
+  position:relative;
+  z-index:1;
+  width:var(--container);
+  margin:0 auto;
+}
+
 .appeal-copy{margin:0;color:#101114;letter-spacing:-0.02em;}
 .appeal-row{display:block;overflow:hidden;}
 .appeal-row + .appeal-row{margin-top:8px;}
@@ -516,25 +557,20 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
 }
 
 #appeal.is-reveal .imessage{ opacity:1; transform:translate3d(0, 0, 0); filter:blur(0);}
-.appeal-section{background:#fff;border-top:1px solid #fff;padding:clamp(92px, 9vw, 138px) 0 clamp(96px, 10vw, 150px);}
-.appeal-inner{ width:var(--container); margin:0 auto;}
+
 
 .imessage{
-  width:min(var(--container), 100%);
-  max-width:none;
-  margin-inline:auto;
-  padding:clamp(26px, 2.2vw, 36px);
-  border-radius:26px;
   position:relative;
-  overflow:hidden;
+  isolation:isolate; 
   background:
-    linear-gradient(180deg, rgba(255,255,255,.92) 0%, rgba(245,245,245,.90) 100%);
+    linear-gradient(180deg, rgba(255,255,255,.94) 0%, rgba(245,245,245,.90) 100%);
   border:1px solid rgba(0,0,0,.08);
   box-shadow:
-    0 32px 80px rgba(0,0,0,.12),
-    inset 0 1px 0 rgba(255,255,255,.8);
+    0 34px 90px rgba(0,0,0,.14),
+    0 22px 60px rgba(255,122,26,.10),
+    inset 0 1px 0 rgba(255,255,255,.85);
 }
-
+.imessage::marker{ content:""; }
 .imessage::before{
   content:"Messages";
   position:absolute;
@@ -563,7 +599,38 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   z-index:2;
 }
 
-.imessage > *{position:relative;z-index:3;}
+.imessage{
+  --halo: rgba(255,122,26,.22);
+  --halo2: rgba(255,122,26,.10);
+}
+.imessage::after{
+  content:"";
+  position:absolute;
+  inset:-26px -26px -26px;
+  z-index:1;
+  pointer-events:none;
+
+  background:
+    /* 카드 뒤로 번지는 오렌지 글로우 */
+    radial-gradient(480px 260px at 70% 18%,
+      var(--halo) 0%,
+      rgba(255,122,26,.12) 38%,
+      transparent 72%),
+    radial-gradient(520px 300px at 30% 30%,
+      var(--halo2) 0%,
+      rgba(255,122,26,.06) 44%,
+      transparent 78%),
+
+    /* 기존 하단 페이드 대체(더 자연스럽게) */
+    linear-gradient(180deg, rgba(245,245,245,0) 0%, rgba(245,245,245,.92) 100%);
+
+  filter:blur(10px);
+  opacity:.85;
+}
+
+/* 기존 Messages 헤더/내용 레이어가 글로우 위로 오도록 */
+.imessage > *{position:relative; z-index:3;}
+.imessage::before{z-index:4;} /* 기존 Messages bar 유지 */
 .im-group{display:flex;flex-direction:column; gap:12px;padding-top:64px; }
 .im-sent{align-items:flex-end;}
 .im-received{align-items:flex-start;margin-top:22px;}
@@ -762,35 +829,32 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
     margin: 0 auto;
   }
 
-  /* iMessage 카드도 동일 폭으로(기존 min(var(--container),100%)보다 명확) */
   #appeal .imessage{
     width: 100%;
     max-width: none;
-    padding: clamp(32px, 2.6vw, 44px);  /* 여백도 살짝 업 */
+    padding: clamp(32px, 2.6vw, 44px); 
     border-radius: 30px;
   }
 
-  /* 상단 "Messages" 바도 조금 키움 */
+
   #appeal .imessage::before{
     height: 60px;
     font-size: 18px;
   }
 
   #appeal .im-group{
-    padding-top: 72px; /* 헤더 높이 증가에 맞춰 보정 */
+    padding-top: 72px; 
     gap: 14px;
   }
 
-  /* 말풍선 텍스트 키우기 */
   #appeal .im-bubble{
     font-size: clamp(18px, 1.25vw, 22px);
     line-height: 1.55;
     padding: 16px 20px;
     border-radius: 22px;
-    max-width: min(920px, 78%); /* PC에서 조금 더 넓게 */
+    max-width: min(920px, 78%); 
   }
 
-  /* 타이핑 버블도 같이 업 */
   #appeal .im-typing{
     padding: 14px 16px;
     border-radius: 22px;
