@@ -109,8 +109,8 @@
       lines.forEach((line) => {
         line.classList.remove("is-animated");
         line.style.animationDelay = "0s";
-        line.style.opacity = "1";
-        line.style.filter = "none";
+        line.style.opacity = "0";
+        line.style.filter = "blur(4px)";
         line.style.transform = "translate3d(0,0,0)";
       });
 
@@ -159,6 +159,8 @@
           line.classList.add("is-animated");
         } else {
           line.style.transform = `translate3d(${toX}px,0,0)`;
+          line.style.opacity = "0";
+          line.style.filter = "blur(4px)";
         }
       });
 

@@ -85,7 +85,7 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   font-weight:600;
   letter-spacing:-.02em;
   transform:translate3d(var(--to-x, 0px), 0, 0);
-  opacity:1;
+  opacity:0;
   will-change:transform, opacity, filter;
 }
 .intro-line + .intro-line{margin-top:clamp(3px, .38vw, 8px);}
