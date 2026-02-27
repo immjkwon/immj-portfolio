@@ -605,9 +605,8 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
 }
 
 
-/* 기존 Messages 헤더/내용 레이어가 글로우 위로 오도록 */
 .imessage > *{position:relative; z-index:3;}
-.imessage::before{z-index:4;} /* 기존 Messages bar 유지 */
+.imessage::before{z-index:4;} 
 .im-group{display:flex;flex-direction:column; gap:12px;padding-top:64px; }
 .im-sent{align-items:flex-end;}
 .im-received{align-items:flex-start;margin-top:22px;}
@@ -968,6 +967,10 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
     margin-bottom:14px;
     font-size:clamp(16px, 5.2vw, 20px);
     line-height:1.3;
+  }
+    #appeal .imessage{
+    width:100%;
+    margin:0 auto; 
   }
 }
 
