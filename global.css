@@ -603,30 +603,7 @@ button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit;}
   --halo: rgba(255,122,26,.22);
   --halo2: rgba(255,122,26,.10);
 }
-.imessage::after{
-  content:"";
-  position:absolute;
-  inset:-26px -26px -26px;
-  z-index:1;
-  pointer-events:none;
 
-  background:
-    /* 카드 뒤로 번지는 오렌지 글로우 */
-    radial-gradient(480px 260px at 70% 18%,
-      var(--halo) 0%,
-      rgba(255,122,26,.12) 38%,
-      transparent 72%),
-    radial-gradient(520px 300px at 30% 30%,
-      var(--halo2) 0%,
-      rgba(255,122,26,.06) 44%,
-      transparent 78%),
-
-    /* 기존 하단 페이드 대체(더 자연스럽게) */
-    linear-gradient(180deg, rgba(245,245,245,0) 0%, rgba(245,245,245,.92) 100%);
-
-  filter:blur(10px);
-  opacity:.85;
-}
 
 /* 기존 Messages 헤더/내용 레이어가 글로우 위로 오도록 */
 .imessage > *{position:relative; z-index:3;}
