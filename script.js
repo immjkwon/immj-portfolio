@@ -17,11 +17,12 @@
     } catch (_) {}
 
     initHeroLines();
-    initHeroStats();           // 신규
+    initHeroStats();
     initBgBlend(lenis);
     initTitleReveal();
     initImpactTabs();
     initImpactCounters();
+    initWorkflowVisualModal();
     initSkillsSection();
     initProjectsSection();
     initAppealMotion();
@@ -619,6 +620,91 @@
       clearTimers();
     }, {once:true});
   }
+
+function initWorkflowVisualModal() {
+  const triggers = Array.from(document.querySelectorAll(".workflow-gallery-trigger"));
+  const modal = document.getElementById("workflowVisualModal");
+  if (!triggers.length || !modal) return;
+
+  const modalImage = document.getElementById("workflowModalImage");
+  const modalCategory = document.getElementById("workflowModalCategory");
+  const modalTitle = document.getElementById("workflowModalTitle");
+  const modalDesc = document.getElementById("workflowModalDesc");
+  const modalRole = document.getElementById("workflowModalRole");
+  const closeEls = Array.from(modal.querySelectorAll("[data-modal-close]"));
+
+  let lastTrigger = null;
+
+  function openModal(trigger) {
+    const image = trigger.dataset.image || "";
+    const title = trigger.dataset.title || "";
+    const category = trigger.dataset.category || "";
+    const desc = trigger.dataset.desc || "";
+    const role = trigger.dataset.role || "";
+
+    lastTrigger = trigger;
+
+    modalImage.src = image;
+    modalImage.alt = title;
+    modalCategory.textContent = category;
+    modalTitle.textContent = title;
+    modalDesc.textContent = desc;
+    modalRole.textContent = role;
+
+    modal.hidden = false;
+    document.body.classList.add("modal-lock");
+
+    requestAnimationFrame(() => {
+      modal.classList.add("is-open");
+      modal.querySelector(".workflow-visual-modal__close")?.focus();
+    });
+  }
+
+  function closeModal() {
+    modal.classList.remove("is-open");
+    document.body.classList.remove("modal-lock");
+
+    window.setTimeout(() => {
+      modal.hidden = true;
+      modalImage.src = "";
+      lastTrigger?.focus();
+    }, 260);
+  }
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => openModal(trigger));
+  });
+
+  closeEls.forEach((el) => {
+    el.addEventListener("click", closeModal);
+  });
+
+  modal.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      closeModal();
+      return;
+    }
+
+    if (e.key !== "Tab") return;
+
+    const focusable = Array.from(
+      modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')
+    ).filter((el) => !el.disabled && el.offsetParent !== null);
+
+    if (!focusable.length) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+}
 
   /* ============================================================
      Projects curve / expand
