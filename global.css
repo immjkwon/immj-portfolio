@@ -817,7 +817,7 @@ body.modal-lock{
 .workflow-visual-modal__close::before{
   content:"×";
   display:block;
-  transform:translateY(-1px);
+  transform:translateY(-2px);
 }
 
 .workflow-visual-modal__close:hover{
