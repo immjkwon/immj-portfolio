@@ -1405,7 +1405,7 @@ body.modal-lock{
   }
   .brand{font-size:14px;}
   .brand-mark{width:18px;height:18px;font-size:10px;}
-  .gnb{gap:18px;}
+  .gnb{gap:12px;}
   .gnb a{font-size:12px;}
 
   .hero{min-height:100dvh;padding-top:var(--header-h);padding-bottom:20px;}
