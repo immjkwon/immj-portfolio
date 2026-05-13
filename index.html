@@ -12,25 +12,42 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png" />
   <link rel="stylesheet" href="./global.css" />
 
-  <title>KWONMINJI</title>
+  <title>KWONMINJI — Web Publisher / Frontend</title>
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <a href="#hero" class="brand">KWONMINJI</a>
+      <a href="#hero" class="brand">
+        <span class="brand-mark">K</span>WONMINJI
+      </a>
 
       <nav class="gnb" aria-label="Primary navigation">
         <a href="#about">About</a>
         <a href="#achievements">Impact</a>
+        <a href="#workflow">Workflow</a>
         <a href="#stack">Skills</a>
         <a href="#projects">Projects</a>
       </nav>
+
+      <span class="header-status" aria-label="현재 구직 상태">
+        <span class="header-status-dot" aria-hidden="true"></span>
+        <span class="header-status-text">Open to work</span>
+      </span>
     </div>
   </header>
 
   <main>
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
     <section class="hero" id="hero">
       <div class="hero-inner" id="heroRoot">
+        <div class="hero-meta">
+          <span class="hero-meta-item">© 2026 — Portfolio v3.0</span>
+          <span class="hero-meta-sep" aria-hidden="true">·</span>
+          <span class="hero-meta-item">Seoul, KR</span>
+        </div>
+
         <div class="intro-wrap" aria-label="Hero multilingual greeting">
           <p class="intro-line line-1" data-target="0.59">
             <span class="outline">HELLO.</span>
@@ -62,6 +79,25 @@
           <p class="trait">유연함을 좋아하지만, <strong>기본에 충실해요.</strong></p>
         </div>
 
+        <div class="hero-stats" aria-label="요약 지표">
+          <div class="hero-stat">
+            <span class="hero-stat-num">4Y 8M</span>
+            <span class="hero-stat-label">실무 경력</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num" data-counter data-from="0" data-to="19" data-suffix="+">19+</span>
+            <span class="hero-stat-label">런칭 프로젝트</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num" data-counter data-from="0" data-to="100" data-suffix="%">100%</span>
+            <span class="hero-stat-label">일정 준수율</span>
+          </div>
+          <div class="hero-stat hero-stat--accent">
+            <span class="hero-stat-num">AI</span>
+            <span class="hero-stat-label">실무 워크플로우 도입</span>
+          </div>
+        </div>
+
         <a href="#about" class="scroll-down" aria-label="Scroll to About">
           <span>Scroll down</span>
           <svg class="scroll-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
@@ -74,25 +110,28 @@
     </section>
 
 
+    <!-- ============================================================
+         ABOUT
+    ============================================================ -->
     <section id="about" class="about-section">
       <div class="about-inner">
-        <p class="about-kicker">INTRODUCE</p>
+        <p class="about-kicker"><span class="kicker-num">/ 01</span> INTRODUCE</p>
 
-      <h2 class="about-headline title-reveal" id="aboutHeadline">
-        <span class="headline-row">
-          <span class="headline-line">디테일은 끝까지, 속도는 가볍게.</span>
-        </span>
-        <span class="headline-row">
-          <span class="headline-line">
-            시맨틱 마크업을 기본으로, <span class="keep">기획의도를 알잘딱! 해서</span>
+        <h2 class="about-headline title-reveal" id="aboutHeadline">
+          <span class="headline-row">
+            <span class="headline-line">디테일은 끝까지, 속도는 가볍게.</span>
           </span>
-        </span>
-        <span class="headline-row">
-          <span class="headline-line">디자인부터 퍼블리싱까지 유연하게 완성해요.</span>
-        </span>
-      </h2>
+          <span class="headline-row">
+            <span class="headline-line">
+              시맨틱 마크업을 기본으로, <span class="keep">기획의도를 알잘딱! 해서</span>
+            </span>
+          </span>
+          <span class="headline-row">
+            <span class="headline-line">디자인부터 퍼블리싱까지 유연하게 완성해요.</span>
+          </span>
+        </h2>
 
-    <div class="about-divider about-divider--top" aria-hidden="true"></div>
+        <div class="about-divider about-divider--top" aria-hidden="true"></div>
 
         <div class="about-grid">
           <p class="about-side">
@@ -132,7 +171,7 @@
               <h3 class="about-item-title">공식몰 앱 런칭 F/U</h3>
               <dl class="about-meta">
                 <div><dt>개요</dt><dd>공식몰 앱 런칭을 위한 필수 리소스 적용</dd></div>
-                <div><dt>역할</dt><dd>앱 서비스 가이드 고려 이미지 제작 및 검수</dd></div>
+                <div><dt>역할</dt><dd>앱 서비스 가이드 고려 이미지 제작 및 검수, AI 보조 더미 이미지 생성</dd></div>
                 <div><dt>성과</dt><dd>준비 기간 50% 단축</dd></div>
               </dl>
             </article>
@@ -143,9 +182,13 @@
       </div>
     </section>
 
+
+    <!-- ============================================================
+         IMPACT
+    ============================================================ -->
     <section id="achievements" class="impact-section">
       <div class="impact-inner">
-        <p class="impact-kicker">기여도 50% 이상</p>
+        <p class="impact-kicker"><span class="kicker-num">/ 02</span> 기여도 50% 이상</p>
         <h2 class="impact-title title-reveal">
           <span class="headline-row">
             <span class="headline-line">핵심 성과 TOP3를 알려드릴게요.</span>
@@ -153,61 +196,30 @@
         </h2>
 
         <div class="impact-tabs" role="tablist" aria-label="핵심성과 탭">
-          <button
-            type="button"
-            class="impact-tab is-active"
-            role="tab"
-            id="impact-tab-illy"
-            aria-controls="impact-panel-illy"
-            aria-selected="true"
-            data-key="illy"
-          >
-            일리카페
-          </button>
-          <button
-            type="button"
-            class="impact-tab"
-            role="tab"
-            id="impact-tab-hana"
-            aria-controls="impact-panel-hana"
-            aria-selected="false"
-            data-key="hana"
-            tabindex="-1"
-          >
-            하나은행
-          </button>
-          <button
-            type="button"
-            class="impact-tab"
-            role="tab"
-            id="impact-tab-bigk"
-            aria-controls="impact-panel-bigk"
-            aria-selected="false"
-            data-key="bigk"
-            tabindex="-1"
-          >
-            BIGK 플랫폼
-          </button>
+          <button type="button" class="impact-tab is-active" role="tab"
+            id="impact-tab-illy" aria-controls="impact-panel-illy"
+            aria-selected="true" data-key="illy">일리카페</button>
+          <button type="button" class="impact-tab" role="tab"
+            id="impact-tab-hana" aria-controls="impact-panel-hana"
+            aria-selected="false" data-key="hana" tabindex="-1">하나은행</button>
+          <button type="button" class="impact-tab" role="tab"
+            id="impact-tab-bigk" aria-controls="impact-panel-bigk"
+            aria-selected="false" data-key="bigk" tabindex="-1">BIGK 플랫폼</button>
         </div>
 
         <div class="impact-layout">
           <div class="impact-stage">
             <!-- PANEL 1 -->
-            <article
-              class="impact-panel is-active"
-              id="impact-panel-illy"
-              role="tabpanel"
-              aria-labelledby="impact-tab-illy"
-              data-key="illy"
-            >
+            <article class="impact-panel is-active" id="impact-panel-illy"
+              role="tabpanel" aria-labelledby="impact-tab-illy" data-key="illy">
               <div class="impact-panel-head">
                 <img class="impact-brand-logo" src="./assets/images/logo-illy.png" alt="일리카페 로고" />
-                <h3 class="impact-panel-title">일리카페 정기구독 서비스 개발(2023.07 ~ 2023.09)</h3>
+                <h3 class="impact-panel-title">일리카페 정기구독 서비스 개발<span class="impact-panel-period">(2023.07 ~ 2023.09)</span></h3>
               </div>
 
               <p class="impact-panel-desc">
                 이탈리아 커피 브랜드 일리카페(ILLYCAFFÈ)의 기존 원두/캡슐 중심 구독 구조에
-                ‘머신+커피’ 결합형 상품을 추가해 신규 고객 유입을 확대하고, 분산된 구독 경험을
+                '머신+커피' 결합형 상품을 추가해 신규 고객 유입을 확대하고, 분산된 구독 경험을
                 하나의 기준으로 정리하는 것을 목표로 프로젝트를 진행했어요.
               </p>
 
@@ -223,50 +235,49 @@
                   <ul>
                     <li><strong>2) CTA 활성화 조건 로직 설계 및 UX 오류 예방</strong></li>
                     <li>옵션/수량 필수 선택 전 CTA 비활성 구조 개선</li>
-                    <li>오클릭·0 이하 수량 입력 UX 리스크 사전 식별</li>                    
+                    <li>오클릭·0 이하 수량 입력 UX 리스크 사전 식별</li>
                   </ul>
                   <ul>
                     <li><strong>3) QA 및 결제 신뢰도 핵심 이슈 해결</strong></li>
                     <li>주요 브라우저, 디바이스 테스트 및 약관/결제/배송 문구 검수 수행</li>
-                    <li>결제 단계 회차별 결제금액, 발송일, 할인율 불일치 이슈 특정 및 수정</li>                   
+                    <li>결제 단계 회차별 결제금액, 발송일, 할인율 불일치 이슈 특정 및 수정</li>
                   </ul>
                 </section>
 
                 <section class="impact-col">
                   <h4 class="impact-col-heading">성과</h4>
-                  <ul>
-                    <li>
-                      커피 정기구독 신청 건수
-                      <strong>
-                        <span class="impact-counter" data-counter data-from="0" data-to="36" data-suffix="%">0%</span> 증가
-                      </strong>
-                      런칭 일정 지연
-                      <strong>
+                  <div class="impact-kpi-grid">
+                    <div class="impact-kpi">
+                      <span class="impact-kpi-label">정기구독 신청 건수</span>
+                      <span class="impact-kpi-value">
+                        <span class="impact-counter" data-counter data-from="0" data-to="36" data-suffix="%">0%</span>
+                        <span class="impact-kpi-trend">↑</span>
+                      </span>
+                    </div>
+                    <div class="impact-kpi">
+                      <span class="impact-kpi-label">런칭 일정 지연</span>
+                      <span class="impact-kpi-value">
                         <span class="impact-counter" data-counter data-from="10" data-to="0" data-suffix="일">10일</span>
-                      </strong>
-                    </li>
-                    <li>‘머신+커피’ 결합형 신규 구독 상품군 <strong>안정적 론칭</strong> 구독 UX 표준화 달성</li>
+                      </span>
+                    </div>
+                  </div>
+                  <ul>
+                    <li>'머신+커피' 결합형 신규 구독 상품군 <strong>안정적 론칭</strong>, 구독 UX 표준화 달성</li>
                   </ul>
                 </section>
               </div>
             </article>
 
             <!-- PANEL 2 -->
-            <article
-              class="impact-panel"
-              id="impact-panel-hana"
-              role="tabpanel"
-              aria-labelledby="impact-tab-hana"
-              data-key="hana"
-              hidden
-            >
+            <article class="impact-panel" id="impact-panel-hana"
+              role="tabpanel" aria-labelledby="impact-tab-hana" data-key="hana" hidden>
               <div class="impact-panel-head">
                 <img class="impact-brand-logo" src="./assets/images/logo-hana.png" alt="하나은행 로고" />
-                <h3 class="impact-panel-title">하나은행 TRADE WATCH SYSTEM 업그레이드 개발(2022.10 ~ 2022.11)</h3>
+                <h3 class="impact-panel-title">하나은행 TRADE WATCH SYSTEM 업그레이드<span class="impact-panel-period">(2022.10 ~ 2022.11)</span></h3>
               </div>
 
               <p class="impact-panel-desc">
-                무역기반 이상거래 탐지 시스템 활용도 및 이해도 제고를 위한 UI/UX 고도화 와 2022년 11월 내 시안 완료 및 프로젝트 일정 준수를 목표로 프로젝트를 진행했어요. 
+                무역기반 이상거래 탐지 시스템 활용도 및 이해도 제고를 위한 UI/UX 고도화와 2022년 11월 내 시안 완료 및 프로젝트 일정 준수를 목표로 프로젝트를 진행했어요.
               </p>
 
               <div class="impact-panel-grid">
@@ -275,48 +286,52 @@
                   <ul>
                     <li><strong>1) 현업 피드백 조율 및 UI 방향성 설계</strong></li>
                     <li>화면설계서 기반 사전 UI 레퍼런스 시안 3종 제작, 현업 선택안 중심 진행</li>
-                    <li>하나은행 Primary Color 중심 컬러 체계 수립 및 시선 이동 고려 정보 우선순위 설계</li>
+                    <li>하나은행 Primary Color 중심 컬러 체계 수립 및 정보 우선순위 설계</li>
                   </ul>
                   <ul>
                     <li><strong>2) TBML 기반 이상거래 데이터 시각화 구조 설계</strong></li>
                     <li>거래당사자, 경로, 규정, 제재 데이터 4종 교차 인지</li>
-                    <li>1차 경보, 2차 맥락, 3차 검증 액션 시선 계층 구조 그룹핑</li>
+                    <li>1차 경보, 2차 맥락, 3차 검증 액션 시선 계층 그룹핑</li>
                   </ul>
                   <ul>
                     <li><strong>3) 대규모 정보구조 최적화 및 조회 효율 개선</strong></li>
-                    <li>12,000개 이상 품목 코드 및 다단 카테고리 요약/결과 리스트/상세 패널 3단 구조 재구성</li>
-                    <li>검색 필터 거래, 상대방, 국가, 제재, 기간 그룹화</li>
-                    <li>잦은 사용 조건 프리셋화 기반 반복 조회 시 대기 시간 약 20% 절감 효과 창출</li>           
+                    <li>12,000개 이상 품목 코드 및 다단 카테고리를 요약/결과/상세 3단 구조로 재구성</li>
+                    <li>검색 필터(거래/상대방/국가/제재/기간) 그룹화 및 프리셋화</li>
                   </ul>
                 </section>
 
                 <section class="impact-col">
                   <ul>
-                    <li><strong>4) 실시간 모니터링 UX 강화 및 조치 전환 흐름 설계</strong></li>
+                    <li><strong>4) 실시간 모니터링 UX 강화</strong></li>
                     <li>실시간 데이터 유입 시 화면 단절 방지를 위한 배지형 알림 영역 추가</li>
-                    <li>의심건 발견, 상세 확인, 조치 플로우 툴팁/배지/상세 패널 연결 기반 실무 전환률 강화</li>   
+                    <li>의심건 발견 → 상세 확인 → 조치 플로우 연결로 실무 전환률 강화</li>
                   </ul>
                   <h4 class="impact-col-heading">성과</h4>
-                  <ul>
-                    <li>반시안 일정 내 완료(지연 0일)</li>
-                    <li>무역기반 이상거래 데이터 가독성 및 판단 속도 제고</li>
-                  </ul>
+                  <div class="impact-kpi-grid">
+                    <div class="impact-kpi">
+                      <span class="impact-kpi-label">반복 조회 대기 시간</span>
+                      <span class="impact-kpi-value">
+                        <span class="impact-counter" data-counter data-from="0" data-to="20" data-suffix="%">0%</span>
+                        <span class="impact-kpi-trend impact-kpi-trend--down">↓</span>
+                      </span>
+                    </div>
+                    <div class="impact-kpi">
+                      <span class="impact-kpi-label">납기 지연</span>
+                      <span class="impact-kpi-value">
+                        <span class="impact-counter" data-counter data-from="0" data-to="0" data-suffix="일">0일</span>
+                      </span>
+                    </div>
+                  </div>
                 </section>
               </div>
             </article>
 
             <!-- PANEL 3 -->
-            <article
-              class="impact-panel"
-              id="impact-panel-bigk"
-              role="tabpanel"
-              aria-labelledby="impact-tab-bigk"
-              data-key="bigk"
-              hidden
-            >
+            <article class="impact-panel" id="impact-panel-bigk"
+              role="tabpanel" aria-labelledby="impact-tab-bigk" data-key="bigk" hidden>
               <div class="impact-panel-head">
                 <img class="impact-brand-logo" src="./assets/images/logo-bigk.png" alt="BIGK 로고" />
-                <h3 class="impact-panel-title">BIGK 플랫폼 웹사이트 구축(2021.11)</h3>
+                <h3 class="impact-panel-title">BIGK 플랫폼 웹사이트 구축<span class="impact-panel-period">(2021.11)</span></h3>
               </div>
 
               <p class="impact-panel-desc">
@@ -328,27 +343,41 @@
                   <h4 class="impact-col-heading">역할</h4>
                   <ul>
                     <li><strong>1) WordPress 기반 화면 구조 설계 및 구현</strong></li>
-                    <li>무료 템플릿 구조 활용, PHP 대규모 수정 불필요 테마 옵션/위젯/CSS 중심 구현</li>
+                    <li>무료 템플릿 구조 활용, PHP 대규모 수정 없이 테마 옵션/위젯/CSS 중심 구현</li>
                     <li>이미지 리소스 용량 200KB 이하 관리, 성능 및 가독성 균형 유지</li>
+                  </ul>
+                  <ul>
                     <li><strong>2) 브랜드 아이덴티티 반영 및 정보 전달 구조 설계</strong></li>
-                    <li>히어로, 다이어그램, 화이트페이퍼, 문의 CTA 흐름 고려 핵심 메시지 직관화</li>
+                    <li>히어로 → 다이어그램 → 화이트페이퍼 → 문의 CTA 흐름으로 핵심 메시지 직관화</li>
                     <li>블록체인 특성 고려 기술 다이어그램, 프로세스 중심 톤 앤 매너 구성</li>
-                     <li><strong>3) 가이드 정리</strong></li>
+                  </ul>
+                  <ul>
+                    <li><strong>3) 가이드 정리</strong></li>
                     <li>이미지 규격, 권장 용량, 교체 위치 문서화</li>
-                    <li>비개발 실무자 직접 운영 가능 지원</li>                                       
+                    <li>비개발 실무자 직접 운영 가능 지원</li>
                   </ul>
                 </section>
 
                 <section class="impact-col">
                   <h4 class="impact-col-heading">성과</h4>
+                  <div class="impact-kpi-grid">
+                    <div class="impact-kpi">
+                      <span class="impact-kpi-label">분기당 운영 요청</span>
+                      <span class="impact-kpi-value">
+                        <span class="impact-counter" data-counter data-from="0" data-to="1" data-suffix="건">1건</span>
+                      </span>
+                    </div>
+                    <div class="impact-kpi">
+                      <span class="impact-kpi-label">한·영 사이트 동시 오픈</span>
+                      <span class="impact-kpi-value">2L</span>
+                    </div>
+                  </div>
                   <ul>
                     <li>2021년 11월 내 한/영 공식 사이트 오픈, 이후 업데이트 요청 분기당 약 1건 수준 유지</li>
                   </ul>
                 </section>
               </div>
-
             </article>
-
           </div>
 
           <div class="impact-folds" aria-label="다른 핵심성과">
@@ -381,9 +410,199 @@
     </section>
 
 
+    <!-- ============================================================
+         AI WORKFLOW (신설)
+    ============================================================ -->
+    <section id="workflow" class="workflow-section">
+      <div class="workflow-inner">
+        <p class="workflow-kicker"><span class="kicker-num">/ 03</span> AI WORKFLOW</p>
+
+        <h2 class="workflow-title title-reveal">
+          <span class="headline-row">
+            <span class="headline-line">반복은 <em class="workflow-em">AI</em>에게,</span>
+          </span>
+          <span class="headline-row">
+            <span class="headline-line"><span class="workflow-hl">디테일과 판단</span>은 제가.</span>
+          </span>
+        </h2>
+
+        <p class="workflow-sub">
+          생성형 AI를 실무 파이프라인 안에 녹여서, 같은 시간에 더 정교한 결과를 만들어요.<br />
+          코드 · 마크업 · QA · <strong>비주얼 리소스</strong>까지, 도구로 다루되 마무리는 직접 책임집니다.
+        </p>
+
+        <div class="workflow-grid">
+          <article class="workflow-card">
+            <span class="workflow-card-num">/ 01</span>
+            <span class="workflow-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="8 6 2 12 8 18" />
+                <polyline points="16 6 22 12 16 18" />
+                <line x1="14" y1="4" x2="10" y2="20" />
+              </svg>
+            </span>
+            <h3 class="workflow-card-title">코드 가속화</h3>
+            <p class="workflow-card-desc">Cursor · Claude 페어 프로그래밍으로 반복 컴포넌트·유틸리티 초안 확보 후 시맨틱·접근성 직접 리팩토링</p>
+          </article>
+
+          <article class="workflow-card">
+            <span class="workflow-card-num">/ 02</span>
+            <span class="workflow-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <line x1="3" y1="9" x2="21" y2="9" />
+                <line x1="9" y1="3" x2="9" y2="21" />
+              </svg>
+            </span>
+            <h3 class="workflow-card-title">시안 → 마크업</h3>
+            <p class="workflow-card-desc">디자인 시안 분석으로 마크업 구조 초안 도출, W3C 권장 사양 맞춰 직접 재구성</p>
+          </article>
+
+          <article class="workflow-card workflow-card--featured">
+            <span class="workflow-card-tag">FOCUS</span>
+            <span class="workflow-card-num">/ 03</span>
+            <span class="workflow-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <circle cx="9" cy="9" r="2" />
+                <polyline points="3 17 9 11 14 16 21 9" />
+              </svg>
+            </span>
+            <h3 class="workflow-card-title">AI 이미지 ·<br />비주얼 생성</h3>
+            <p class="workflow-card-desc">프로토타입용 더미 이미지, 키비주얼 시안, 캠페인 무드보드를 빠르게 확보. 톤·해상도·라이선스 검수까지.</p>
+          </article>
+
+          <article class="workflow-card">
+            <span class="workflow-card-num">/ 04</span>
+            <span class="workflow-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </span>
+            <h3 class="workflow-card-title">QA · 검수 · 문서화</h3>
+            <p class="workflow-card-desc">크로스브라우저 이슈 진단, 접근성 체크리스트, 다국어 문구 1차 검수, 핸드오프 노트 자동 정리</p>
+          </article>
+        </div>
+
+        <div class="workflow-gallery">
+          <div class="workflow-gallery-head">
+            <div class="workflow-gallery-head-left">
+              <p class="workflow-gallery-eye">— AI VISUAL SAMPLES</p>
+              <h3 class="workflow-gallery-title"><strong>실무 단계별로</strong> 이렇게 활용해요.</h3>
+            </div>
+            <p class="workflow-gallery-note">
+              기획·디자인 협의 전 단계에서 빠르게 시안을 확보하거나,<br />
+              최종 단계에서 부족한 보조 비주얼을 채우는 용도로 사용합니다.
+            </p>
+          </div>
+
+          <!-- 실제 운영 시: <div class="workflow-gallery-visual"><img src="./assets/images/ai-sample-XX.jpg" alt="" /></div> 로 교체 -->
+          <div class="workflow-gallery-grid">
+            <figure class="workflow-gallery-item">
+              <div class="workflow-gallery-visual">
+                <svg viewBox="0 0 100 115" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="wfBean" cx="50%" cy="40%" r="70%">
+                      <stop offset="0%" stop-color="#8B5A2B" />
+                      <stop offset="50%" stop-color="#5C3317" />
+                      <stop offset="100%" stop-color="#2A1A0F" />
+                    </radialGradient>
+                  </defs>
+                  <rect width="100" height="115" fill="url(#wfBean)" />
+                  <ellipse cx="50" cy="55" rx="22" ry="34" fill="#3A2515" opacity="0.6" />
+                  <ellipse cx="50" cy="55" rx="14" ry="22" fill="#1F1208" />
+                  <path d="M 50 35 Q 56 55 50 75 Q 44 55 50 35 Z" fill="#0a0503" opacity="0.7" />
+                </svg>
+              </div>
+              <figcaption>
+                <span class="workflow-gallery-use">PROTOTYPE</span>
+                <span class="workflow-gallery-name">제품 컷 더미 이미지</span>
+              </figcaption>
+            </figure>
+
+            <figure class="workflow-gallery-item">
+              <div class="workflow-gallery-visual">
+                <svg viewBox="0 0 100 115" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="wfCampaign" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#FFB088" />
+                      <stop offset="60%" stop-color="#FF7A1A" />
+                      <stop offset="100%" stop-color="#8B2010" />
+                    </linearGradient>
+                  </defs>
+                  <rect width="100" height="115" fill="url(#wfCampaign)" />
+                  <circle cx="30" cy="40" r="28" fill="#FFD4B8" opacity="0.5" />
+                  <circle cx="75" cy="80" r="22" fill="#FF8855" opacity="0.55" />
+                  <path d="M 0 60 Q 50 90 100 50 L 100 115 L 0 115 Z" fill="#5C1408" opacity="0.4" />
+                  <text x="14" y="68" font-family="Arial Black, Pretendard" font-size="11" font-weight="900" fill="#fff">SUMMER</text>
+                  <text x="14" y="80" font-family="Arial Black, Pretendard" font-size="11" font-weight="900" fill="#fff">CAMPAIGN</text>
+                </svg>
+              </div>
+              <figcaption>
+                <span class="workflow-gallery-use">KEY VISUAL</span>
+                <span class="workflow-gallery-name">랜딩 키비주얼 시안</span>
+              </figcaption>
+            </figure>
+
+            <figure class="workflow-gallery-item">
+              <div class="workflow-gallery-visual">
+                <svg viewBox="0 0 100 115" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="wfMood" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#F4E4D6" />
+                      <stop offset="100%" stop-color="#D4B5A0" />
+                    </linearGradient>
+                  </defs>
+                  <rect width="100" height="115" fill="url(#wfMood)" />
+                  <path d="M 20 30 Q 35 20 50 30 Q 65 40 80 30 Q 75 50 65 55 Q 50 60 35 55 Q 25 50 20 30 Z" fill="#E8C9A8" opacity="0.85" />
+                  <path d="M 10 70 Q 30 65 50 75 Q 70 85 90 70 L 90 115 L 10 115 Z" fill="#B8956F" opacity="0.6" />
+                  <circle cx="55" cy="42" r="6" fill="#fff" opacity="0.45" />
+                  <circle cx="62" cy="48" r="3" fill="#fff" opacity="0.5" />
+                </svg>
+              </div>
+              <figcaption>
+                <span class="workflow-gallery-use">MOODBOARD</span>
+                <span class="workflow-gallery-name">에디토리얼 무드보드</span>
+              </figcaption>
+            </figure>
+
+            <figure class="workflow-gallery-item">
+              <div class="workflow-gallery-visual">
+                <svg viewBox="0 0 100 115" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="wfUi" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#1a1a1a" />
+                      <stop offset="100%" stop-color="#3a3a3a" />
+                    </linearGradient>
+                  </defs>
+                  <rect width="100" height="115" fill="url(#wfUi)" />
+                  <rect x="25" y="32" width="50" height="50" rx="4" fill="#fff" opacity="0.95" />
+                  <rect x="32" y="40" width="36" height="3" fill="#1a1a1a" opacity="0.85" />
+                  <rect x="32" y="48" width="24" height="2" fill="#666" />
+                  <circle cx="36" cy="60" r="3" fill="#FF7A1A" />
+                  <rect x="42" y="58" width="22" height="2" fill="#999" />
+                  <rect x="42" y="64" width="16" height="2" fill="#bbb" />
+                  <rect x="32" y="72" width="36" height="6" rx="3" fill="#FF7A1A" />
+                  <text x="44" y="76.5" font-family="Arial, Pretendard" font-size="3.5" font-weight="700" fill="#fff">VIEW MORE</text>
+                </svg>
+              </div>
+              <figcaption>
+                <span class="workflow-gallery-use">UI MOCKUP</span>
+                <span class="workflow-gallery-name">컴포넌트 더미 비주얼</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         SKILLS
+    ============================================================ -->
     <section id="stack" class="skills-section">
       <div class="skills-inner">
-        <p class="skills-kicker">실행으로 증명할게요!</p>
+        <p class="skills-kicker"><span class="kicker-num">/ 04</span> 실행으로 증명할게요!</p>
         <h2 class="skills-title title-reveal">
           <span class="headline-row">
             <span class="headline-line">이런업무는 저에게 맡겨주세요.</span>
@@ -396,15 +615,13 @@
           <svg class="skills-ribbon-svg" viewBox="0 0 1920 900" preserveAspectRatio="xMidYMid slice">
             <defs>
               <path id="skillsRibbonPath"
-                    d="M -220 110
-                      C 120 20, 330 210, 470 380
-                      C 620 560, 840 740, 1090 705
-                      C 1330 675, 1510 520, 1705 410
-                      C 1880 312, 2050 272, 2240 300" />
+                d="M -220 110
+                   C 120 20, 330 210, 470 380
+                   C 620 560, 840 740, 1090 705
+                   C 1330 675, 1510 520, 1705 410
+                   C 1880 312, 2050 272, 2240 300" />
             </defs>
-
             <use href="#skillsRibbonPath" class="skills-ribbon-path"></use>
-
             <text class="skills-ribbon-text">
               <textPath href="#skillsRibbonPath" data-ribbon-track class="skills-ribbon-track">
                 · IF YOU CHOOSE ME, I'LL DO WELL · IF YOU CHOOSE ME, I'LL DO WELL · IF YOU CHOOSE ME, I'LL DO WELL · IF YOU CHOOSE ME, I'LL DO WELL
@@ -420,51 +637,52 @@
 
         <div class="skills-cards" aria-label="핵심 역량">
           <article class="skill-card skill-card--1">
+            <span class="skill-card-dot" aria-hidden="true"></span>
             <h3 class="skill-card-title">#HTML5</h3>
             <p class="skill-card-desc">시맨틱 마크업 기반의 구조 설계<br />및 접근성 고려한 구현</p>
           </article>
-
           <article class="skill-card skill-card--2">
+            <span class="skill-card-dot" aria-hidden="true"></span>
             <h3 class="skill-card-title">#CSS3</h3>
             <p class="skill-card-desc">반응형 레이아웃, FLEX/GRID<br />활용 및 크로스브라우저 대응</p>
           </article>
-
           <article class="skill-card skill-card--3">
+            <span class="skill-card-dot" aria-hidden="true"></span>
             <h3 class="skill-card-title">#JAVASCRIPT</h3>
             <p class="skill-card-desc">UI 제어 및 사용자<br />인터랙션 로직 구현</p>
           </article>
-
           <article class="skill-card skill-card--4">
+            <span class="skill-card-dot" aria-hidden="true"></span>
             <h3 class="skill-card-title">#JQUERY</h3>
             <p class="skill-card-desc">DOM 제어 및 이벤트 기반<br />인터랙션 구현</p>
           </article>
-
           <article class="skill-card skill-card--5">
+            <span class="skill-card-dot" aria-hidden="true"></span>
             <h3 class="skill-card-title">#웹 표준</h3>
             <p class="skill-card-desc">W3C 권장 사양 준수<br />마크업 구조 설계</p>
           </article>
-
           <article class="skill-card skill-card--6">
+            <span class="skill-card-dot" aria-hidden="true"></span>
             <h3 class="skill-card-title">#웹 접근성</h3>
             <p class="skill-card-desc">키보드 접근, 대체 텍스트 등<br />기본 접근성 요소 적용</p>
           </article>
-
           <article class="skill-card skill-card--7">
+            <span class="skill-card-dot" aria-hidden="true"></span>
             <h3 class="skill-card-title">#반응형 웹</h3>
             <p class="skill-card-desc">PC/MOBILE 환경 대응<br />레이아웃 설계 및 구현</p>
           </article>
-
           <article class="skill-card skill-card--8">
+            <span class="skill-card-dot" aria-hidden="true"></span>
             <h3 class="skill-card-title">#브라우저 호환성</h3>
             <p class="skill-card-desc">CHROME, EDGE, FIREFOX,<br />WHALE 등 주요 브라우저 대응</p>
           </article>
-
           <article class="skill-card skill-card--9">
+            <span class="skill-card-dot" aria-hidden="true"></span>
             <h3 class="skill-card-title">#웹 사이트 모니터링</h3>
             <p class="skill-card-desc">운영 이슈 파악 및 기능,<br />화면 개선 제안</p>
           </article>
-
           <article class="skill-card skill-card--10">
+            <span class="skill-card-dot" aria-hidden="true"></span>
             <h3 class="skill-card-title">#UI/UX 개선</h3>
             <p class="skill-card-desc">운영 데이터 및 사용성 관점 개선<br />포인트 도출/반영</p>
           </article>
@@ -473,9 +691,12 @@
     </section>
 
 
+    <!-- ============================================================
+         PROJECTS
+    ============================================================ -->
     <section id="projects" class="projects-section">
       <div class="projects-inner">
-        <p class="projects-kicker">PROJECTS</p>
+        <p class="projects-kicker"><span class="kicker-num">/ 05</span> PROJECTS</p>
         <h2 class="projects-title title-reveal">
           <span class="headline-row">
             <span class="headline-line">작업물 더 구경하시겠어요?</span>
@@ -483,14 +704,17 @@
         </h2>
 
         <div class="projects-grid-wrap" id="projectsGridWrap" aria-live="polite">
-
           <div class="projects-curve" id="projectsCurve">
             <img class="projects-curve-img" src="./assets/images/projects/projects-curve.svg" alt="" aria-hidden="true"/>
-            <button type="button" class="projects-more-btn" id="projectsMoreBtn" aria-expanded="false" aria-controls="projectsGridWrap">더보기</button>
+            <button type="button" class="projects-more-btn" id="projectsMoreBtn" aria-expanded="false" aria-controls="projectsGridWrap">
+              <span>더보기</span>
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
           </div>
 
           <div class="projects-grid" id="projectsGrid">
-            <!-- 1 -->
             <a class="project-card" href="https://shop.illycaffe.co.kr/order/subscription_main.php" target="_blank" rel="noopener noreferrer" aria-label="프로젝트 1">
               <img class="project-thumb" src="./assets/images/projects/project-01.png" alt="프로젝트 1" />
               <span class="project-overlay">
@@ -636,7 +860,7 @@
               <span class="project-overlay">
                 <span class="project-overlay-kicker">Web/Mobile</span>
                 <strong class="project-overlay-title">두산건설 We've 골프 챔피언십</strong>
-                <span class="project-overlay-desc">두산건설 We’ve 챔피언십 기념 일리카페 특별 이벤트</span>
+                <span class="project-overlay-desc">두산건설 We've 챔피언십 기념 일리카페 특별 이벤트</span>
                 <span class="project-overlay-type">Publishing</span>
               </span>
             </a>
@@ -679,20 +903,19 @@
                 <span class="project-overlay-desc">호수도령 웹 사이트 구축&구현</span>
                 <span class="project-overlay-type">UI/UX & Publishing</span>
               </span>
-            </a>            
-            
+            </a>
           </div>
-
-
-
         </div>
       </div>
     </section>
 
 
+    <!-- ============================================================
+         APPEAL
+    ============================================================ -->
     <section id="appeal" class="appeal-section">
       <div class="appeal-inner">
-        <p class="appeal-kicker">LET’S TALK</p>
+        <p class="appeal-kicker"><span class="kicker-num">/ 06</span> LET'S TALK</p>
         <h2 class="appeal-lead title-reveal">
           <span class="headline-row">
             <span class="headline-line">새로운 동료를 기다리고 있어요.</span>
@@ -720,11 +943,23 @@
     </section>
 
 
+    <!-- ============================================================
+         FOOTER
+    ============================================================ -->
     <footer class="site-footer" id="contact">
       <div class="footer-inner">
-        <a class="footer-email" href="mailto:bebemj997@gmail.com">bebemj997@gmail.com</a>
+        <div class="footer-top">
+          <span class="footer-status">
+            <span class="footer-status-dot" aria-hidden="true"></span>
+            CURRENTLY AVAILABLE FOR NEW PROJECTS
+          </span>
+          <a class="footer-email" href="mailto:bebemj997@gmail.com">bebemj997@gmail.com</a>
+        </div>
         <p class="footer-name">KWONMINJI</p>
-        <p class="footer-copy">© 2026 KWONMINJI</p>
+        <div class="footer-bottom">
+          <p class="footer-copy">© 2026 KWONMINJI · All rights reserved</p>
+          <p class="footer-meta">Built with HTML · CSS · JavaScript · AI Workflow</p>
+        </div>
       </div>
     </footer>
 
