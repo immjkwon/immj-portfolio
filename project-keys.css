@@ -1,0 +1,36 @@
+.keys {background:#f6f4ed;color:#252522;padding:calc(var(--header-h) + clamp(32px,6vw,90px)) max(6vw,24px) clamp(50px,6vw,90px);min-height:94svh;display:grid;align-items:center;box-sizing:border-box}
+.keys__layout {width:100%;max-width:1320px;margin:auto;display:grid;grid-template-columns:1fr 1.08fr;align-items:center;gap:6%}
+.keys__byline {margin:0;color:#4a4843;font-size:clamp(14px,1.2vw,17px);font-weight:600}
+.keys__byline span {margin:0 .45em;color:#8f8176}
+.keys h1 {font:500 clamp(72px,8.7vw,144px)/.83 Georgia,serif;letter-spacing:-.077em;margin:.38em 0 .31em;color:#272723}
+.keys h1 em {font-weight:400}
+.keys h1 b {color:#db512b;font-weight:400}
+.keys__lead {font-size:clamp(20px,1.85vw,29px);line-height:1.45;font-weight:650;letter-spacing:-.045em;margin:0}
+.keys__keyboard {width:max-content;max-width:100%;display:flex;gap:8px;padding:11px 12px 15px;margin-top:clamp(24px,3.2vw,48px);border:1px solid #a9a59a;border-radius:15px;background:linear-gradient(#c9c6ba,#a39e91);box-shadow:inset 0 2px 1px #fff9,0 4px 0 #807b70,0 12px 18px -10px #47412d88}
+.keys__key {position:relative;display:grid;align-content:space-between;text-align:left;min-width:0;width:clamp(75px,7.3vw,110px);height:69px;padding:8px 10px;border:1px solid #b5afa3;border-radius:8px;background:linear-gradient(145deg,#fffdf7,#e6e1d5);color:#34322c;line-height:1.2;font-family:inherit;font-size:15px;font-weight:650;cursor:pointer;box-shadow:0 5px 0 #8c887c,0 6px 3px #4a473c80;transition:transform .18s ease-out,box-shadow .18s ease-out;touch-action:manipulation}
+.keys__legend {font:600 12px/1 monospace;opacity:.85}
+.keys__key[aria-selected=true] {background:linear-gradient(145deg,#b83f1e,#a63014);color:#fff;border-color:#93331d;transform:translateY(2px);box-shadow:0 3px 0 #752b18,0 4px 2px #59524477}
+.keys .keys__key:active {transform:translateY(5px);box-shadow:0 1px 0 #76695c}
+.keys :focus-visible {outline:3px solid #054cb1;outline-offset:4px}
+.keys__gallery {min-width:0}
+.keys__panel:not([hidden]) {animation:keys-appear .25s ease-out}
+.keys__panel[hidden] {display:none}
+.keys__visual {position:relative;display:grid;place-items:center;overflow:hidden;isolation:isolate;aspect-ratio:1.55;border-radius:3px;background:linear-gradient(115deg,#e5ded4,#d5cabe)}
+.keys__visual img {height:100%;width:auto;max-width:100%;object-fit:contain;box-shadow:0 0 28px #37271918}
+.keys__plate {position:absolute;left:14px;bottom:14px;padding:5px 10px;border:1px solid #ccc6b8;border-radius:20px;background:#f8f6ed;color:#3c3934;font:italic 16px Georgia,serif}
+.keys__panel--brand .keys__visual {background:#d4ddc8}
+.keys__panel--ia .keys__visual {background:#d7e6df}
+.keys__diagram {width:80%;color:#145047;text-align:center;font-size:16px}
+.keys__diagram small {display:block;font-size:13px}
+.keys__diagram strong {display:block;font:500 clamp(48px,5.5vw,84px)/1.1 Georgia,serif;letter-spacing:-.065em}
+.keys__diagram strong span {color:#467769}
+.keys__diagram ol {display:flex;justify-content:center;gap:8px;list-style:none;margin:14px 0 0;padding:0}
+.keys__diagram li {padding:6px 10px;border-block:1px solid #759e90;font-size:14px}
+.keys__caption {padding-top:20px}
+.keys__caption h2 {font-size:clamp(23px,2.2vw,36px);line-height:1.15;letter-spacing:-.045em;margin:0}
+.keys__caption p {font-size:16px;line-height:1.55;margin:9px 0 4px;color:#504e47;word-break:keep-all}
+.keys__caption a {display:inline-flex;min-height:44px;align-items:center;color:#812e18;text-decoration:underline;text-underline-offset:5px;font-size:15px;font-weight:650}
+@keyframes keys-appear {from {opacity:.35;transform:translateY(5px)} to {opacity:1;transform:none}}
+@media (min-width:768px) and (max-width:1024px) {.keys {padding-inline:4vw}.keys__layout {gap:4%}.keys__visual {aspect-ratio:1.2}}
+@media (max-width:767px) {.keys {padding:calc(var(--header-h) + 32px) 20px 42px;min-height:auto}.keys__layout {grid-template-columns:1fr;gap:30px}.keys h1 {font-size:clamp(64px,13vw,88px);margin:.32em 0}.keys h1 br {display:none}.keys h1 em {margin-left:.16em}.keys__keyboard {margin-top:20px}.keys__key {width:76px;height:60px}.keys__caption {padding-top:14px}}
+@media (prefers-reduced-motion:reduce) {.keys__panel:not([hidden]) {animation:none}.keys__key {transition:none}}
