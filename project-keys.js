@@ -22,10 +22,10 @@
     {x:315,y:28,w:72,h:67,label:'→',color:[53,54,64]},
     {x:46,y:178,w:341,h:64,label:'open case',color:[60,78,239]}
   ];
-  let selected=0, strike=-1, start=0, tilt=0, targetTilt=0, frame=0;
+  let selected=0, strike=-1, start=0, frame=0;
   let scale=1, originX=0, originY=0;
   function project(x,y,z) {
-    return [originX+scale*(x*.98 + y*(.32+tilt)-240),originY+scale*(-x*.22 + y*.77-z*.94-46)];
+    return [originX+scale*(x*.98 + y*.32-240),originY+scale*(-x*.22 + y*.77-z*.94-46)];
   }
   function ring(x,y,w,h,r,z) {
     const pts=[];
@@ -59,7 +59,7 @@
   }
   function inscription(text,x,y,z,size,color,center=false) {
     const p=project(x,y,z);
-    ctx.save();ctx.transform(.98*scale,-.22*scale,(.32+tilt)*scale,.77*scale,...p);
+    ctx.save();ctx.transform(.98*scale,-.22*scale,.32*scale,.77*scale,...p);
     ctx.fillStyle=color;ctx.textAlign=center?'center':'left';ctx.font='600 '+size+'px Arial, sans-serif';ctx.fillText(text,0,0);ctx.restore();
   }
   function draw(now) {
@@ -72,8 +72,7 @@
     }
     ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,w,h);
     scale=Math.min(w/535,h/340);originX=w*.49;originY=h*.48;
-    tilt+= (targetTilt-tilt)*.16;
-    const elapsed=now-start,depth=strike<0||elapsed>=360?0:elapsed<85?9*elapsed/85:9*Math.exp(-(elapsed-85)/72)*Math.cos((elapsed-85)/49);
+    const elapsed=reduced.matches?360:now-start,depth=strike<0||elapsed>=360?0:elapsed<85?9*elapsed/85:9*Math.exp(-(elapsed-85)/72)*Math.cos((elapsed-85)/49);
     ctx.save();ctx.shadowColor='rgba(42,45,91,.34)';ctx.shadowBlur=25*scale;ctx.shadowOffsetY=18*scale;
     paint(ring(7,12,398,236,22,-17),'#999bab');ctx.restore();
     solid([ring(3,3,414,256,25,-15),ring(0,0,420,262,25,-7),ring(0,0,420,262,25,8),ring(3,3,414,256,22,12)], [158,161,167],[215,216,218]);
@@ -97,7 +96,7 @@
       const center=project(c.x+c.w/2,c.y+c.h/2,z);
       Object.assign(buttons[i].style,{left:center[0]+'px',top:center[1]+'px',width:Math.max(44,c.w*scale*.86)+'px',height:Math.max(44,c.h*scale*.65)+'px',rotate:'-12deg',transformOrigin:'0 0'});
     }
-    if(Math.abs(targetTilt-tilt)>.0002||(!reduced.matches && elapsed<360 && strike>=0))schedule();
+    if(!reduced.matches && elapsed<360 && strike>=0)schedule();
   }
   function schedule(){if(ctx && !frame)frame=requestAnimationFrame(draw)}
   function select(index,pressed=index){
@@ -118,8 +117,6 @@
   link.addEventListener('click',()=>{if(link.hash){const tab=document.querySelector(link.hash);tab?.click();tab?.focus({preventScroll:true})}});
   if(!ctx)return;
   stage.classList.add('is-ready');
-  stage.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||reduced.matches)return;const rect=stage.getBoundingClientRect();targetTilt=((e.clientX-rect.left)/rect.width-.5)*.09;schedule()});
-  stage.addEventListener('pointerleave',()=>{targetTilt=0;schedule()});
   canvas.addEventListener('click',e=>{
     const r=canvas.getBoundingClientRect(),dial=project(83,62,38);
     if(Math.hypot(e.clientX-r.left-dial[0],e.clientY-r.top-dial[1])<40*scale)activate(3);
