@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="./global.css" />
 
   <title>KWONMINJI — UIUX / Web Publisher / Frontend</title>
+  <link rel="stylesheet" href="./project-keys.css">
 </head>
 <body>
   <header class="site-header">
@@ -41,74 +42,13 @@
     <!-- ============================================================
          HERO
     ============================================================ -->
-    <section class="hero" id="hero">
-      <div class="hero-inner" id="heroRoot">
-        <div class="hero-meta">
-          <span class="hero-meta-item">© 2026 — Portfolio v3.0</span>
-          <span class="hero-meta-sep" aria-hidden="true">·</span>
-          <span class="hero-meta-item">Seoul, KR</span>
-        </div>
-
-        <div class="intro-wrap" aria-label="Hero multilingual greeting">
-          <p class="intro-line line-1" data-target="0.59">
-            <span class="outline">HELLO.</span>
-            <span class="outline">こんにちは.</span>
-            <span class="outline">Hola.</span>
-            <span class="fill">안녕하세요.</span>
-            <span class="outline">Bonjour.</span>
-            <span class="outline">Salve.</span>
-          </p>
-
-          <p class="intro-line line-2" data-target="0.58">
-            <span class="outline">Nice to meet you.</span>
-            <span class="fill">반갑습니다.</span>
-            <span class="outline">はじめまして.</span>
-            <span class="outline">Piacere di conoscerla.</span>
-            <span class="outline">Ravi de vous rencontrer.</span>
-          </p>
-
-          <p class="intro-line line-3" data-target="0.58">
-            <span class="outline">I'm Kwon Minji.</span>
-            <span class="outline">Mi chiamo Kwon Min-ji.</span>
-            <span class="fill">권민지입니다.</span>
-            <span class="outline">Je suis Min Ji Kwon.</span>
-          </p>
-        </div>
-
-        <div class="traits" id="traits">
-          <p class="trait">섬세하고 디테일을 중요시 하지만, <strong>손이 빠르답니다.</strong></p>
-          <p class="trait">유연함을 좋아하지만, <strong>기본에 충실해요.</strong></p>
-        </div>
-
-        <div class="hero-stats" aria-label="요약 지표">
-          <div class="hero-stat">
-            <span class="hero-stat-num">4Y 11M</span>
-            <span class="hero-stat-label">실무 경력</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-num" data-counter data-from="0" data-to="19" data-suffix="+">19+</span>
-            <span class="hero-stat-label">런칭 프로젝트</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-num" data-counter data-from="0" data-to="100" data-suffix="%">100%</span>
-            <span class="hero-stat-label">일정 준수율</span>
-          </div>
-          <div class="hero-stat hero-stat--accent">
-            <span class="hero-stat-num">AI</span>
-            <span class="hero-stat-label">실무 워크플로우 도입</span>
-          </div>
-        </div>
-
-        <a href="#about" class="scroll-down" aria-label="Scroll to About">
-          <span>Scroll down</span>
-          <svg class="scroll-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
-            <path d="M6 9l6 6 6-6"
-              stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </a>
-      </div>
-    </section>
+    <section class="keys" id="hero" aria-labelledby="works-heading">
+ <div class="keys__layout"><div class="keys__intro">
+ <p class="keys__byline">권민지 <span>/</span> UI·UX Designer &amp; Web Publisher</p>
+ <h1 id="works-heading">Selected<br><em>works</em><b>.</b></h1>
+ <p class="keys__lead">운영의 반복에서<br>제품 개선 기회를 찾습니다.</p>
+ <div class="keys__keyboard" role="tablist" aria-label="대표 프로젝트"><button class="keys__key" id="key-ux" role="tab" aria-controls="work-ux" aria-selected="true" tabindex="0"><span class="keys__legend">F1</span><span>서비스 UX</span></button><button class="keys__key" id="key-ia" role="tab" aria-controls="work-ia" aria-selected="false" tabindex="-1"><span class="keys__legend">F2</span><span>정보 설계</span></button><button class="keys__key" id="key-brand" role="tab" aria-controls="work-brand" aria-selected="false" tabindex="-1"><span class="keys__legend">F3</span><span>브랜드 경험</span></button></div>
+ </div><div class="keys__gallery"><article class="keys__panel keys__panel--ux" id="work-ux" role="tabpanel" aria-labelledby="key-ux" ><div class="keys__visual"><img src="./assets/images/projects/project-01.png" width="240" height="240" alt="일리 커피 머신과 구독 원두"><span class="keys__plate">illycaffè</span></div><div class="keys__caption"><h2>일리 정기구독</h2><p>옵션을 바꿔도 방금 고른 원두는 그대로.</p><a href="#impact-tab-illy">일리 정기구독 사례 보기</a></div></article><article class="keys__panel keys__panel--ia" id="work-ia" role="tabpanel" aria-labelledby="key-ia" hidden><div class="keys__visual"><div class="keys__diagram"><small>정보 구조 개념도</small><strong>12,000<span>+</span></strong><div>품목 코드</div><ol><li>요약</li><li>조회 결과</li><li>상세 정보</li></ol></div><span class="keys__plate">Hana Bank</span></div><div class="keys__caption"><h2>하나은행 Trade Watch</h2><p>12,000개 이상의 품목 코드를 요약·결과·상세로 나눴습니다.</p><a href="#impact-tab-hana">하나은행 사례 보기</a></div></article><article class="keys__panel keys__panel--brand" id="work-brand" role="tabpanel" aria-labelledby="key-brand" hidden><div class="keys__visual"><img src="./assets/images/projects/project-21.png" width="240" height="240" alt="일리 테이크아웃 커피와 일리윤 제품"><span class="keys__plate">illy × ILLIYOON</span></div><div class="keys__caption"><h2>일리 × 일리윤</h2><p>아침·오후·밤의 루틴을 따라 두 브랜드의 제품을 만납니다.</p><a href="https://www.illycaffe.co.kr/illy_illiyoon/index.php" target="_blank" rel="noopener noreferrer">브랜드 캠페인 열기</a></div></article></div></div></section>
 
 
     <!-- ============================================================
@@ -1066,5 +1006,6 @@
 
   <script src="https://unpkg.com/lenis@1.3.17/dist/lenis.min.js"></script>
   <script src="./script.js" defer></script>
+  <script src="./project-keys.js" defer></script>
 </body>
 </html>
