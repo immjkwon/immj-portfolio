@@ -40,3 +40,17 @@ body:has(.keys) .site-header .brand-mark {background:#3449e8;color:white;border-
 @media (prefers-reduced-motion:reduce) {
   .keys__instrument::before,.keys__instrument::after,.keys__label::before,.keys h1 i {transition:none}
 }
+
+/* The closing key echoes the project keyboard at the entrance. */
+.contact-end {background:#222331;color:#f8f7f2;padding:clamp(54px,8vw,120px) 6vw 26px;scroll-margin-top:var(--header-h)}
+.contact-end__inner {max-width:1280px;margin:auto}
+.contact-end__role {margin:0 0 26px;color:#c3c6d8;font-size:15px}
+.contact-end h2 {margin:0;font-size:clamp(32px,4.7vw,76px);line-height:1.15;letter-spacing:-.055em;word-break:keep-all}
+.contact-end h2 em {font-style:normal;color:#afbaff}
+.contact-end__copy {margin:24px 0 32px;font-size:clamp(16px,1.4vw,20px);line-height:1.65;color:#e2e4ed;word-break:keep-all}
+.contact-end__mail {display:inline-flex;align-items:center;gap:22px;min-height:52px;padding:8px 20px;color:#202132;background:#eeedf8;border:1px solid #fff;border-radius:10px;box-shadow:0 5px 0 #9294ab;font-size:16px;font-weight:650;text-decoration:none;transition:transform .16s,box-shadow .16s}
+.contact-end__mail span {font:24px/1 monospace;color:#4756b0}
+.contact-end__mail:active {transform:translateY(4px);box-shadow:0 1px 0 #9294ab}
+.contact-end__mail:focus-visible {outline:3px solid #bdc6ff;outline-offset:7px}
+.contact-end__foot {display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;border-top:1px solid #545562;margin-top:clamp(54px,7vw,104px);padding-top:18px;font-size:14px;color:#c3c6d8}
+@media(prefers-reduced-motion:reduce){.contact-end__mail{transition:none}}
