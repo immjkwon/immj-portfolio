@@ -24,3 +24,19 @@ body:has(.keys) .site-header :is(.brand,.gnb a,.header-status) {color:#30313b}
 body:has(.keys) .site-header .brand-mark {background:#3449e8;color:white;border-color:#3449e8}
 @media(max-width:1024px) {.keys {padding-inline:4vw}.keys__layout {gap:2%}.keys__details p {font-size:16px}}
 @media(max-width:767px) {.keys {padding:calc(var(--header-h) + 16px) 5vw 22px}.keys__layout {grid-template-columns:1fr;gap:12px;padding-block:0 24px}.keys__instrument {max-width:540px;margin:auto}.keys h1 {font-size:clamp(55px,12vw,83px);margin:.18em 0}.keys h1 br {display:none}.keys h1 em {margin-left:.18em}.keys__foot span:last-child {display:none}.keys__foot {font-size:12px}}
+
+/* Project-specific light stays behind the instrument; the board has a fixed camera. */
+.keys__instrument::before,.keys__instrument::after {
+  content:"";position:absolute;pointer-events:none;z-index:-1;inset:-4% -3%;
+  border-radius:50%;opacity:0;transition:opacity .38s ease-out;
+}
+.keys__instrument::before {background:radial-gradient(ellipse at 50% 57%,#77cabf99,transparent 68%)}
+.keys__instrument::after {background:radial-gradient(ellipse at 50% 57%,#e5ac9eaa,transparent 68%)}
+.keys[data-project="trade"] .keys__instrument::before,
+.keys[data-project="brand"] .keys__instrument::after {opacity:1}
+.keys[data-project="trade"] {--blue:#087369}
+.keys[data-project="brand"] {--blue:#a94737}
+.keys__label::before,.keys h1 i {transition:background-color .25s,color .25s}
+@media (prefers-reduced-motion:reduce) {
+  .keys__instrument::before,.keys__instrument::after,.keys__label::before,.keys h1 i {transition:none}
+}
