@@ -1,0 +1,56 @@
+.keys {--ink:#202127;--blue:#3449e8;color:var(--ink);position:relative;display:flex;flex-direction:column;justify-content:center;min-height:100svh;padding:calc(var(--header-h) + 28px) 5vw 22px;box-sizing:border-box;background:radial-gradient(ellipse at 28% 59%,#ccd3fb 0%,#e2e4f4 24%,transparent 53%),#f4f2ee}
+.keys__layout,.keys__foot {width:100%;max-width:1500px;margin-inline:auto}
+.keys__layout {flex:1;display:grid;grid-template-columns:58% 1fr;gap:3%;align-items:center;padding-block:34px}
+.keys__instrument {width:100%;aspect-ratio:1.38;position:relative;isolation:isolate}
+.keys canvas {display:block;width:100%;height:100%;touch-action:pan-y}
+.keys__controls {display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin-top:8px}
+.keys__controls button {min-height:44px;padding:6px 11px;background:#fff9;border:1px solid #b4b5bf;border-radius:8px;color:#25252b;font:inherit;font-size:14px;cursor:pointer}
+.keys__instrument.is-ready .keys__controls button {position:absolute;margin:0;padding:0;background:transparent;color:transparent;border:0;border-radius:12px;transform:translate(-50%,-50%);touch-action:manipulation}
+.keys__instrument.is-ready .keys__controls {display:contents}
+.keys__controls button:focus-visible,.keys a:focus-visible {outline:3px solid #2238e3;outline-offset:3px}
+.keys__label,.keys__foot {font:500 13px/1.5 'Courier New',monospace;letter-spacing:.04em}
+.keys__label {display:flex;align-items:center;gap:12px;color:#54545f;margin:0}
+.keys__label:before {content:'';width:28px;height:2px;background:var(--blue)}
+.keys__label span {font-size:12px;letter-spacing:0}
+.keys h1 {font:600 clamp(66px,7.9vw,130px)/.89 'Pretendard',Arial,sans-serif;letter-spacing:-.08em;margin:.35em 0 .46em}
+.keys h1 em {font-style:normal}.keys h1 i {font-style:normal;color:var(--blue)}
+.keys__details h2 {font-size:clamp(23px,2.1vw,34px);line-height:1.35;letter-spacing:-.045em;margin:0}
+.keys__details p {font-size:17px;line-height:1.55;color:#4d505a;margin:8px 0 17px;word-break:keep-all}
+.keys__details a {display:inline-flex;align-items:center;background:#25262c;color:white;padding:0 22px;min-height:45px;border-radius:32px;text-decoration:none;font-size:15px;font-weight:600}
+.keys__foot {display:flex;justify-content:space-between;align-items:center;border-top:1px solid #c6c6ca;padding-top:14px;color:#4d505c}
+.keys__foot b {color:var(--blue);margin:0 5px}.keys kbd {background:#fff;border:1px solid #d2d2d9;border-radius:4px;padding:2px 5px;margin-left:4px}
+body:has(.keys) .site-header {background:#f4f2eef5;border-color:#d6d5d4}
+body:has(.keys) .site-header :is(.brand,.gnb a,.header-status) {color:#30313b}
+body:has(.keys) .site-header .brand-mark {background:#3449e8;color:white;border-color:#3449e8}
+@media(max-width:1024px) {.keys {padding-inline:4vw}.keys__layout {gap:2%}.keys__details p {font-size:16px}}
+@media(max-width:767px) {.keys {padding:calc(var(--header-h) + 16px) 5vw 22px}.keys__layout {grid-template-columns:1fr;gap:12px;padding-block:0 24px}.keys__instrument {max-width:540px;margin:auto}.keys h1 {font-size:clamp(55px,12vw,83px);margin:.18em 0}.keys h1 br {display:none}.keys h1 em {margin-left:.18em}.keys__foot span:last-child {display:none}.keys__foot {font-size:12px}}
+
+/* Project-specific light stays behind the instrument; the board has a fixed camera. */
+.keys__instrument::before,.keys__instrument::after {
+  content:"";position:absolute;pointer-events:none;z-index:-1;inset:-4% -3%;
+  border-radius:50%;opacity:0;transition:opacity .38s ease-out;
+}
+.keys__instrument::before {background:radial-gradient(ellipse at 50% 57%,#77cabf99,transparent 68%)}
+.keys__instrument::after {background:radial-gradient(ellipse at 50% 57%,#e5ac9eaa,transparent 68%)}
+.keys[data-project="trade"] .keys__instrument::before,
+.keys[data-project="brand"] .keys__instrument::after {opacity:1}
+.keys[data-project="trade"] {--blue:#087369}
+.keys[data-project="brand"] {--blue:#a94737}
+.keys__label::before,.keys h1 i {transition:background-color .25s,color .25s}
+@media (prefers-reduced-motion:reduce) {
+  .keys__instrument::before,.keys__instrument::after,.keys__label::before,.keys h1 i {transition:none}
+}
+
+/* The closing key echoes the project keyboard at the entrance. */
+.contact-end {background:#222331;color:#f8f7f2;padding:clamp(54px,8vw,120px) 6vw 26px;scroll-margin-top:var(--header-h)}
+.contact-end__inner {max-width:1280px;margin:auto}
+.contact-end__role {margin:0 0 26px;color:#c3c6d8;font-size:15px}
+.contact-end h2 {margin:0;font-size:clamp(32px,4.7vw,76px);line-height:1.15;letter-spacing:-.055em;word-break:keep-all}
+.contact-end h2 em {font-style:normal;color:#afbaff}
+.contact-end__copy {margin:24px 0 32px;font-size:clamp(16px,1.4vw,20px);line-height:1.65;color:#e2e4ed;word-break:keep-all}
+.contact-end__mail {display:inline-flex;align-items:center;gap:22px;min-height:52px;padding:8px 20px;color:#202132;background:#eeedf8;border:1px solid #fff;border-radius:10px;box-shadow:0 5px 0 #9294ab;font-size:16px;font-weight:650;text-decoration:none;transition:transform .16s,box-shadow .16s}
+.contact-end__mail span {font:24px/1 monospace;color:#4756b0}
+.contact-end__mail:active {transform:translateY(4px);box-shadow:0 1px 0 #9294ab}
+.contact-end__mail:focus-visible {outline:3px solid #bdc6ff;outline-offset:7px}
+.contact-end__foot {display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;border-top:1px solid #545562;margin-top:clamp(54px,7vw,104px);padding-top:18px;font-size:14px;color:#c3c6d8}
+@media(prefers-reduced-motion:reduce){.contact-end__mail{transition:none}}
