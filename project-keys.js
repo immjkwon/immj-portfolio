@@ -5,7 +5,7 @@
   const canvas = stage.querySelector('canvas');
   const ctx = canvas.getContext('2d');
   const buttons = Array.from(stage.querySelectorAll('button'));
-  const heading = hero.querySelector('h1');
+  const heading = hero.querySelector('.keys__project-name');
   const details = hero.querySelector('.keys__details');
   const link = details.querySelector('a');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
@@ -127,7 +127,7 @@
     hero.dataset.project=['service','trade','brand'][index];
     selected=index;strike=pressed;start=performance.now()-(reduced.matches?400:0);
     const em=document.createElement('em'),dot=document.createElement('i');
-    em.textContent=p[1];dot.textContent='.';heading.replaceChildren(p[0],document.createElement('br'),em,dot);
+    em.textContent=p[1];dot.textContent='.';heading.replaceChildren(p[0]+' ',em,dot);
     details.querySelector('h2').textContent=p[2];details.querySelector('p').textContent=p[3];
     link.textContent=p[4];link.href=p[5];link.target=index===2?'_blank':'_self';link.rel='noopener noreferrer';
     hero.querySelector('#keys-count').textContent='0'+(index+1)+' / 03';
@@ -140,6 +140,19 @@
   stage.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const n=(selected+(e.key==='ArrowRight'?1:2))%3;select(n);buttons[n].focus()});
   document.addEventListener('keydown',e=>{if(e.repeat||e.ctrlKey||e.altKey||e.metaKey||e.target.closest('input,textarea,select,[contenteditable="true"]')||hero.getBoundingClientRect().bottom<innerHeight*.4)return;if(['1','2','3'].includes(e.key))select(Number(e.key)-1)});
   link.addEventListener('click',()=>{if(link.hash){const tab=document.querySelector(link.hash);tab?.click();tab?.focus({preventScroll:true})}});
+  const comparison = document.querySelector('.bean-case');
+  if (comparison) {
+    const toggle = comparison.querySelector('[data-bean-toggle]');
+    let changed = false;
+    toggle.hidden = false;
+    toggle.addEventListener('click', () => {
+      changed = !changed;
+      comparison.querySelector('[data-before]').textContent = changed ? '원두를 선택하세요' : '원두 A';
+      comparison.querySelector('[data-before-note]').textContent = changed ? '다시 선택해야 진행 가능' : '원두 선택 완료';
+      comparison.querySelector('[data-after-note]').textContent = changed ? '선택 유지 · 다음 단계로 진행' : '원두 선택 완료';
+      toggle.textContent = changed ? '처음 상태로 보기' : '구독 옵션 바꿔보기';
+    });
+  }
   if(!ctx)return;
   stage.classList.add('is-ready');
   canvas.addEventListener('click',e=>{
