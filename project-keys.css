@@ -127,3 +127,34 @@ body:has(.keys) .site-header .brand-mark {background:#3449e8;color:white;border-
 .keys__instrument.is-ready canvas {filter:drop-shadow(0 16px 12px rgba(43,45,79,.18))}
 .keys__instrument:not(.is-ready) canvas {display:none}
 .keys__instrument:not(.is-ready) {display:grid;align-items:center}
+
+/* Case files share a fixed spine. The paper and its light change with the file. */
+#achievements {--case-light:#e9bbc1;position:relative;isolation:isolate;overflow:clip;background:#efeef4}
+#achievements:has(#impact-tab-hana[aria-selected="true"]) {--case-light:#9bd7cb}
+#achievements:has(#impact-tab-bigk[aria-selected="true"]) {--case-light:#aab6f4}
+#achievements::before {content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 83% 18%,var(--case-light),transparent 64%);opacity:.8}
+#achievements .impact-stage {perspective:1600px}
+#achievements .impact-panel {transform-origin:8% 0;border-top:4px solid var(--case-light);box-shadow:0 20px 52px -35px #22274166,0 4px 0 -1px #fff,0 5px 0 #c8c7cf}
+#achievements .impact-panel.is-enter {transform:rotateX(3deg) rotateY(-5deg) translateY(10px)}
+#achievements .impact-tab {transition:background-color .22s,color .22s,box-shadow .22s}
+#achievements .impact-tab.is-active {box-shadow:inset 4px 0 var(--case-light)}
+/* An opening proof sheet shows the finished artwork underneath the graphic. */
+#workflow .workflow-gallery {background:#141725;color:#f9f7f1;box-shadow:inset 0 0 0 1px #545a78}
+#workflow .workflow-gallery :is(.workflow-gallery-head h3,.workflow-gallery-note) {color:#ecebf3}
+#workflow .workflow-gallery-eye {color:#bfc6ff}
+#workflow .workflow-gallery-item .folio-proof {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:polygon(0 0,38% 0,0 40%);transition:clip-path .38s cubic-bezier(.2,.75,.25,1)}
+#workflow .workflow-gallery-item:focus-within .folio-proof {clip-path:polygon(0 0,200% 0,0 200%)}
+#workflow .workflow-gallery-item:focus-within {outline:3px solid #c6ccff;outline-offset:3px}
+@media(hover:hover){
+ #workflow .workflow-gallery-item:hover .folio-proof {clip-path:polygon(0 0,200% 0,0 200%)}
+}
+@media(min-width:1025px){
+ #workflow .workflow-gallery-grid {display:flex;gap:12px;height:clamp(270px,26vw,390px)}
+ #workflow .workflow-gallery-item {flex:1 1 0;min-width:0;aspect-ratio:auto;transition:flex-grow .38s ease-out}
+ #workflow .workflow-gallery-item:is(:hover,:focus-within) {flex-grow:1.65}
+}
+@media(hover:none){#workflow .workflow-gallery-item .folio-proof {clip-path:polygon(0 0,108% 0,0 110%)}}
+@media(prefers-reduced-motion:reduce){
+ #achievements .impact-stage,#achievements .impact-panel,#workflow .workflow-gallery-item,#workflow .folio-proof {transition:none!important}
+ #achievements .impact-panel.is-enter {transform:none;opacity:1}
+}
