@@ -123,3 +123,7 @@ body:has(.keys) .site-header .brand-mark {background:#3449e8;color:white;border-
 @media(hover:hover){.folio-works a:hover h3{text-decoration:underline;text-underline-offset:4px}}
 @media(max-width:1024px){.folio-works{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:767px){.folio-split,#workflow .workflow-inner,#achievements .impact-inner{grid-template-columns:1fr;gap:22px}.folio-split header{position:static}#achievements .impact-tabs{flex-direction:row;position:static;flex-wrap:wrap;margin:0}#achievements .impact-tab{flex:1;padding:10px;text-align:center}#achievements .impact-layout{margin:0}.folio-works{grid-template-columns:1fr}.folio-works article>a,.folio-works article>div{display:grid;grid-template-columns:84px minmax(0,1fr);gap:14px}.folio-works img{aspect-ratio:1}.folio-works small{margin:0}.folio-terms{grid-template-columns:1fr;gap:4px}.folio-terms dd{margin-bottom:8px}.folio-filters output{width:100%}}
+
+.keys__instrument.is-ready canvas {filter:drop-shadow(0 16px 12px rgba(43,45,79,.18))}
+.keys__instrument:not(.is-ready) canvas {display:none}
+.keys__instrument:not(.is-ready) {display:grid;align-items:center}
