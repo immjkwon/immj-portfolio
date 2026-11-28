@@ -135,3 +135,45 @@
     count.textContent = visible + '개 작업';
   });
 })();
+
+(() => {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll('.workflow-gallery-item').forEach(card => {
+    const source = card.querySelector('[data-image]')?.dataset.image;
+    const visual = card.querySelector('.workflow-gallery-visual');
+    if (!source || !visual) return;
+    const proof = new Image();
+    proof.className = 'folio-proof';
+    proof.alt = '';
+    proof.loading = 'lazy';
+    proof.addEventListener('error', () => proof.remove(), {once:true});
+    proof.src = source;
+    visual.append(proof);
+  });
+
+  const archive = document.querySelector('.folio-works');
+  if (!archive || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
+  function reveal(card, delay) {
+    if (reduced.matches) return;
+    card.getAnimations().forEach(animation => animation.cancel());
+    card.animate([
+      {opacity:.35, transform:'translateY(18px)', clipPath:'inset(0 0 9% 0)'},
+      {opacity:1, transform:'translateY(0)', clipPath:'inset(0 0 0 0)'}
+    ], {duration:360, delay, easing:'cubic-bezier(.16,.72,.24,1)', fill:'backwards'});
+  }
+  const observer = new IntersectionObserver(entries => {
+    entries.filter(entry => entry.isIntersecting).forEach((entry,index) => {
+      observer.unobserve(entry.target);
+      reveal(entry.target,(index%3)*45);
+    });
+  }, {threshold:.08});
+  const cards = Array.from(archive.children);
+  cards.forEach(card => observer.observe(card));
+  document.querySelector('.folio-filters')?.addEventListener('click', event => {
+    if (!event.target.closest('[data-filter]')) return;
+    cards.forEach(card => {
+      observer.unobserve(card);
+      if (!card.hidden) observer.observe(card);
+    });
+  });
+})();
