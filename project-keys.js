@@ -163,3 +163,23 @@
   else window.addEventListener('resize',schedule);
   schedule();
 })();
+
+(() => {
+  const filters = document.querySelector('.folio-filters');
+  if (!filters) return;
+  const cards = Array.from(document.querySelectorAll('.folio-works [data-role]'));
+  const options = Array.from(filters.querySelectorAll('button'));
+  const count = filters.querySelector('output');
+  filters.hidden = false;
+  filters.addEventListener('click', event => {
+    const choice = event.target.closest('button[data-filter]');
+    if (!choice) return;
+    options.forEach(button => button.setAttribute('aria-pressed', String(button === choice)));
+    let visible = 0;
+    cards.forEach(card => {
+      card.hidden = choice.dataset.filter !== 'all' && choice.dataset.filter !== card.dataset.role;
+      if (!card.hidden) visible++;
+    });
+    count.textContent = visible + '개 작업';
+  });
+})();
