@@ -74,3 +74,52 @@ body:has(.keys) .site-header .brand-mark {background:#3449e8;color:white;border-
 .bean-case button:focus-visible {outline:3px solid #4255c9;outline-offset:3px}
 @media(max-width:767px){.keys__story{grid-row:1}.keys__layout{padding-top:18px}.keys__practice{margin-bottom:20px}.keys__project-name{font-size:32px}}
 @media(max-width:480px){.bean-case__pair{grid-template-columns:1fr}}
+
+/* Interior pages use a shared reading width, chapter titles and focus treatment. */
+.folio-section,#achievements,#workflow {scroll-margin-top:var(--header-h);padding:clamp(60px,7vw,110px) 6vw;color:#252632;background:#faf9f6}
+.folio-wide,.folio-split,#achievements .impact-inner,#workflow .workflow-inner {width:100%;max-width:1200px;margin-inline:auto}
+.folio-split {display:grid;grid-template-columns:minmax(220px,.78fr) minmax(0,1.2fr);gap:8%;align-items:start}
+.folio-split header {position:sticky;top:calc(var(--header-h) + 30px)}
+.folio-section h2,.folio-flow-head h2,#achievements .impact-title {font-size:clamp(30px,4.1vw,62px);line-height:1.15;letter-spacing:-.06em;margin:10px 0 20px;color:inherit}
+.folio-label,#achievements .impact-kicker {font:600 14px/1.5 monospace;letter-spacing:.04em;color:#4950aa;margin:0}
+.folio-split header>p:last-child,.folio-flow-head>p:last-child {font-size:17px;line-height:1.65;max-width:42ch;margin:0;color:inherit}
+.folio-disclosure {border-top:1px solid #c9cad1}
+.folio-disclosure:last-child {border-bottom:1px solid #c9cad1}
+.folio-disclosure summary {display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:60px;padding:14px 4px;font-weight:650;font-size:clamp(18px,1.8vw,26px);list-style:none;cursor:pointer;line-height:1.35}
+.folio-disclosure summary::-webkit-details-marker {display:none}
+.folio-disclosure summary::after {content:'+';font:400 24px/1 monospace;color:#646777}
+.folio-disclosure[open] summary::after {content:'−'}
+.folio-disclosure[open] summary {color:#3349b2}
+.folio-disclosure .about-meta,.folio-terms,.folio-disclosure>p {margin:0;padding:0 4px 22px;font-size:16px;line-height:1.6}
+.folio-terms {display:grid;grid-template-columns:auto 1fr;gap:10px 20px}.folio-terms dt {font-weight:650}.folio-terms dd {margin:0}
+#achievements {background:#efeff8}
+#achievements .impact-inner {display:grid;grid-template-columns: minmax(160px,.32fr) minmax(0,1fr);column-gap:5%;align-items:start}
+#achievements :is(.impact-kicker,.impact-title) {grid-column:1/-1}
+#achievements .impact-tabs {display:flex;flex-direction:column;align-items:stretch;gap:8px;position:sticky;top:calc(var(--header-h) + 16px);margin:16px 0}
+#achievements .impact-tab {text-align:left;padding:14px 18px;min-height:48px;border-radius:8px;color:#444657;background:#ffffff8c}
+#achievements .impact-tab.is-active {background:#333c80;color:white}
+#achievements .impact-tab:after {display:none}
+#achievements .impact-layout {display:block;margin-top:16px}
+#achievements .impact-panel {background:white;color:#292a34;border-color:#d7d7e2;box-shadow:none}
+#workflow {background:#242637;color:#f7f6f1}
+#workflow .workflow-inner {display:grid;grid-template-columns:.8fr 1fr;gap:44px 8%}
+#workflow .folio-label {color:#b6c0ff}
+#workflow .folio-disclosure {border-color:#565a70}#workflow summary::after,#workflow details[open] summary {color:#bdc6ff}
+#workflow .workflow-gallery {grid-column:1/-1;background:#f6f5f0;color:#262834;border-radius:16px;padding:clamp(18px,3vw,42px);margin:0}
+.folio-archive {background:#eaece7}
+.folio-filters {display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:22px 0}
+.folio-filters[hidden],.folio-works [hidden] {display:none}
+.folio-filters button {min-height:44px;padding:8px 16px;background:transparent;border:1px solid #999e94;border-radius:24px;font:inherit;color:#292d29;cursor:pointer}
+.folio-filters button[aria-pressed=true] {color:white;background:#263c32;border-color:#263c32}
+.folio-filters output {margin-left:auto;color:#4e554d;font-size:14px}
+.folio-works {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.folio-works article {border-top:1px solid #a9b1a5;padding-top:12px}
+.folio-works article>a,.folio-works article>div {display:block;text-decoration:none;color:inherit}
+.folio-works img {width:100%;height:auto;aspect-ratio:1.7;object-fit:cover;display:block;border-radius:6px}
+.folio-works small {display:block;margin-top:12px;color:#4d5a50;font-size:14px}
+.folio-works h3 {font-size:clamp(18px,1.5vw,23px);line-height:1.35;letter-spacing:-.035em;margin:4px 0}
+.folio-works p {font-size:16px;line-height:1.5;margin:0;color:#4c504d}
+:is(.folio-section,#workflow,#achievements) :is(summary,button,a):focus-visible {outline:3px solid #687be7;outline-offset:3px}
+@media(hover:hover){.folio-works a:hover h3{text-decoration:underline;text-underline-offset:4px}}
+@media(max-width:1024px){.folio-works{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:767px){.folio-split,#workflow .workflow-inner,#achievements .impact-inner{grid-template-columns:1fr;gap:22px}.folio-split header{position:static}#achievements .impact-tabs{flex-direction:row;position:static;flex-wrap:wrap;margin:0}#achievements .impact-tab{flex:1;padding:10px;text-align:center}#achievements .impact-layout{margin:0}.folio-works{grid-template-columns:1fr}.folio-works article>a,.folio-works article>div{display:grid;grid-template-columns:84px minmax(0,1fr);gap:14px}.folio-works img{aspect-ratio:1}.folio-works small{margin:0}.folio-terms{grid-template-columns:1fr;gap:4px}.folio-terms dd{margin-bottom:8px}.folio-filters output{width:100%}}
