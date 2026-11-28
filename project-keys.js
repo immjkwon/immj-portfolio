@@ -10,9 +10,9 @@
   const link = details.querySelector('a');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const projects = [
-    ['Service','UX','일리 정기구독','옵션을 바꿔도 방금 고른 원두는 그대로.','정기구독 사례 보기','#impact-tab-illy'],
-    ['Trade','Watch','하나은행 Trade Watch','12,000개 이상의 품목 코드를 요약·결과·상세로 나눴습니다.','정보 설계 사례 보기','#impact-tab-hana'],
-    ['Brand','Routine','일리 × 일리윤','아침·오후·밤의 루틴을 따라 두 브랜드의 제품을 만납니다.','캠페인 열기','https://www.illycaffe.co.kr/illy_illiyoon/index.php']
+    ['Service','UX','일리 정기구독','구독 상품 상세, 옵션 선택, 주기 설정, 결제 유도 영역 전체 구독 흐름 UI 구현','정기구독 사례 보기','#impact-tab-illy'],
+    ['Trade','Watch','하나은행 Trade Watch','12,000개 이상 품목 코드 및 다단 카테고리를 요약/결과/상세 3단 구조로 재구성','정보 설계 사례 보기','#impact-tab-hana'],
+    ['Brand','Routine','일리 × 일리윤','커피·뷰티 이종 브랜드 간 콜라보 프로모션 랜딩 페이지 구현','캠페인 열기','https://www.illycaffe.co.kr/illy_illiyoon/index.php']
   ];
   // Orthographic studio render. Layer coordinates are in the 1040 × 754 camera frame.
   const layers = [{"key": -1, "x": 67, "y": 134, "w": 907, "h": 519, "sy": 0}, {"key": 3, "x": 637, "y": 118, "w": 170, "h": 141, "sy": 521}, {"key": 1, "x": 313, "y": 155, "w": 335, "h": 178, "sy": 664}, {"key": 2, "x": 500, "y": 216, "w": 344, "h": 182, "sy": 844}, {"key": 0, "x": 162, "y": 288, "w": 365, "h": 187, "sy": 1028}, {"key": 4, "x": 230, "y": 305, "w": 696, "h": 264, "sy": 1217}];
